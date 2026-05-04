@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rara's Bible Journal 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #FFB6C1;
+  --pink-light: #FFE4E8;
+  --pink-deep: #F48FB1;
+  --blue: #B3D9F7;
+  --blue-light: #E3F2FD;
+  --blue-deep: #7EC8E3;
+  --lavender: #E8D5F5;
+  --mint: #C8F0D8;
+  --peach: #FFD9B3;
+  --yellow: #FFF4C2;
+  --white: #FFFAFC;
+  --text: #5a4a6a;
+  --text-light: #9b8aaa;
+  --shadow: rgba(244,143,177,0.18);
+  --radius: 20px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #FFE4E8 0%, #E3F2FD 50%, #FFE4E8 100%);
+  min-height: 100vh;
+  color: var(--text);
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F48FB1' fill-opacity='0.05'%3E%3Cpath d='M30 30m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, rgba(255,182,193,0.9), rgba(179,217,247,0.9));
+  backdrop-filter: blur(12px);
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 2px solid rgba(255,255,255,0.6);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; color: var(--text);
+  display: flex; align-items: center; gap: 8px;
+}
+.user-switcher {
+  display: flex; gap: 8px;
+}
+.user-btn {
+  padding: 6px 16px; border-radius: 20px; border: 2px solid var(--pink-deep);
+  background: white; color: var(--text); cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.user-btn.active { background: var(--pink-deep); color: white; }
+
+/* NAV TABS */
+.nav {
+  display: flex; gap: 6px; padding: 14px 20px 0;
+  overflow-x: auto; position: relative; z-index: 1;
+}
+.nav::-webkit-scrollbar { height: 0; }
+.tab-btn {
+  padding: 10px 18px; border-radius: 16px 16px 0 0;
+  border: none; background: rgba(255,255,255,0.5);
+  color: var(--text-light); cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.9rem;
+  white-space: nowrap; transition: all 0.2s;
+  border: 2px solid transparent; border-bottom: none;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.75); color: var(--text); }
+.tab-btn.active {
+  background: var(--white); color: var(--text);
+  border-color: rgba(244,143,177,0.3);
+  box-shadow: 0 -4px 12px var(--shadow);
+}
+
+/* MAIN CONTENT */
+.main {
+  background: rgba(255,250,252,0.92);
+  backdrop-filter: blur(8px);
+  margin: 0 20px 20px;
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  border: 2px solid rgba(244,143,177,0.2);
+  min-height: 70vh; padding: 24px;
+  box-shadow: 0 8px 32px var(--shadow);
+  position: relative; z-index: 1;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+/* DASHBOARD */
+.dashboard-header {
+  text-align: center; margin-bottom: 24px;
+}
+.dashboard-header h2 {
+  font-family: 'Playfair Display', serif; font-size: 1.8rem;
+  background: linear-gradient(135deg, var(--pink-deep), var(--blue-deep));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.funfact-card {
+  background: linear-gradient(135deg, var(--pink-light), var(--blue-light));
+  border-radius: var(--radius); padding: 24px;
+  text-align: center; margin-bottom: 20px;
+  border: 2px solid rgba(255,255,255,0.8);
+  cursor: pointer; transition: transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.funfact-card:hover { transform: scale(1.01); }
+.funfact-card::before {
+  content: '✝️';
+  position: absolute; right: 16px; top: 16px;
+  font-size: 2rem; opacity: 0.2;
+}
+.funfact-card h3 { font-size: 1rem; color: var(--text-light); margin-bottom: 10px; }
+.funfact-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; line-height: 1.7; color: var(--text); }
+.tap-hint { font-size: 0.8rem; color: var(--text-light); margin-top: 12px; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: white; border-radius: var(--radius); padding: 18px;
+  text-align: center; border: 2px solid var(--pink-light);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+.stat-emoji { font-size: 1.8rem; margin-bottom: 6px; }
+.stat-num { font-size: 1.6rem; font-weight: 700; color: var(--pink-deep); }
+.stat-label { font-size: 0.78rem; color: var(--text-light); }
+
+.cross-divider {
+  text-align: center; margin: 20px 0; color: var(--pink-deep); font-size: 1.3rem; letter-spacing: 8px;
+}
+
+/* JOURNAL */
+.journal-form { background: var(--pink-light); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 0.85rem; font-weight: 700; color: var(--text); }
+.form-group input, .form-group select, .form-group textarea {
+  padding: 10px 14px; border-radius: 12px;
+  border: 2px solid rgba(244,143,177,0.3); background: white;
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: var(--text);
+  outline: none; transition: border 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--pink-deep);
+}
+.verse-input-wrap { position: relative; }
+.verse-dropdown {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+  background: white; border-radius: 12px; border: 2px solid var(--pink-deep);
+  max-height: 200px; overflow-y: auto; box-shadow: 0 8px 24px var(--shadow);
+}
+.verse-dropdown-item {
+  padding: 10px 14px; cursor: pointer; font-size: 0.88rem;
+  border-bottom: 1px solid var(--pink-light);
+  transition: background 0.15s;
+}
+.verse-dropdown-item:hover { background: var(--pink-light); }
+.verse-result {
+  background: white; border-radius: 12px; padding: 14px;
+  margin-top: 8px; border-left: 4px solid var(--pink-deep);
+  font-style: italic; font-size: 0.9rem; line-height: 1.6;
+  display: none;
+}
+.mood-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.mood-btn {
+  padding: 8px 14px; border-radius: 20px; border: 2px solid var(--pink-light);
+  background: white; cursor: pointer; font-size: 1.1rem;
+  transition: all 0.2s;
+}
+.mood-btn.selected { border-color: var(--pink-deep); background: var(--pink-light); transform: scale(1.1); }
+.btn-submit {
+  width: 100%; padding: 13px; border-radius: 14px;
+  border: none; background: linear-gradient(135deg, var(--pink-deep), var(--blue-deep));
+  color: white; font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: opacity 0.2s; margin-top: 8px;
+}
+.btn-submit:hover { opacity: 0.88; }
+
+.journal-entries { display: flex; flex-direction: column; gap: 14px; }
+.journal-card {
+  background: white; border-radius: var(--radius); padding: 18px;
+  border: 2px solid var(--pink-light); box-shadow: 0 4px 12px var(--shadow);
+  position: relative;
+}
+.journal-card.private::after {
+  content: '🔒';
+  position: absolute; top: 14px; right: 14px; font-size: 1.1rem;
+}
+.journal-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.journal-date { font-size: 0.8rem; color: var(--text-light); }
+.journal-verse-tag {
+  background: var(--blue-light); color: var(--blue-deep);
+  padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+}
+.journal-mood { font-size: 1.3rem; }
+.journal-character {
+  background: var(--yellow); border-radius: 10px; padding: 8px 12px;
+  font-size: 0.83rem; margin-top: 10px; color: var(--text);
+  border-left: 3px solid var(--peach);
+}
+.journal-text { font-size: 0.92rem; line-height: 1.6; color: var(--text); }
+.lock-overlay {
+  position: absolute; inset: 0; background: rgba(255,250,252,0.92);
+  border-radius: var(--radius); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+.lock-overlay input {
+  padding: 8px 14px; border-radius: 10px; border: 2px solid var(--pink-deep);
+  font-family: 'Nunito', sans-serif; text-align: center; outline: none;
+}
+.lock-overlay button {
+  padding: 8px 20px; border-radius: 10px; border: none;
+  background: var(--pink-deep); color: white;
+  font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer;
+}
+
+/* READING PLAN */
+.sub-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.sub-tab-btn {
+  padding: 8px 18px; border-radius: 20px;
+  border: 2px solid var(--blue-deep); background: white;
+  color: var(--text); cursor: pointer;
+  font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.88rem;
+  transition: all 0.2s;
+}
+.sub-tab-btn.active { background: var(--blue-deep); color: white; }
+.sub-tab-content { display: none; }
+.sub-tab-content.active { display: block; }
+
+.plan-builder { background: var(--blue-light); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+.plan-builder h3 { margin-bottom: 14px; color: var(--text); }
+.plan-day {
+  background: white; border-radius: 14px; padding: 14px 18px;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 12px;
+  border: 2px solid var(--blue-light); cursor: pointer;
+  transition: all 0.2s;
+}
+.plan-day:hover { border-color: var(--blue-deep); }
+.plan-day.done { background: var(--mint); border-color: #88d4a0; }
+.plan-day-check {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid var(--blue-deep); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+  transition: all 0.2s;
+}
+.plan-day.done .plan-day-check { background: #88d4a0; border-color: #88d4a0; }
+.plan-day-text { flex: 1; }
+.plan-day-title { font-weight: 700; font-size: 0.92rem; }
+.plan-day-ref { font-size: 0.8rem; color: var(--text-light); }
+.plan-day-open {
+  padding: 5px 12px; border-radius: 10px;
+  background: var(--blue-deep); color: white; border: none;
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem; cursor: pointer;
+}
+
+.progress-bar-wrap { margin-bottom: 20px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px; }
+.progress-bar {
+  height: 12px; background: var(--blue-light); border-radius: 20px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--blue-deep), var(--pink-deep));
+  border-radius: 20px; transition: width 0.5s ease;
+}
+
+/* CALENDAR */
+.calendar-wrap { max-width: 480px; margin: 0 auto; }
+.cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.cal-header h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; }
+.cal-nav { background: none; border: 2px solid var(--pink-deep); border-radius: 10px; padding: 4px 12px; cursor: pointer; font-size: 1.1rem; color: var(--pink-deep); }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; }
+.cal-day-label { text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--text-light); padding: 4px 0; }
+.cal-day {
+  aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; cursor: pointer;
+  font-size: 0.85rem; font-weight: 600; transition: all 0.2s;
+  background: white; border: 2px solid transparent;
+  position: relative;
+}
+.cal-day:hover { border-color: var(--pink-deep); }
+.cal-day.today { background: var(--pink-light); border-color: var(--pink-deep); }
+.cal-day.has-entry::after {
+  content: ''; position: absolute; bottom: 4px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--pink-deep);
+}
+.cal-day.has-plan::before {
+  content: ''; position: absolute; top: 4px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--blue-deep);
+}
+.cal-day.other-month { opacity: 0.35; }
+.cal-detail {
+  margin-top: 20px; background: var(--pink-light); border-radius: var(--radius);
+  padding: 18px; display: none;
+}
+.cal-detail.show { display: block; }
+
+/* PRAYER */
+.prayer-card {
+  background: linear-gradient(135deg, var(--lavender), var(--pink-light));
+  border-radius: var(--radius); padding: 20px; margin-bottom: 14px;
+  border: 2px solid rgba(255,255,255,0.8);
+}
+.prayer-card h4 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+.prayer-answered {
+  display: inline-block; background: var(--mint); color: #4a9; padding: 3px 10px;
+  border-radius: 20px; font-size: 0.78rem; font-weight: 700; margin-top: 8px;
+}
+
+/* HIGHLIGHT */
+.highlight-verse {
+  background: var(--yellow); border-radius: var(--radius); padding: 18px;
+  margin-bottom: 14px; border-left: 5px solid var(--peach);
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1rem; line-height: 1.7;
+}
+.highlight-ref { font-family: 'Nunito', sans-serif; font-style: normal; font-weight: 700; font-size: 0.85rem; color: var(--text-light); margin-top: 8px; }
+
+/* BIBLE VIEWER */
+.bible-modal {
+  position: fixed; inset: 0; background: rgba(90,74,106,0.6);
+  backdrop-filter: blur(6px); z-index: 200;
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.bible-modal.show { display: flex; }
+.bible-modal-content {
+  background: var(--white); border-radius: var(--radius); padding: 24px;
+  max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 16px 48px rgba(90,74,106,0.3);
+}
+.bible-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.bible-modal-header h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+.close-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-light); }
+.trans-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+.trans-btn {
+  padding: 5px 14px; border-radius: 10px; border: 2px solid var(--pink-deep);
+  background: white; cursor: pointer; font-family: 'Nunito', sans-serif;
+  font-weight: 700; font-size: 0.82rem; transition: all 0.2s;
+}
+.trans-btn.active { background: var(--pink-deep); color: white; }
+.bible-verse-text {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.05rem; line-height: 1.8; color: var(--text);
+  padding: 14px; background: var(--pink-light); border-radius: 12px;
+}
+
+/* SHARED WALL */
+.shared-post {
+  background: white; border-radius: var(--radius); padding: 18px;
+  margin-bottom: 14px; border: 2px solid var(--blue-light);
+  box-shadow: 0 4px 12px rgba(126,200,227,0.15);
+}
+.shared-post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.user-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1rem; color: white;
+}
+.avatar-rara { background: linear-gradient(135deg, var(--pink-deep), var(--pink)); }
+.avatar-jiji { background: linear-gradient(135deg, var(--blue-deep), var(--blue)); }
+.post-meta { font-size: 0.8rem; color: var(--text-light); }
+.post-verse-quote {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.95rem; line-height: 1.6; color: var(--text);
+  padding: 10px 14px; background: var(--yellow); border-radius: 10px; margin: 10px 0;
+}
+.react-row { display: flex; gap: 8px; margin-top: 10px; }
+.react-btn {
+  padding: 5px 12px; border-radius: 20px; border: 2px solid var(--pink-light);
+  background: white; cursor: pointer; font-size: 0.85rem; transition: all 0.15s;
+}
+.react-btn:hover { background: var(--pink-light); border-color: var(--pink-deep); }
+
+.section-title {
+  font-family: 'Playfair Display', serif; font-size: 1.3rem;
+  margin-bottom: 18px; color: var(--text);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::after {
+  content: ''; flex: 1; height: 2px;
+  background: linear-gradient(90deg, var(--pink-deep), transparent);
+  border-radius: 2px;
+}
+
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text-light); }
+.empty-state .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+/* CROSS DECORATIONS */
+.cross-deco {
+  position: fixed; pointer-events: none; opacity: 0.06; z-index: 0;
+  font-size: 4rem;
+}
+.cross-deco-1 { top: 10%; right: 5%; }
+.cross-deco-2 { bottom: 15%; left: 3%; }
+.cross-deco-3 { top: 40%; right: 15%; font-size: 2rem; }
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .main { margin: 0 10px 10px; padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cross-deco cross-deco-1">✝</div>
+<div class="cross-deco cross-deco-2">✝</div>
+<div class="cross-deco cross-deco-3">✝</div>
+
+<!-- BIBLE MODAL -->
+<div class="bible-modal" id="bibleModal">
+  <div class="bible-modal-content">
+    <div class="bible-modal-header">
+      <h3 id="modalVerseRef">Yohanes 3:16</h3>
+      <button class="close-btn" onclick="closeBibleModal()">✕</button>
+    </div>
+    <div class="trans-tabs">
+      <button class="trans-btn active" onclick="switchTrans('tb',this)">TB</button>
+      <button class="trans-btn" onclick="switchTrans('niv',this)">NIV</button>
+    </div>
+    <div class="bible-verse-text" id="modalVerseText">Memuat ayat...</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">🌸 Rara's Bible Journal</div>
+  <div class="user-switcher">
+    <button class="user-btn active" onclick="switchUser('rara',this)">👑 Rara</button>
+    <button class="user-btn" onclick="switchUser('jiji',this)">🌙 Jiji</button>
+  </div>
+</div>
+
+<!-- NAV TABS -->
+<div class="nav">
+  <button class="tab-btn active" onclick="switchTab('dashboard',this)">🏠 Home</button>
+  <button class="tab-btn" onclick="switchTab('journal',this)">📖 Journal</button>
+  <button class="tab-btn" onclick="switchTab('reading',this)">📚 Reading Plan</button>
+  <button class="tab-btn" onclick="switchTab('calendar',this)">🗓️ Calendar</button>
+  <button class="tab-btn" onclick="switchTab('prayer',this)">🙏 Prayer</button>
+  <button class="tab-btn" onclick="switchTab('highlights',this)">✨ Highlights</button>
+  <button class="tab-btn" onclick="switchTab('shared',this)">💕 Shared Wall</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- DASHBOARD -->
+  <div class="tab-content active" id="tab-dashboard">
+    <div class="dashboard-header">
+      <h2>Selamat datang, <span id="welcomeName">Rara</span> 🌷</h2>
+      <p style="color:var(--text-light);font-size:0.88rem;margin-top:6px;" id="todayDate"></p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-emoji">📖</div>
+        <div class="stat-num" id="statJournal">0</div>
+        <div class="stat-label">Journal Entries</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-emoji">✅</div>
+        <div class="stat-num" id="statPlan">0%</div>
+        <div class="stat-label">Reading Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-emoji">🙏</div>
+        <div class="stat-num" id="statPrayer">0</div>
+        <div class="stat-label">Prayers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-emoji">✨</div>
+        <div class="stat-num" id="statHighlight">0</div>
+        <div class="stat-label">Highlights</div>
+      </div>
+    </div>
+
+    <div class="cross-divider">✝ ✝ ✝</div>
+
+    <div class="funfact-card" onclick="nextFunfact()" id="funfactCard">
+      <h3>✨ Fun Fact Alkitab</h3>
+      <div class="funfact-text" id="funfactText">Memuat...</div>
+      <div class="tap-hint">Tap untuk fakta baru 🌸</div>
+    </div>
+
+    <div class="funfact-card" onclick="nextStory()" style="background:linear-gradient(135deg,var(--blue-light),var(--lavender))">
+      <h3>📜 Cerita Unik Alkitab</h3>
+      <div class="funfact-text" id="storyText">Memuat...</div>
+      <div class="tap-hint">Tap untuk cerita baru 💙</div>
+    </div>
+
+    <div class="cross-divider">✝ ✝ ✝</div>
+
+    <div style="background:var(--pink-light);border-radius:var(--radius);padding:18px;">
+      <div class="section-title" style="font-size:1rem">📅 Ayat Hari Ini</div>
+      <div class="highlight-verse" id="dailyVerse" style="margin-bottom:0">Memuat...</div>
+    </div>
+  </div>
+
+  <!-- JOURNAL -->
+  <div class="tab-content" id="tab-journal">
+    <div class="section-title">📖 Journal Baru</div>
+    <div class="journal-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>📅 Tanggal</label>
+          <input type="date" id="journalDate">
+        </div>
+        <div class="form-group">
+          <label>😊 Mood</label>
+          <div class="mood-row" id="moodRow">
+            <button class="mood-btn" onclick="selectMood(this,'😄')">😄</button>
+            <button class="mood-btn" onclick="selectMood(this,'😊')">😊</button>
+            <button class="mood-btn" onclick="selectMood(this,'😐')">😐</button>
+            <button class="mood-btn" onclick="selectMood(this,'😢')">😢</button>
+            <button class="mood-btn" onclick="selectMood(this,'🙏')">🙏</button>
+            <button class="mood-btn" onclick="selectMood(this,'❤️')">❤️</button>
+            <button class="mood-btn" onclick="selectMood(this,'✨')">✨</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:12px">
+        <label>📖 Ayat (cth: Yohanes 3:16)</label>
+        <div class="verse-input-wrap">
+          <input type="text" id="verseInput" placeholder="Ketik kitab + pasal:ayat..." oninput="handleVerseInput(this.value)" autocomplete="off">
+          <div class="verse-dropdown" id="verseDropdown" style="display:none"></div>
+        </div>
+        <div class="verse-result" id="verseResult"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>🌏 Terjemahan</label>
+          <select id="journalTrans">
+            <option value="tb">Terjemahan Baru (TB)</option>
+            <option value="niv">NIV (English)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>🔒 Private?</label>
+          <select id="journalPrivate">
+            <option value="no">Tidak</option>
+            <option value="yes">Ya (dengan PIN)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:12px">
+        <label>💬 Catatan</label>
+        <textarea id="journalNote" rows="3" placeholder="Apa yang kamu rasakan dari ayat ini?"></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="saveJournal()">💾 Simpan Journal</button>
+    </div>
+
+    <div class="section-title">📚 Semua Entries</div>
+    <div class="journal-entries" id="journalList">
+      <div class="empty-state"><div class="emoji">📖</div><p>Belum ada journal. Mulai menulis! 🌸</p></div>
+    </div>
+  </div>
+
+  <!-- READING PLAN -->
+  <div class="tab-content" id="tab-reading">
+    <div class="section-title">📚 Reading Plan</div>
+
+    <div class="sub-tabs">
+      <button class="sub-tab-btn active" onclick="switchSubTab('plan-progress',this)">📋 Plan & Progress</button>
+      <button class="sub-tab-btn" onclick="switchSubTab('plan-done',this)">✅ Selesai</button>
+      <button class="sub-tab-btn" onclick="switchSubTab('plan-custom',this)">⚙️ Buat Plan</button>
+    </div>
+
+    <div class="sub-tab-content active" id="sub-plan-progress">
+      <div class="progress-bar-wrap">
+        <div class="progress-label">
+          <span>Progress</span>
+          <span id="progressText">0 / 0 hari</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      </div>
+      <div id="planList">
+        <div class="empty-state"><div class="emoji">📚</div><p>Buat reading plan dulu di tab ⚙️ Buat Plan!</p></div>
+      </div>
+    </div>
+
+    <div class="sub-tab-content" id="sub-plan-done">
+      <div id="donePlanList">
+        <div class="empty-state"><div class="emoji">🎉</div><p>Belum ada yang selesai. Semangat! ✨</p></div>
+      </div>
+    </div>
+
+    <div class="sub-tab-content" id="sub-plan-custom">
+      <div class="plan-builder">
+        <h3>✏️ Buat Reading Plan Baru</h3>
+        <div class="form-group" style="margin-bottom:12px">
+          <label>Nama Plan</label>
+          <input type="text" id="planName" placeholder="cth: Baca Perjanjian Baru 2025">
+        </div>
+        <div id="planDays">
+          <div class="plan-day-input" style="display:flex;gap:8px;margin-bottom:8px">
+            <input type="text" placeholder="Hari 1 - cth: Matius 1-2" style="flex:1;padding:8px 12px;border-radius:10px;border:2px solid var(--blue-light);font-family:Nunito,sans-serif;outline:none">
+          </div>
+        </div>
+        <button onclick="addPlanDayInput()" style="padding:8px 16px;border-radius:10px;border:2px solid var(--blue-deep);background:white;cursor:pointer;font-family:Nunito,sans-serif;font-weight:600;margin-bottom:12px;color:var(--blue-deep)">+ Tambah Hari</button>
+        <br>
+        <button class="btn-submit" onclick="savePlan()" style="background:linear-gradient(135deg,var(--blue-deep),var(--blue))">💾 Simpan Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="tab-content" id="tab-calendar">
+    <div class="section-title">🗓️ Calendar</div>
+    <div class="calendar-wrap">
+      <div class="cal-header">
+        <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+        <h3 id="calMonthYear"></h3>
+        <button class="cal-nav" onclick="changeMonth(1)">›</button>
+      </div>
+      <div class="cal-grid" id="calGrid">
+        <div class="cal-day-label">Min</div>
+        <div class="cal-day-label">Sen</div>
+        <div class="cal-day-label">Sel</div>
+        <div class="cal-day-label">Rab</div>
+        <div class="cal-day-label">Kam</div>
+        <div class="cal-day-label">Jum</div>
+        <div class="cal-day-label">Sab</div>
+      </div>
+      <div class="cal-detail" id="calDetail"></div>
+    </div>
+  </div>
+
+  <!-- PRAYER -->
+  <div class="tab-content" id="tab-prayer">
+    <div class="section-title">🙏 Doa & Permohonan</div>
+    <div class="journal-form" style="background:var(--lavender)">
+      <div class="form-group" style="margin-bottom:12px">
+        <label>📝 Pokok Doa</label>
+        <input type="text" id="prayerTitle" placeholder="Apa yang kamu doakan?">
+      </div>
+      <div class="form-group" style="margin-bottom:12px">
+        <label>💬 Detail</label>
+        <textarea id="prayerDetail" rows="3" placeholder="Ceritakan lebih detail..."></textarea>
+      </div>
+      <button class="btn-submit" style="background:linear-gradient(135deg,#b39ddb,#9c7bb5)" onclick="savePrayer()">🙏 Simpan Doa</button>
+    </div>
+    <div id="prayerList">
+      <div class="empty-state"><div class="emoji">🙏</div><p>Belum ada pokok doa. Mulai berdoa! ✨</p></div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="tab-content" id="tab-highlights">
+    <div class="section-title">✨ Ayat Favorit</div>
+    <div class="journal-form" style="background:var(--yellow)">
+      <div class="form-group" style="margin-bottom:12px">
+        <label>📖 Ayat</label>
+        <input type="text" id="hlVerse" placeholder="cth: Yeremia 29:11">
+      </div>
+      <div class="form-group" style="margin-bottom:12px">
+        <label>💛 Kenapa spesial?</label>
+        <textarea id="hlNote" rows="2" placeholder="Catatan singkat..."></textarea>
+      </div>
+      <button class="btn-submit" style="background:linear-gradient(135deg,#f9a825,#fb8c00)" onclick="saveHighlight()">⭐ Simpan Highlight</button>
+    </div>
+    <div id="highlightList">
+      <div class="empty-state"><div class="emoji">✨</div><p>Belum ada ayat favorit. Tandai ayat istimewa! 💛</p></div>
+    </div>
+  </div>
+
+  <!-- SHARED WALL -->
+  <div class="tab-content" id="tab-shared">
+    <div class="section-title">💕 Shared Wall</div>
+    <div style="background:var(--blue-light);border-radius:var(--radius);padding:14px;margin-bottom:16px;font-size:0.85rem;color:var(--text)">
+      💡 Di sini kamu dan Jiji bisa saling berbagi ayat & renungan! Journal private tidak akan muncul di sini.
+    </div>
+    <div id="sharedWall">
+      <div class="empty-state"><div class="emoji">💕</div><p>Belum ada postingan. Share sesuatu! 🌸</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ===== DATA =====
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwCZfAilhJZsStkU4FOHZRwOFIWaHaHdLrkOVeSyEOa39UuLepJ-SxXnI2TMByiyhM/exec';
+
+let currentUser = 'rara';
+let selectedMood = '';
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let currentTrans = 'tb';
+let funfactIndex = 0;
+let storyIndex = 0;
+
+const data = {
+  rara: { journals: [], prayers: [], highlights: [], plans: [] },
+  jiji: { journals: [], prayers: [], highlights: [], plans: [] }
+};
+
+// ===== FUNFACTS =====
+const funfacts = [
+  "Kata 'jangan takut' muncul 365 kali dalam Alkitab — satu untuk setiap hari dalam setahun! 🌟",
+  "Alkitab ditulis oleh sekitar 40 penulis berbeda dalam rentang 1.500 tahun.",
+  "Mazmur 117 adalah pasal terpendek dalam Alkitab (hanya 2 ayat), sedangkan Mazmur 119 adalah yang terpanjang (176 ayat).",
+  "Alkitab adalah buku paling banyak diterjemahkan di dunia — tersedia dalam lebih dari 3.000 bahasa!",
+  "Nama 'Yesus' (Yeshua) berarti 'Tuhan menyelamatkan' dalam bahasa Ibrani.",
+  "Ada 66 kitab dalam Alkitab — 39 Perjanjian Lama dan 27 Perjanjian Baru.",
+  "Kata 'cinta' atau 'kasih' muncul lebih dari 500 kali dalam Alkitab.",
+  "Kitab Ester dan Kidung Agung adalah satu-satunya kitab yang tidak menyebut nama Allah secara langsung.",
+  "Manusia tertua dalam Alkitab adalah Metusalah, yang hidup hingga 969 tahun!",
+  "Alkitab mengandung sekitar 40 nubuat tentang Mesias yang digenapi oleh Yesus.",
+];
+
+const stories = [
+  "Bileam berbicara dengan keledainya! Dalam Bilangan 22, keledai milik nabi Bileam tiba-tiba berbicara ketika melihat malaikat yang menghalangi jalan mereka. 🫏",
+  "Elisa pernah memanggil dua beruang betina untuk 'menghukum' 42 anak muda yang mengejek kebotakannya! (2 Raja-raja 2:24) 🐻",
+  "Matahari berhenti bergerak selama hampir satu hari penuh ketika Yosua memimpin perang! (Yosua 10:13) ☀️",
+  "Simson pernah membunuh 1.000 orang dengan tulang rahang keledai. (Hakim-hakim 15:15) 💪",
+  "Nabi Yunus hidup di dalam perut ikan besar selama 3 hari 3 malam, lalu dimuntahkan ke darat. 🐋",
+  "Raja Nebukadnezar pernah mengalami kegilaan dan hidup seperti binatang, makan rumput selama 7 tahun! (Daniel 4) 🌿",
+  "Petrus pernah berjalan di atas air! Dia berhasil selama beberapa langkah sebelum mulai tenggelam. (Matius 14) 🌊",
+  "Dalam Kisah Para Rasul 20, seorang pemuda bernama Eutikus tertidur saat Paulus berkhotbah dan jatuh dari lantai 3! Paulus kemudian membangkitkannya. 💤",
+  "Gideon memulai dengan 32.000 tentara, tapi Tuhan menyuruhnya mengurangi menjadi hanya 300 orang — dan mereka menang! (Hakim-hakim 7) ⚔️",
+  "Rahab, seorang perempuan Yerikho yang menyembunyikan mata-mata Israel, diselamatkan karena tali berwarna merah yang digantungnya di jendela. 🔴",
+];
+
+const dailyVerses = [
+  { ref: "Yeremia 29:11 (TB)", text: "Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan." },
+  { ref: "Yohanes 3:16 (TB)", text: "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal." },
+  { ref: "Filipi 4:13 (TB)", text: "Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku." },
+  { ref: "Mazmur 23:1 (TB)", text: "TUHAN adalah gembalaku, takkan kekurangan aku." },
+  { ref: "Roma 8:28 (TB)", text: "Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan bagi mereka yang mengasihi Dia." },
+];
+
+// Bible verses database (sample)
+const bibleDB = {
+  tb: {
+    "Yohanes 3:16": "Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.",
+    "Yeremia 29:11": "Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan.",
+    "Filipi 4:13": "Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku.",
+    "Mazmur 23:1": "TUHAN adalah gembalaku, takkan kekurangan aku.",
+    "Roma 8:28": "Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan bagi mereka yang mengasihi Dia.",
+    "Yohanes 16:4": "Tetapi semuanya ini Kukatakan kepadamu, supaya pada saat tiba saatnya, kamu ingat bahwa Aku yang mengatakan hal-hal itu kepadamu.",
+    "Matius 6:33": "Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.",
+    "Amsal 3:5": "Percayalah kepada TUHAN dengan segenap hatimu dan janganlah bersandar kepada pengertianmu sendiri.",
+    "Yesaya 40:31": "Tetapi orang-orang yang menanti-nantikan TUHAN mendapat kekuatan baru: mereka seumpama rajawali yang naik terbang dengan kekuatan sayapnya.",
+    "1 Korintus 13:4": "Kasih itu sabar; kasih itu murah hati; ia tidak cemburu. Ia tidak memegahkan diri dan tidak sombong.",
+  },
+  niv: {
+    "Yohanes 3:16": "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.",
+    "Yeremia 29:11": "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.",
+    "Filipi 4:13": "I can do all this through him who gives me strength.",
+    "Mazmur 23:1": "The Lord is my shepherd, I lack nothing.",
+    "Roma 8:28": "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",
+    "Yohanes 16:4": "I have told you this, so that when their time comes you will remember that I warned you about them.",
+    "Matius 6:33": "But seek first his kingdom and his righteousness, and all these things will be given to you as well.",
+    "Amsal 3:5": "Trust in the Lord with all your heart and lean not on your own understanding.",
+    "Yesaya 40:31": "But those who hope in the Lord will renew their strength. They will soar on wings like eagles.",
+    "1 Korintus 13:4": "Love is patient, love is kind. It does not envy, it does not boast, it is not proud.",
+  }
+};
+
+const booksID = ["Kejadian","Keluaran","Imamat","Bilangan","Ulangan","Yosua","Hakim-hakim","Rut","1 Samuel","2 Samuel","1 Raja-raja","2 Raja-raja","1 Tawarikh","2 Tawarikh","Ezra","Nehemia","Ester","Ayub","Mazmur","Amsal","Pengkhotbah","Kidung Agung","Yesaya","Yeremia","Ratapan","Yehezkiel","Daniel","Hosea","Yoel","Amos","Obaja","Yunus","Mikha","Nahum","Habakuk","Zefanya","Hagai","Zakharia","Maleakhi","Matius","Markus","Lukas","Yohanes","Kisah Para Rasul","Roma","1 Korintus","2 Korintus","Galatia","Efesus","Filipi","Kolose","1 Tesalonika","2 Tesalonika","1 Timotius","2 Timotius","Titus","Filemon","Ibrani","Yakobus","1 Petrus","2 Petrus","1 Yohanes","2 Yohanes","3 Yohanes","Yudas","Wahyu"];
+
+const biblicalChars = [
+  { name: "Daud", desc: "Seorang pemberani yang jatuh tapi bangkit lagi. Hatimu yang sensitif dan peka seperti Raja Daud! 🎵" },
+  { name: "Ester", desc: "Berani dan anggun. Seperti Ester, kamu punya keberanian untuk melakukan hal yang benar di waktu yang tepat! 👑" },
+  { name: "Maria Magdalena", desc: "Setia dan penuh kasih. Seperti Maria, kamu selalu ada untuk orang-orang yang kamu cintai! 🌹" },
+  { name: "Rut", desc: "Loyal dan rendah hati. Seperti Rut, kesetiaan dan kerja kerasmu membawa berkat besar! 🌾" },
+  { name: "Paulus", desc: "Bersemangat dan tak tergoyahkan. Seperti Paulus, kamu punya passion yang luar biasa dalam hidup! ✉️" },
+  { name: "Daniel", desc: "Teguh dan bijaksana. Seperti Daniel, kamu tidak mudah goyah dalam prinsip-prinsipmu! 🦁" },
+  { name: "Debora", desc: "Pemimpin yang kuat dan bijaksana. Seperti Debora, kamu lahir untuk memimpin dan menginspirasi! 🌟" },
+  { name: "Yusuf", desc: "Dreamer yang gigih. Seperti Yusuf, mimpi-mimpimu akan terwujud meski banyak rintangan! 🌈" },
+];
+
+// ===== INIT =====
+window.onload = () => {
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('journalDate').value = new Date().toISOString().split('T')[0];
+  const v = dailyVerses[Math.floor(Math.random() * dailyVerses.length)];
+  document.getElementById('dailyVerse').innerHTML = `"${v.text}" <div class="highlight-ref">${v.ref}</div>`;
+  nextFunfact(); nextStory();
+  renderCalendar();
+  updateStats();
+  loadFromSheet();
+};
+
+function loadFromSheet() {
+  fetch(SCRIPT_URL + '?action=getAll')
+    .then(r => r.json())
+    .then(d => {
+      if (d.journals) { data.rara.journals = d.journals.filter(j => j.user==='rara'); data.jiji.journals = d.journals.filter(j => j.user==='jiji'); }
+      renderJournals(); updateStats(); renderSharedWall(); renderCalendar();
+    }).catch(() => {});
+}
+
+function saveToSheet(action, payload) {
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action, ...payload }),
+    headers: { 'Content-Type': 'application/json' }
+  }).catch(() => {});
+}
+
+// ===== USER =====
+function switchUser(user, btn) {
+  currentUser = user;
+  document.querySelectorAll('.user-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('welcomeName').textContent = user === 'rara' ? 'Rara' : 'Jiji';
+  renderJournals(); renderPrayers(); renderHighlights(); renderPlanList(); updateStats();
+}
+
+// ===== TABS =====
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'calendar') renderCalendar();
+}
+
+function switchSubTab(tab, btn) {
+  btn.closest('.main').querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+  btn.closest('.main').querySelectorAll('.sub-tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('sub-' + tab).classList.add('active');
+}
+
+// ===== FUNFACTS =====
+function nextFunfact() {
+  funfactIndex = (funfactIndex + 1) % funfacts.length;
+  const el = document.getElementById('funfactText');
+  el.style.opacity = 0;
+  setTimeout(() => { el.textContent = funfacts[funfactIndex]; el.style.opacity = 1; }, 200);
+}
+function nextStory() {
+  storyIndex = (storyIndex + 1) % stories.length;
+  const el = document.getElementById('storyText');
+  el.style.opacity = 0;
+  setTimeout(() => { el.textContent = stories[storyIndex]; el.style.opacity = 1; }, 200);
+}
+document.getElementById('funfactText').style.transition = 'opacity 0.2s';
+document.getElementById('storyText').style.transition = 'opacity 0.2s';
+funfactIndex = Math.floor(Math.random() * funfacts.length);
+storyIndex = Math.floor(Math.random() * stories.length);
+
+// ===== VERSE INPUT =====
+function handleVerseInput(val) {
+  const dd = document.getElementById('verseDropdown');
+  const res = document.getElementById('verseResult');
+  if (!val || val.length < 2) { dd.style.display = 'none'; res.style.display = 'none'; return; }
+  const matches = booksID.filter(b => b.toLowerCase().startsWith(val.toLowerCase().split(' ')[0]));
+  if (matches.length > 0) {
+    dd.innerHTML = matches.slice(0,6).map(b => `<div class="verse-dropdown-item" onclick="selectBook('${b}')">${b}</div>`).join('');
+    dd.style.display = 'block';
+  } else { dd.style.display = 'none'; }
+  const ref = val.trim();
+  const found = bibleDB[document.getElementById('journalTrans')?.value || 'tb'][ref];
+  if (found) { res.innerHTML = `"${found}"<br><small style="color:var(--text-light)">${ref}</small>`; res.style.display = 'block'; }
+  else { res.style.display = 'none'; }
+}
+function selectBook(book) {
+  document.getElementById('verseInput').value = book + ' ';
+  document.getElementById('verseDropdown').style.display = 'none';
+  document.getElementById('verseInput').focus();
+}
+
+// ===== MOOD =====
+function selectMood(btn, emoji) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); selectedMood = emoji;
+}
+
+// ===== JOURNAL =====
+function saveJournal() {
+  const date = document.getElementById('journalDate').value;
+  const verse = document.getElementById('verseInput').value.trim();
+  const note = document.getElementById('journalNote').value.trim();
+  const trans = document.getElementById('journalTrans').value;
+  const isPrivate = document.getElementById('journalPrivate').value === 'yes';
+  if (!note) { alert('Isi catatan dulu ya! 🌸'); return; }
+  const char = biblicalChars[Math.floor(Math.random() * biblicalChars.length)];
+  const entry = { id: Date.now(), date, verse, note, mood: selectedMood, trans, isPrivate, user: currentUser, character: char, locked: isPrivate };
+  data[currentUser].journals.unshift(entry);
+  saveToSheet('addJournal', entry);
+  document.getElementById('verseInput').value = '';
+  document.getElementById('journalNote').value = '';
+  document.getElementById('verseResult').style.display = 'none';
+  selectedMood = '';
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  renderJournals(); updateStats(); renderSharedWall(); renderCalendar();
+  alert('Journal tersimpan! 🌸✝️');
+}
+
+function renderJournals() {
+  const list = document.getElementById('journalList');
+  const journals = data[currentUser].journals;
+  if (!journals.length) { list.innerHTML = '<div class="empty-state"><div class="emoji">📖</div><p>Belum ada journal. Mulai menulis! 🌸</p></div>'; return; }
+  list.innerHTML = journals.map(j => {
+    const verseText = j.verse ? (bibleDB[j.trans||'tb'][j.verse] || '') : '';
+    return `<div class="journal-card ${j.isPrivate?'private':''}" id="jcard-${j.id}">
+      ${j.locked && currentUser !== j.user ? `<div class="lock-overlay"><div style="font-size:2rem">🔒</div><p style="font-size:0.85rem;color:var(--text-light)">Entry private</p></div>` : ''}
+      <div class="journal-card-header">
+        <span class="journal-mood">${j.mood||'📖'}</span>
+        <span class="journal-date">${j.date}</span>
+        ${j.verse ? `<span class="journal-verse-tag" onclick="openBibleModal('${j.verse}','${j.trans||'tb'}')" style="cursor:pointer">📖 ${j.verse}</span>` : ''}
+      </div>
+      ${verseText ? `<div style="font-style:italic;font-size:0.88rem;color:var(--text-light);margin-bottom:8px;padding:8px 12px;background:var(--blue-light);border-radius:10px">"${verseText}"</div>` : ''}
+      <div class="journal-text">${j.note}</div>
+      ${j.character ? `<div class="journal-character">🌟 Hari ini kamu seperti <strong>${j.character.name}</strong> — ${j.character.desc}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ===== BIBLE MODAL =====
+function openBibleModal(ref, trans) {
+  document.getElementById('modalVerseRef').textContent = ref;
+  currentTrans = trans || 'tb';
+  document.querySelectorAll('.trans-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.trans-btn')[currentTrans==='tb'?0:1].classList.add('active');
+  showVerseInModal(ref);
+  document.getElementById('bibleModal').classList.add('show');
+}
+function showVerseInModal(ref) {
+  const text = bibleDB[currentTrans][ref] || 'Ayat ini belum tersedia di database offline. 🌸';
+  document.getElementById('modalVerseText').textContent = text;
+}
+function switchTrans(trans, btn) {
+  currentTrans = trans;
+  document.querySelectorAll('.trans-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  showVerseInModal(document.getElementById('modalVerseRef').textContent);
+}
+function closeBibleModal() { document.getElementById('bibleModal').classList.remove('show'); }
+
+// ===== READING PLAN =====
+function addPlanDayInput() {
+  const wrap = document.getElementById('planDays');
+  const n = wrap.children.length + 1;
+  const div = document.createElement('div');
+  div.className = 'plan-day-input';
+  div.style.cssText = 'display:flex;gap:8px;margin-bottom:8px';
+  div.innerHTML = `<input type="text" placeholder="Hari ${n} - cth: Markus 1-2" style="flex:1;padding:8px 12px;border-radius:10px;border:2px solid var(--blue-light);font-family:Nunito,sans-serif;outline:none">`;
+  wrap.appendChild(div);
+}
+
+function savePlan() {
+  const name = document.getElementById('planName').value.trim();
+  if (!name) { alert('Isi nama plan dulu! 📚'); return; }
+  const inputs = document.querySelectorAll('#planDays input');
+  const days = Array.from(inputs).map((inp,i) => ({ day: i+1, ref: inp.value.trim(), done: false })).filter(d => d.ref);
+  if (!days.length) { alert('Tambahkan minimal 1 hari! 📖'); return; }
+  const plan = { id: Date.now(), name, days, user: currentUser };
+  data[currentUser].plans.push(plan);
+  document.getElementById('planName').value = '';
+  document.getElementById('planDays').innerHTML = '<div class="plan-day-input" style="display:flex;gap:8px;margin-bottom:8px"><input type="text" placeholder="Hari 1 - cth: Matius 1-2" style="flex:1;padding:8px 12px;border-radius:10px;border:2px solid var(--blue-light);font-family:Nunito,sans-serif;outline:none"></div>';
+  renderPlanList(); updateStats();
+  alert('Reading plan tersimpan! 📚✝️');
+}
+
+function renderPlanList() {
+  const list = document.getElementById('planList');
+  const doneList = document.getElementById('donePlanList');
+  const plans = data[currentUser].plans;
+  if (!plans.length) {
+    list.innerHTML = '<div class="empty-state"><div class="emoji">📚</div><p>Buat reading plan dulu di tab ⚙️ Buat Plan!</p></div>';
+    doneList.innerHTML = '<div class="empty-state"><div class="emoji">🎉</div><p>Belum ada yang selesai. Semangat! ✨</p></div>';
+    return;
+  }
+  let allDays = 0, doneDays = 0;
+  let planHTML = '';
+  let doneHTML = '';
+  plans.forEach(plan => {
+    allDays += plan.days.length;
+    const planDone = plan.days.filter(d => d.done).length;
+    doneDays += planDone;
+    const pct = plan.days.length ? Math.round(planDone/plan.days.length*100) : 0;
+    const html = `<div style="margin-bottom:16px">
+      <div style="font-weight:700;margin-bottom:8px;color:var(--text)">${plan.name} — ${pct}%</div>
+      ${plan.days.map(d => `
+        <div class="plan-day ${d.done?'done':''}" onclick="togglePlanDay(${plan.id},${d.day})">
+          <div class="plan-day-check">${d.done?'✓':''}</div>
+          <div class="plan-day-text">
+            <div class="plan-day-title">Hari ${d.day}</div>
+            <div class="plan-day-ref">${d.ref}</div>
+          </div>
+          <button class="plan-day-open" onclick="event.stopPropagation();openBibleRef('${d.ref}')">📖 Buka</button>
+        </div>`).join('')}
+    </div>`;
+    if (pct === 100) doneHTML += html;
+    else planHTML += html;
+  });
+  list.innerHTML = planHTML || '<div class="empty-state"><div class="emoji">🎉</div><p>Semua plan sudah selesai!</p></div>';
+  doneList.innerHTML = doneHTML || '<div class="empty-state"><div class="emoji">🎉</div><p>Belum ada yang selesai. Semangat! ✨</p></div>';
+  document.getElementById('progressText').textContent = `${doneDays} / ${allDays} hari`;
+  document.getElementById('progressFill').style.width = allDays ? `${Math.round(doneDays/allDays*100)}%` : '0%';
+}
+
+function togglePlanDay(planId, dayNum) {
+  const plan = data[currentUser].plans.find(p => p.id === planId);
+  if (!plan) return;
+  const day = plan.days.find(d => d.day === dayNum);
+  if (day) { day.done = !day.done; renderPlanList(); updateStats(); }
+}
+
+function openBibleRef(ref) {
+  const clean = ref.replace(/\d+-\d+$/, '1').trim();
+  openBibleModal(clean, 'tb');
+}
+
+// ===== CALENDAR =====
+function renderCalendar() {
+  const grid = document.getElementById('calGrid');
+  const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  document.getElementById('calMonthYear').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+  const days = grid.querySelectorAll('.cal-day');
+  days.forEach(d => d.remove());
+  const first = new Date(currentYear, currentMonth, 1).getDay();
+  const total = new Date(currentYear, currentMonth+1, 0).getDate();
+  const prevTotal = new Date(currentYear, currentMonth, 0).getDate();
+  const today = new Date();
+  for (let i = 0; i < first; i++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day other-month';
+    d.textContent = prevTotal - first + i + 1;
+    grid.appendChild(d);
+  }
+  for (let i = 1; i <= total; i++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day';
+    d.textContent = i;
+    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+    const hasJ = data[currentUser].journals.some(j => j.date === dateStr);
+    const hasP = (data[currentUser].plans || []).some(p => p.days.some(day => day.done && day.doneDate === dateStr));
+    if (hasJ) d.classList.add('has-entry');
+    if (hasP) d.classList.add('has-plan');
+    if (i === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) d.classList.add('today');
+    d.onclick = () => showCalDay(dateStr, i);
+    grid.appendChild(d);
+  }
+}
+function changeMonth(dir) { currentMonth += dir; if (currentMonth > 11) { currentMonth=0; currentYear++; } if (currentMonth < 0) { currentMonth=11; currentYear--; } renderCalendar(); }
+function showCalDay(date, day) {
+  const detail = document.getElementById('calDetail');
+  const journals = data[currentUser].journals.filter(j => j.date === date);
+  detail.className = 'cal-detail show';
+  detail.innerHTML = `<div style="font-weight:700;margin-bottom:10px">📅 ${date}</div>
+    ${journals.length ? journals.map(j => `<div style="font-size:0.88rem;padding:8px;background:white;border-radius:10px;margin-bottom:6px">${j.mood||'📖'} ${j.note.slice(0,80)}${j.note.length>80?'...':''}</div>`).join('') : '<p style="font-size:0.85rem;color:var(--text-light)">Tidak ada journal hari ini</p>'}`;
+}
+
+// ===== PRAYER =====
+function savePrayer() {
+  const title = document.getElementById('prayerTitle').value.trim();
+  const detail = document.getElementById('prayerDetail').value.trim();
+  if (!title) { alert('Isi pokok doa dulu! 🙏'); return; }
+  const prayer = { id: Date.now(), title, detail, date: new Date().toISOString().split('T')[0], answered: false, user: currentUser };
+  data[currentUser].prayers.unshift(prayer);
+  document.getElementById('prayerTitle').value = '';
+  document.getElementById('prayerDetail').value = '';
+  renderPrayers(); updateStats();
+}
+function renderPrayers() {
+  const list = document.getElementById('prayerList');
+  const prayers = data[currentUser].prayers;
+  if (!prayers.length) { list.innerHTML = '<div class="empty-state"><div class="emoji">🙏</div><p>Belum ada pokok doa. Mulai berdoa! ✨</p></div>'; return; }
+  list.innerHTML = prayers.map(p => `
+    <div class="prayer-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <h4>${p.title}</h4>
+        <span style="font-size:0.78rem;color:var(--text-light)">${p.date}</span>
+      </div>
+      ${p.detail ? `<p style="font-size:0.88rem;margin-top:6px;color:var(--text)">${p.detail}</p>` : ''}
+      <div>
+        ${p.answered ? '<span class="prayer-answered">✅ Terjawab!</span>' : `<button onclick="markAnswered(${p.id})" style="margin-top:8px;padding:4px 12px;border-radius:10px;border:2px solid #88d4a0;background:white;cursor:pointer;font-family:Nunito,sans-serif;font-size:0.8rem;color:#4a9">Tandai Terjawab</button>`}
+      </div>
+    </div>`).join('');
+}
+function markAnswered(id) {
+  const p = data[currentUser].prayers.find(p => p.id === id);
+  if (p) { p.answered = true; renderPrayers(); }
+}
+
+// ===== HIGHLIGHTS =====
+function saveHighlight() {
+  const verse = document.getElementById('hlVerse').value.trim();
+  const note = document.getElementById('hlNote').value.trim();
+  if (!verse) { alert('Isi referensi ayat dulu! ✨'); return; }
+  const hl = { id: Date.now(), verse, note, date: new Date().toISOString().split('T')[0], user: currentUser };
+  data[currentUser].highlights.unshift(hl);
+  document.getElementById('hlVerse').value = '';
+  document.getElementById('hlNote').value = '';
+  renderHighlights(); updateStats();
+}
+function renderHighlights() {
+  const list = document.getElementById('highlightList');
+  const hls = data[currentUser].highlights;
+  if (!hls.length) { list.innerHTML = '<div class="empty-state"><div class="emoji">✨</div><p>Belum ada ayat favorit. Tandai ayat istimewa! 💛</p></div>'; return; }
+  list.innerHTML = hls.map(h => `
+    <div class="highlight-verse" onclick="openBibleModal('${h.verse}','tb')" style="cursor:pointer">
+      "${bibleDB.tb[h.verse] || h.verse}"
+      <div class="highlight-ref">📖 ${h.verse} ${h.note ? '· '+h.note : ''}</div>
+    </div>`).join('');
+}
+
+// ===== SHARED WALL =====
+function renderSharedWall() {
+  const wall = document.getElementById('sharedWall');
+  const allJournals = [...data.rara.journals, ...data.jiji.journals]
+    .filter(j => !j.isPrivate)
+    .sort((a,b) => b.id - a.id);
+  if (!allJournals.length) { wall.innerHTML = '<div class="empty-state"><div class="emoji">💕</div><p>Belum ada postingan. Share sesuatu! 🌸</p></div>'; return; }
+  wall.innerHTML = allJournals.map(j => `
+    <div class="shared-post">
+      <div class="shared-post-header">
+        <div class="user-avatar ${j.user==='rara'?'avatar-rara':'avatar-jiji'}">${j.user==='rara'?'R':'J'}</div>
+        <div>
+          <div style="font-weight:700;font-size:0.9rem">${j.user==='rara'?'👑 Rara':'🌙 Jiji'}</div>
+          <div class="post-meta">${j.date} ${j.mood||''}</div>
+        </div>
+      </div>
+      ${j.verse && bibleDB[j.trans||'tb'][j.verse] ? `<div class="post-verse-quote">"${bibleDB[j.trans||'tb'][j.verse]}" <span style="font-size:0.8rem;color:var(--text-light)">— ${j.verse}</span></div>` : ''}
+      <div style="font-size:0.9rem;color:var(--text)">${j.note}</div>
+      ${j.character ? `<div style="font-size:0.8rem;margin-top:8px;color:var(--text-light)">🌟 seperti ${j.character.name}</div>` : ''}
+      <div class="react-row">
+        <button class="react-btn" onclick="this.textContent=this.textContent.includes('1')?'🙏':'🙏 1'">🙏</button>
+        <button class="react-btn" onclick="this.textContent=this.textContent.includes('1')?'❤️':'❤️ 1'">❤️</button>
+        <button class="react-btn" onclick="this.textContent=this.textContent.includes('1')?'✨':'✨ 1'">✨</button>
+      </div>
+    </div>`).join('');
+}
+
+// ===== STATS =====
+function updateStats() {
+  document.getElementById('statJournal').textContent = data[currentUser].journals.length;
+  const plans = data[currentUser].plans;
+  const allD = plans.reduce((s,p) => s+p.days.length, 0);
+  const doneD = plans.reduce((s,p) => s+p.days.filter(d=>d.done).length, 0);
+  document.getElementById('statPlan').textContent = allD ? Math.round(doneD/allD*100)+'%' : '0%';
+  document.getElementById('statPrayer').textContent = data[currentUser].prayers.length;
+  document.getElementById('statHighlight').textContent = data[currentUser].highlights.length;
+}
+</script>
+</body>
+</html>

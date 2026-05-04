@@ -1,1057 +1,2603 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rara & Jiji · Bible Journal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --p1:#FFB3C6;--p2:#FF8FAB;--p3:#FF4D6D;
-  --b1:#BDE0FE;--b2:#89C4F4;--b3:#4FACDE;
-  --lav:#E8D5F5;--lav2:#b39ddb;--mint:#C8F0D8;
-  --peach:#FFD9B3;--yellow:#FFF5C2;
-  --white:#FFFAFC;--text:#4a3f5c;--muted:#9b8aaa;
-  --sh:rgba(255,143,171,0.15);--shb:rgba(79,172,222,0.12);
-  --r:18px;--r2:12px;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Quicksand',sans-serif;background:var(--white);color:var(--text);min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background:linear-gradient(135deg,#FFE8EE 0%,#EEF6FF 45%,#FFE8EE 80%,#EEF6FF 100%);z-index:-2;}
-body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 15% 15%,rgba(255,179,198,0.2) 0%,transparent 50%),radial-gradient(circle at 85% 85%,rgba(189,224,254,0.2) 0%,transparent 50%);z-index:-1;}
-.cbg{position:fixed;pointer-events:none;z-index:0;opacity:0.055;animation:fc 9s ease-in-out infinite;}
-.c1{top:7%;left:3%;font-size:1.5rem;}.c2{top:22%;right:5%;font-size:1rem;animation-delay:2.5s;}.c3{bottom:18%;left:6%;font-size:2.2rem;animation-delay:4.5s;}.c4{bottom:32%;right:3%;font-size:1.2rem;animation-delay:1.2s;}
-@keyframes fc{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-12px) rotate(4deg);}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rara & Jiji · Bible Journal</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --p1: #FFB3C6;
+      --p2: #FF8FAB;
+      --p3: #FF4D6D;
+      --b1: #BDE0FE;
+      --b2: #89C4F4;
+      --b3: #4FACDE;
+      --lav: #E8D5F5;
+      --lav2: #b39ddb;
+      --mint: #C8F0D8;
+      --peach: #FFD9B3;
+      --yellow: #FFF5C2;
+      --white: #FFFAFC;
+      --text: #4a3f5c;
+      --muted: #9b8aaa;
+      --sh: rgba(255, 143, 171, 0.15);
+      --shb: rgba(79, 172, 222, 0.12);
+      --r: 18px;
+      --r2: 12px;
+    }
 
-/* ── HEADER ── */
-.hdr{background:linear-gradient(135deg,rgba(255,179,198,0.9),rgba(189,224,254,0.9));backdrop-filter:blur(18px);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid rgba(255,255,255,0.7);position:sticky;top:0;z-index:100;box-shadow:0 4px 20px var(--sh);}
-.hdr-t{font-family:'Playfair Display',serif;font-size:1.2rem;background:linear-gradient(135deg,var(--p3),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.usr-sw{display:flex;gap:5px;}
-.ubtn{padding:5px 12px;border-radius:20px;border:2px solid var(--p2);background:white;color:var(--text);cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.79rem;transition:all .2s;}
-.ubtn.on{background:var(--p2);color:white;}
-.ubtn.jj.on{background:var(--b2);border-color:var(--b2);}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ── NAV ── */
-.nav{display:flex;gap:4px;padding:10px 13px 0;overflow-x:auto;z-index:1;position:relative;}
-.nav::-webkit-scrollbar{height:0;}
-.tbtn{padding:8px 13px;border-radius:12px 12px 0 0;border:1.5px solid transparent;border-bottom:none;background:rgba(255,255,255,0.38);color:var(--muted);cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.8rem;white-space:nowrap;transition:all .2s;}
-.tbtn.on{background:var(--white);color:var(--text);border-color:rgba(255,143,171,0.2);box-shadow:0 -3px 10px var(--sh);}
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-/* ── MAIN ── */
-.main{background:rgba(255,250,252,0.94);backdrop-filter:blur(12px);margin:0 13px 20px;border-radius:0 var(--r) var(--r) var(--r);border:1.5px solid rgba(255,143,171,0.15);min-height:70vh;padding:19px;box-shadow:0 8px 30px var(--sh);position:relative;z-index:1;}
-.tc{display:none;animation:fu .28s ease;}
-.tc.on{display:block;}
-@keyframes fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.stitle{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:13px;display:flex;align-items:center;gap:8px;}
-.stitle::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,var(--p2),transparent);}
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #FFE8EE 0%, #EEF6FF 45%, #FFE8EE 80%, #EEF6FF 100%);
+      z-index: -2;
+    }
 
-/* ── STATS ── */
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-@media(max-width:460px){.g3{grid-template-columns:1fr 1fr;}}
-.scard{background:white;border-radius:var(--r);padding:13px;text-align:center;border:2px solid var(--p1);box-shadow:0 3px 11px var(--sh);transition:transform .2s;}
-.scard:hover{transform:translateY(-2px);}
-.sc-em{font-size:1.5rem;margin-bottom:3px;}
-.sc-n{font-size:1.35rem;font-weight:700;color:var(--p3);}
-.sc-l{font-size:0.69rem;color:var(--muted);font-weight:600;}
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle at 15% 15%, rgba(255, 179, 198, 0.2) 0%, transparent 50%), radial-gradient(circle at 85% 85%, rgba(189, 224, 254, 0.2) 0%, transparent 50%);
+      z-index: -1;
+    }
 
-/* ── DAILY VERSE ── */
-.dverse{background:linear-gradient(135deg,#FFF0F4,#EEF6FF);border-radius:var(--r);padding:16px;margin-bottom:16px;border:2px solid rgba(255,255,255,0.9);cursor:pointer;transition:transform .2s;}
-.dverse:hover{transform:scale(1.004);}
-.dv-lbl{font-size:0.68rem;font-weight:700;color:var(--p3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
-.dv-text{font-family:'Playfair Display',serif;font-style:italic;font-size:0.97rem;line-height:1.7;}
-.dv-ref{font-size:0.76rem;color:var(--muted);margin-top:6px;font-weight:600;}
-.dv-tap{font-size:0.66rem;color:var(--muted);text-align:right;margin-top:2px;}
+    .cbg {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.055;
+      animation: fc 9s ease-in-out infinite;
+    }
 
-/* ── FUN FACTS ── */
-.ff-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-@media(max-width:420px){.ff-grid{grid-template-columns:1fr;}}
-.ffc{border-radius:var(--r);padding:15px;cursor:pointer;transition:transform .22s;border:2px solid rgba(255,255,255,0.8);position:relative;overflow:hidden;user-select:none;}
-.ffc:hover{transform:scale(1.015);}
-.ffc.pink{background:linear-gradient(135deg,#FFE0E9,#FFB3C6);}
-.ffc.blue{background:linear-gradient(135deg,#DFF0FF,#BDE0FE);}
-.ffc.lav{background:linear-gradient(135deg,#EEE0FF,#D9C0FF);}
-.ffc.mint{background:linear-gradient(135deg,#DCF5E8,#B8EDD0);}
-.ffc-icon{font-size:1.7rem;margin-bottom:5px;}
-.ffc-lbl{font-size:0.66rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-.ffc-text{font-family:'Playfair Display',serif;font-size:0.86rem;line-height:1.5;}
-.ffc-detail{display:none;margin-top:9px;padding-top:9px;border-top:1px dashed rgba(74,63,92,0.15);font-size:0.79rem;line-height:1.6;}
-.ffc-detail.show{display:block;}
-.ffc-tap{font-size:0.65rem;color:var(--muted);margin-top:6px;text-align:right;}
-.ffc::after{content:'✝';position:absolute;right:9px;top:9px;font-size:1.4rem;opacity:0.07;}
+    .c1 {
+      top: 7%;
+      left: 3%;
+      font-size: 1.5rem;
+    }
 
-/* ── HOME HISTORY ── */
-.home-hist{margin-top:18px;}
-.hist-card{background:white;border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;border:2px solid #FFE8EE;display:flex;align-items:flex-start;gap:10px;cursor:pointer;transition:all .2s;}
-.hist-card:hover{border-color:var(--p2);transform:translateX(2px);}
-.hist-card.jiji-card{border-color:var(--b1);}
-.hist-card.jiji-card:hover{border-color:var(--b2);}
-.hist-avtr{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:white;flex-shrink:0;}
-.ha-r{background:linear-gradient(135deg,var(--p2),var(--p1));}
-.ha-j{background:linear-gradient(135deg,var(--b2),var(--b1));}
-.hist-body{flex:1;min-width:0;}
-.hist-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;}
-.hist-name{font-weight:700;font-size:0.8rem;}
-.hist-date{font-size:0.71rem;color:var(--muted);}
-.hist-title{font-weight:700;font-size:0.86rem;margin-bottom:2px;}
-.hist-snip{font-size:0.81rem;color:var(--muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-.hist-vtag{background:var(--b1);color:var(--b3);padding:1px 7px;border-radius:15px;font-size:0.68rem;font-weight:700;}
-.hist-locked{display:flex;align-items:center;gap:5px;font-size:0.82rem;color:var(--muted);font-style:italic;}
+    .c2 {
+      top: 22%;
+      right: 5%;
+      font-size: 1rem;
+      animation-delay: 2.5s;
+    }
 
-/* ── FORMS ── */
-.fbox{background:linear-gradient(135deg,#FFF0F4,#EEF6FF);border-radius:var(--r);padding:17px;margin-bottom:16px;}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
-@media(max-width:460px){.frow{grid-template-columns:1fr;}}
-.fg{display:flex;flex-direction:column;gap:4px;}
-.fg label{font-size:0.78rem;font-weight:700;}
-.fg input,.fg select,.fg textarea{padding:8px 11px;border-radius:var(--r2);border:2px solid rgba(255,143,171,0.2);background:white;font-family:'Quicksand',sans-serif;font-size:0.84rem;color:var(--text);outline:none;transition:border .2s;width:100%;}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--p2);}
-.btn-main{width:100%;padding:11px;border-radius:13px;border:none;background:linear-gradient(135deg,var(--p2),var(--b2));color:white;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:opacity .2s;margin-top:5px;}
-.btn-main:hover{opacity:0.88;}
-.btn-bl{background:linear-gradient(135deg,var(--b2),var(--b3))!important;}
-.btn-lv{background:linear-gradient(135deg,var(--lav2),#9c7bb5)!important;}
+    .c3 {
+      bottom: 18%;
+      left: 6%;
+      font-size: 2.2rem;
+      animation-delay: 4.5s;
+    }
 
-/* ── VERSE PICKER ── */
-.vbooks{display:flex;flex-wrap:wrap;gap:4px;max-height:75px;overflow-y:auto;padding:6px;background:white;border-radius:10px;border:2px solid var(--b1);margin-bottom:7px;}
-.vbb{padding:3px 8px;border-radius:7px;border:none;background:var(--b1);color:var(--b3);cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.71rem;transition:all .15s;}
-.vbb.sel{background:var(--b2);color:white;}
-.vprow{display:flex;gap:6px;margin-bottom:6px;}
-.vprow input{flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:'Quicksand',sans-serif;font-size:0.82rem;outline:none;}
-.vprow input:focus{border-color:var(--b2);}
-.vres{border-radius:var(--r2);overflow:hidden;display:none;margin-top:4px;}
-.vtrow{display:flex;background:#f0f6ff;}
-.vtab{padding:5px 13px;border:none;background:none;cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.76rem;color:var(--muted);transition:all .2s;}
-.vtab.on{background:var(--b2);color:white;border-radius:7px 7px 0 0;}
-.vbody{padding:10px;background:white;font-style:italic;font-size:0.84rem;line-height:1.6;border:2px solid var(--b1);border-top:none;border-radius:0 0 var(--r2) var(--r2);}
+    .c4 {
+      bottom: 32%;
+      right: 3%;
+      font-size: 1.2rem;
+      animation-delay: 1.2s;
+    }
 
-/* ── MOOD ── */
-.mrow{display:flex;gap:6px;flex-wrap:wrap;}
-.mbtn{padding:5px 9px;border-radius:16px;border:2px solid #FFE8EE;background:white;cursor:pointer;font-size:0.92rem;transition:all .2s;}
-.mbtn.on{border-color:var(--p2);background:#FFE8EE;transform:scale(1.1);}
+    @keyframes fc {
 
-/* ── TAGS ── */
-.tchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
-.tchip{padding:3px 8px;border-radius:16px;background:var(--b1);color:var(--b3);font-size:0.71rem;font-weight:700;display:flex;align-items:center;gap:3px;}
-.trm{cursor:pointer;opacity:0.65;}
-
-/* ── JOURNAL CARDS ── */
-.jcard{background:white;border-radius:var(--r);padding:15px;border:2px solid #FFE8EE;box-shadow:0 3px 11px var(--sh);margin-bottom:10px;}
-.jcard-hdr{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
-.jdate{font-size:0.73rem;color:var(--muted);font-weight:600;}
-.vtag{background:var(--b1);color:var(--b3);padding:2px 8px;border-radius:16px;font-size:0.71rem;font-weight:700;cursor:pointer;}
-.vtag:hover{background:var(--b2);color:white;}
-.jtag{background:#FFE8EE;color:var(--p3);padding:2px 7px;border-radius:16px;font-size:0.68rem;font-weight:700;}
-.jtext{font-size:0.86rem;line-height:1.6;}
-.jchar{background:var(--yellow);border-radius:8px;padding:7px 10px;font-size:0.76rem;margin-top:7px;border-left:3px solid var(--peach);}
-.lock-bar{display:flex;align-items:center;justify-content:space-between;background:var(--lav);border-radius:10px;padding:8px 12px;cursor:pointer;margin-bottom:7px;}
-.lock-bar-l{display:flex;align-items:center;gap:7px;}
-.lock-bar-title{font-weight:700;font-size:0.86rem;}
-.lock-bar-sub{font-size:0.71rem;color:var(--muted);}
-.lock-bar-btn{padding:4px 10px;border-radius:8px;background:var(--lav2);color:white;border:none;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.76rem;cursor:pointer;}
-.jbody-hidden{display:none;}
-.jbody-hidden.show{display:block;}
-.pin-row{display:flex;gap:6px;margin-top:7px;}
-.pin-row input{flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--lav2);font-family:'Quicksand',sans-serif;text-align:center;letter-spacing:3px;outline:none;font-size:0.88rem;}
-.pin-row button{padding:7px 12px;border-radius:9px;background:var(--lav2);color:white;border:none;font-family:'Quicksand',sans-serif;font-weight:700;cursor:pointer;font-size:0.8rem;}
-.photo-prev{width:100%;border-radius:8px;margin-top:7px;max-height:140px;object-fit:cover;}
-
-/* ── SEARCH ── */
-.sbar{display:flex;gap:6px;margin-bottom:13px;}
-.sbar input{flex:1;padding:8px 12px;border-radius:var(--r2);border:2px solid var(--b1);font-family:'Quicksand',sans-serif;font-size:0.84rem;outline:none;}
-.sbar input:focus{border-color:var(--b2);}
-
-/* ── SUB TABS ── */
-.stabs{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap;}
-.stbtn{padding:7px 13px;border-radius:16px;border:2px solid var(--b2);background:white;color:var(--text);cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.78rem;transition:all .2s;}
-.stbtn.on{background:var(--b2);color:white;}
-.stc{display:none;}
-.stc.on{display:block;}
-
-/* ── PROGRESS ── */
-.prog-w{margin-bottom:14px;}
-.prog-l{display:flex;justify-content:space-between;font-size:0.78rem;font-weight:700;margin-bottom:4px;}
-.prog-b{height:9px;background:var(--b1);border-radius:20px;overflow:hidden;}
-.prog-f{height:100%;background:linear-gradient(90deg,var(--b2),var(--p2));border-radius:20px;transition:width .5s;}
-
-/* ── READING PLAN ── */
-.plan-g{margin-bottom:17px;}
-.plan-gh{background:linear-gradient(135deg,#FFE0E9,#DFF0FF);border-radius:var(--r2);padding:9px 13px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;font-family:'Playfair Display',serif;font-size:0.92rem;}
-.pday{background:white;border-radius:var(--r2);padding:10px 13px;margin-bottom:5px;display:flex;align-items:center;gap:9px;border:2px solid #FFE8EE;cursor:pointer;transition:all .2s;}
-.pday:hover{border-color:var(--b2);}
-.pday.done{background:var(--mint);border-color:#88d4a0;}
-.pchk{width:20px;height:20px;border-radius:50%;border:2px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:0.78rem;flex-shrink:0;transition:all .2s;}
-.pday.done .pchk{background:#88d4a0;border-color:#88d4a0;}
-.pinfo{flex:1;}
-.pnum{font-weight:700;font-size:0.81rem;}
-.pref{font-size:0.73rem;color:var(--muted);}
-.pbtn{padding:4px 9px;border-radius:8px;background:var(--b2);color:white;border:none;font-family:'Quicksand',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;flex-shrink:0;}
-.tpl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px;}
-@media(max-width:420px){.tpl-grid{grid-template-columns:1fr;}}
-.tplc{border-radius:var(--r);padding:12px;border:2px solid #FFE8EE;background:white;cursor:pointer;transition:all .2s;text-align:center;}
-.tplc:hover,.tplc.sel{border-color:var(--p2);background:#FFF0F4;}
-.tplc-i{font-size:1.5rem;margin-bottom:3px;}
-.tplc-n{font-weight:700;font-size:0.8rem;}
-.tplc-d{font-size:0.69rem;color:var(--muted);margin-top:2px;}
-
-/* ── CALENDAR ── */
-.cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
-.cal-hdr h3{font-family:'Playfair Display',serif;font-size:1.05rem;}
-.cal-nav{background:none;border:2px solid var(--p2);border-radius:8px;padding:3px 9px;cursor:pointer;color:var(--p2);}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;max-width:390px;margin:0 auto 12px;}
-.cdlbl{text-align:center;font-size:0.65rem;font-weight:700;color:var(--muted);padding:2px 0;}
-.cday{border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;cursor:pointer;font-size:0.77rem;font-weight:700;transition:all .2s;background:white;border:2px solid transparent;padding:4px 2px;position:relative;min-height:42px;}
-.cday:hover{border-color:var(--p2);}
-.cday.today{background:linear-gradient(135deg,#FFE0E9,#DFF0FF);border-color:var(--p2);}
-.cday.other{opacity:0.27;}
-.cday-em{font-size:0.68rem;margin-top:2px;line-height:1.1;text-align:center;}
-.cday-dots{display:flex;gap:2px;justify-content:center;margin-top:2px;}
-.dr{width:4px;height:4px;border-radius:50%;background:var(--p2);}
-.dj{width:4px;height:4px;border-radius:50%;background:var(--b2);}
-.cal-leg{display:flex;gap:11px;justify-content:center;margin-bottom:10px;font-size:0.73rem;font-weight:600;}
-.cal-leg span{display:flex;align-items:center;gap:3px;}
-.cal-list{margin-top:12px;}
-.cal-day-grp{margin-bottom:11px;}
-.cal-day-hdr{font-weight:700;font-size:0.83rem;padding:5px 11px;background:linear-gradient(135deg,#FFE0E9,#DFF0FF);border-radius:9px;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
-.cal-jitem{background:white;border-radius:9px;padding:9px 12px;margin-bottom:4px;border:2px solid var(--p1);display:flex;gap:8px;align-items:flex-start;}
-.cal-jitem.j{border-color:var(--b1);}
-.avtr{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.77rem;color:white;flex-shrink:0;}
-.avtr-r{background:linear-gradient(135deg,var(--p2),var(--p1));}
-.avtr-j{background:linear-gradient(135deg,var(--b2),var(--b1));}
-
-/* ── BULLETIN BOARD WALL ── */
-.board{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-@media(max-width:500px){.board{grid-template-columns:1fr;}}
-.pin{border-radius:var(--r);padding:14px;border:2px solid rgba(255,255,255,0.8);position:relative;box-shadow:0 4px 14px var(--sh);transition:transform .2s;}
-.pin:hover{transform:translateY(-2px);}
-.pin.pink-pin{background:linear-gradient(135deg,#fff5f7,#FFE0E9);}
-.pin.blue-pin{background:linear-gradient(135deg,#f0f8ff,#DFF0FF);}
-.pin.lav-pin{background:linear-gradient(135deg,#f5f0ff,#EEE0FF);}
-.pin.yellow-pin{background:linear-gradient(135deg,#fffdf0,#FFF5C2);}
-.pin-dot{width:14px;height:14px;border-radius:50%;position:absolute;top:-5px;left:50%;transform:translateX(-50%);box-shadow:0 2px 6px rgba(0,0,0,0.15);}
-.pin-dot.r{background:var(--p2);}
-.pin-dot.b{background:var(--b2);}
-.pin-dot.l{background:var(--lav2);}
-.pin-dot.y{background:#f0b429;}
-.pin-usr{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
-.pin-name{font-weight:700;font-size:0.8rem;}
-.pin-date{font-size:0.68rem;color:var(--muted);}
-.pin-verse{font-family:'Playfair Display',serif;font-style:italic;font-size:0.84rem;line-height:1.55;padding:8px 10px;background:rgba(255,255,255,0.65);border-radius:8px;margin-bottom:7px;cursor:pointer;}
-.pin-verse:hover{background:rgba(255,255,255,0.9);}
-.pin-verse-full{display:none;font-size:0.79rem;padding:6px 10px;background:white;border-radius:8px;margin-bottom:6px;line-height:1.6;border:1.5px solid var(--b1);}
-.pin-verse-full.show{display:block;}
-.pin-text{font-size:0.83rem;line-height:1.55;margin-bottom:8px;}
-.pin-reacts{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
-.rbt{padding:3px 8px;border-radius:14px;border:1.5px solid rgba(255,143,171,0.25);background:rgba(255,255,255,0.7);cursor:pointer;font-size:0.75rem;font-weight:600;transition:all .15s;}
-.rbt:hover,.rbt.on{background:rgba(255,255,255,0.95);border-color:var(--p2);}
-.rep-btn{padding:3px 8px;border-radius:14px;border:1.5px solid var(--b1);background:rgba(255,255,255,0.7);cursor:pointer;font-size:0.75rem;font-weight:600;color:var(--b3);transition:all .15s;}
-.rep-btn:hover{background:white;}
-.replies-wrap{margin-top:9px;border-top:1px dashed rgba(74,63,92,0.13);padding-top:8px;display:none;}
-.reply-item{background:rgba(255,255,255,0.7);border-radius:8px;padding:6px 10px;margin-bottom:5px;font-size:0.79rem;}
-.reply-meta{font-size:0.68rem;color:var(--muted);margin-bottom:2px;font-weight:700;}
-.reply-irow{display:flex;gap:5px;margin-top:7px;}
-.reply-irow input{flex:1;padding:6px 9px;border-radius:8px;border:1.5px solid var(--b1);font-family:'Quicksand',sans-serif;font-size:0.79rem;outline:none;background:rgba(255,255,255,0.8);}
-.reply-irow button{padding:6px 10px;border-radius:8px;background:var(--b2);color:white;border:none;font-family:'Quicksand',sans-serif;font-weight:700;cursor:pointer;font-size:0.76rem;}
-
-/* ── WALL POST FORM ── */
-.wall-form{background:linear-gradient(135deg,#FFF0F4,#EEF6FF);border-radius:var(--r);padding:16px;margin-bottom:16px;}
-
-/* ── PRAYER WALL ── */
-.pray-board{display:flex;flex-direction:column;gap:10px;}
-.pcard{background:white;border-radius:var(--r);padding:14px;border:2px solid var(--lav);box-shadow:0 3px 11px rgba(179,157,219,0.15);}
-.pcard-hdr{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap;}
-.ptag{background:var(--lav);color:var(--lav2);padding:2px 8px;border-radius:14px;font-size:0.69rem;font-weight:700;}
-.pstatus{padding:3px 9px;border-radius:14px;font-size:0.7rem;font-weight:700;}
-.ps-praying{background:#FFF5C2;color:#b8860b;}
-.ps-signs{background:#FFE0E9;color:var(--p3);}
-.ps-progress{background:var(--b1);color:var(--b3);}
-.ps-answered{background:var(--mint);color:#3a8a5a;}
-.ps-different{background:var(--lav);color:var(--lav2);}
-.pst-btns{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0;}
-.pst-btn{padding:4px 9px;border-radius:14px;border:1.5px solid #e0d0f0;background:white;cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.69rem;transition:all .2s;}
-.pst-btn.on{background:var(--lav);border-color:var(--lav2);}
-
-/* ── BIBLE MODAL ── */
-.bmod{position:fixed;inset:0;background:rgba(74,63,92,0.6);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:17px;}
-.bmod.show{display:flex;}
-.bmod-box{background:var(--white);border-radius:var(--r);padding:19px;max-width:450px;width:100%;max-height:83vh;overflow-y:auto;box-shadow:0 16px 48px rgba(74,63,92,0.22);}
-.bmod-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;}
-.bmod-hdr h3{font-family:'Playfair Display',serif;font-size:1rem;}
-.closex{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);}
-.trow{display:flex;gap:6px;margin-bottom:9px;}
-.trbtn{padding:4px 12px;border-radius:8px;border:2px solid var(--p2);background:white;cursor:pointer;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.76rem;transition:all .2s;}
-.trbtn.on{background:var(--p2);color:white;}
-.bmod-verse{font-family:'Playfair Display',serif;font-style:italic;font-size:0.95rem;line-height:1.8;padding:12px;background:#FFF0F4;border-radius:var(--r2);}
-
-/* ── MISC ── */
-.empty{text-align:center;padding:30px 16px;color:var(--muted);}
-.empty .ei{font-size:2.5rem;margin-bottom:7px;}
-.divider{text-align:center;color:var(--p2);font-size:0.9rem;letter-spacing:7px;margin:14px 0;opacity:0.45;}
-.file-input{display:none;}
-.photo-upload{border:2px dashed var(--p2);border-radius:var(--r2);padding:11px;text-align:center;cursor:pointer;background:rgba(255,143,171,0.03);}
-.sync-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;margin-bottom:10px;}
-.sync-ok{background:var(--mint);color:#3a8a5a;}
-.sync-err{background:#FFE0E9;color:var(--p3);}
-.sync-loading{background:var(--yellow);color:#b8860b;}
-</style>
-</head>
-<body>
-<div class="cbg c1">✝</div><div class="cbg c2">✝</div><div class="cbg c3">✝</div><div class="cbg c4">✝</div>
-
-<!-- BIBLE MODAL -->
-<div class="bmod" id="bMod">
-  <div class="bmod-box">
-    <div class="bmod-hdr"><h3 id="bMRef">–</h3><button class="closex" onclick="closeBM()">✕</button></div>
-    <div class="trow">
-      <button class="trbtn on" onclick="setBT('tb',this)">TB</button>
-      <button class="trbtn" onclick="setBT('niv',this)">NIV</button>
-    </div>
-    <div class="bmod-verse" id="bMVerse">–</div>
-  </div>
-</div>
-
-<!-- HEADER -->
-<div class="hdr">
-  <div class="hdr-t">🌸 Bible Journal</div>
-  <div class="usr-sw">
-    <button class="ubtn on" onclick="setUser('rara',this)">👑 Rara</button>
-    <button class="ubtn jj" onclick="setUser('jiji',this)">🌙 Jiji</button>
-  </div>
-</div>
-
-<!-- NAV -->
-<div class="nav">
-  <button class="tbtn on" onclick="goTab('home',this)">🏠 Home</button>
-  <button class="tbtn" onclick="goTab('journal',this)">📖 Journal</button>
-  <button class="tbtn" onclick="goTab('reading',this)">📚 Reading</button>
-  <button class="tbtn" onclick="goTab('calendar',this)">📅 Calendar</button>
-  <button class="tbtn" onclick="goTab('wall',this)">💕 Wall</button>
-</div>
-
-<div class="main">
-
-<!-- ═══ HOME ═══ -->
-<div class="tc on" id="tc-home">
-  <div style="text-align:center;margin-bottom:15px;">
-    <div style="font-family:'Playfair Display',serif;font-size:1.45rem;background:linear-gradient(135deg,var(--p3),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Halo, <span id="welN">Rara</span>! 🌷</div>
-    <div style="font-size:0.77rem;color:var(--muted);margin-top:3px;" id="todayStr"></div>
-    <div id="syncBadge" class="sync-badge sync-loading" style="margin-top:6px;">⏳ Menghubungkan ke sheet...</div>
-  </div>
-  <div class="g3" style="margin-bottom:15px;">
-    <div class="scard"><div class="sc-em">📖</div><div class="sc-n" id="sJ">0</div><div class="sc-l">Journal</div></div>
-    <div class="scard" style="border-color:var(--b1);"><div class="sc-em">✅</div><div class="sc-n" id="sP" style="color:var(--b3);">0%</div><div class="sc-l">Reading</div></div>
-    <div class="scard" style="border-color:var(--lav);"><div class="sc-em">🙏</div><div class="sc-n" id="sPr" style="color:var(--lav2);">0</div><div class="sc-l">Doa</div></div>
-  </div>
-  <div class="dverse" onclick="nextDV()">
-    <div class="dv-lbl">✨ Ayat Hari Ini — tap untuk ganti</div>
-    <div class="dv-text" id="dvT">–</div>
-    <div class="dv-ref" id="dvR"></div>
-    <div class="dv-tap">tap to refresh 🌸</div>
-  </div>
-  <div class="divider">✝ ✝ ✝</div>
-  <div class="stitle">✨ Fakta & Cerita Alkitab</div>
-  <div class="ff-grid">
-    <div class="ffc pink" onclick="tapFF(0)"><div class="ffc-icon">📜</div><div class="ffc-lbl">Fun Fact</div><div class="ffc-text" id="fft0">Tap!</div><div class="ffc-detail" id="ffd0"></div><div class="ffc-tap">tap = next • 2x = detail ✨</div></div>
-    <div class="ffc blue" onclick="tapFF(1)"><div class="ffc-icon">🗺️</div><div class="ffc-lbl">Sejarah</div><div class="ffc-text" id="fft1">Tap!</div><div class="ffc-detail" id="ffd1"></div><div class="ffc-tap">tap = next • 2x = detail 💙</div></div>
-    <div class="ffc lav" onclick="tapFF(2)"><div class="ffc-icon">🎭</div><div class="ffc-lbl">Cerita Unik</div><div class="ffc-text" id="fft2">Tap!</div><div class="ffc-detail" id="ffd2"></div><div class="ffc-tap">tap = next • 2x = detail 💜</div></div>
-    <div class="ffc mint" onclick="tapFF(3)"><div class="ffc-icon">💡</div><div class="ffc-lbl">Tahukah Kamu?</div><div class="ffc-text" id="fft3">Tap!</div><div class="ffc-detail" id="ffd3"></div><div class="ffc-tap">tap = next • 2x = detail 💚</div></div>
-  </div>
-  <div class="home-hist">
-    <div class="stitle">📚 Semua Journal (History)</div>
-    <div id="homeHist"></div>
-  </div>
-</div>
-
-<!-- ═══ JOURNAL ═══ -->
-<div class="tc" id="tc-journal">
-  <div class="stitle">📖 Tulis Journal Baru</div>
-  <div class="fbox">
-    <div class="fg" style="margin-bottom:10px;"><label>📝 Judul (auto-generate jika kosong)</label><input type="text" id="jTitle" placeholder="cth: Refleksi Kasih Allah..."></div>
-    <div class="frow">
-      <div class="fg"><label>📅 Tanggal</label><input type="date" id="jDate"></div>
-      <div class="fg"><label>😊 Mood</label>
-        <div class="mrow" id="mRow">
-          <button class="mbtn" onclick="pickM(this,'😄')">😄</button>
-          <button class="mbtn" onclick="pickM(this,'😊')">😊</button>
-          <button class="mbtn" onclick="pickM(this,'😐')">😐</button>
-          <button class="mbtn" onclick="pickM(this,'😢')">😢</button>
-          <button class="mbtn" onclick="pickM(this,'🙏')">🙏</button>
-          <button class="mbtn" onclick="pickM(this,'❤️')">❤️</button>
-          <button class="mbtn" onclick="pickM(this,'✨')">✨</button>
-          <button class="mbtn" onclick="pickM(this,'🔥')">🔥</button>
-        </div>
-      </div>
-    </div>
-    <div class="fg" style="margin-bottom:10px;">
-      <label>📖 Pilih Ayat</label>
-      <div class="vbooks" id="jBks"></div>
-      <div class="vprow"><input type="number" id="jPs" placeholder="Pasal" min="1" oninput="upV('j')"><input type="number" id="jAy" placeholder="Ayat" min="1" oninput="upV('j')"></div>
-      <div class="vres" id="jVR">
-        <div class="vtrow"><button class="vtab on" onclick="swVT('j','tb',this)">TB</button><button class="vtab" onclick="swVT('j','niv',this)">NIV</button></div>
-        <div class="vbody" id="jVT">–</div>
-      </div>
-    </div>
-    <div class="fg" style="margin-bottom:10px;"><label>💬 Catatan / Renungan</label><textarea id="jNote" rows="3" placeholder="Apa yang Tuhan taruh di hatimu hari ini?"></textarea></div>
-    <div class="fg" style="margin-bottom:10px;"><label>🏷️ Tags (Enter to add)</label><input type="text" id="jTagIn" placeholder="Ketik tag + Enter" onkeydown="addTag(event)"><div class="tchips" id="jTC"></div></div>
-    <div class="fg" style="margin-bottom:10px;"><label>📸 Foto (opsional)</label><div class="photo-upload" onclick="document.getElementById('jPh').click()"><div id="phWrap"><div style="font-size:1.5rem">📷</div><div style="font-size:0.75rem;color:var(--muted)">Tap untuk pilih foto</div></div></div><input type="file" class="file-input" id="jPh" accept="image/*" onchange="prevPh(this)"></div>
-    <div class="frow">
-      <div class="fg"><label>🔒 Private?</label><select id="jPriv" onchange="document.getElementById('jPinW').style.display=this.value==='yes'?'flex':'none'"><option value="no">Tidak</option><option value="yes">Ya (dengan PIN)</option></select></div>
-      <div class="fg" id="jPinW" style="display:none;"><label>🔑 Set PIN (4-6 digit)</label><input type="password" id="jPin" maxlength="6" placeholder="••••••"></div>
-    </div>
-    <button class="btn-main" onclick="saveJ()">💾 Simpan Journal 🌸</button>
-  </div>
-  <div class="sbar"><input type="text" id="jSrch" placeholder="🔍 Cari journal, tag, ayat..." oninput="renderJ()"></div>
-  <div class="stitle">📚 Semua Entries</div>
-  <div id="jList"></div>
-</div>
-
-<!-- ═══ READING ═══ -->
-<div class="tc" id="tc-reading">
-  <div class="stitle">📚 Reading Plan</div>
-  <div class="stabs">
-    <button class="stbtn on" onclick="goST('rp-p',this)">📋 Progress</button>
-    <button class="stbtn" onclick="goST('rp-d',this)">✅ Selesai</button>
-    <button class="stbtn" onclick="goST('rp-n',this)">✏️ Buat Plan</button>
-  </div>
-  <div class="stc on" id="stc-rp-p">
-    <div class="prog-w"><div class="prog-l"><span>Total Progress</span><span id="progT">0/0</span></div><div class="prog-b"><div class="prog-f" id="progF" style="width:0%"></div></div></div>
-    <div id="rpList"></div>
-  </div>
-  <div class="stc" id="stc-rp-d"><div id="rpDone"></div></div>
-  <div class="stc" id="stc-rp-n">
-    <div class="stitle" style="font-size:0.92rem;">📋 Template Siap Pakai</div>
-    <div class="tpl-grid" id="tplG"></div>
-    <div class="fbox" style="margin-bottom:0;">
-      <div class="fg" style="margin-bottom:9px;"><label>📝 Nama Plan</label><input type="text" id="rpN" placeholder="Nama reading plan..."></div>
-      <div id="rpDI"><div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" placeholder="Hari 1 — cth: Matius 1-2" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div></div>
-      <button onclick="addRD()" style="padding:5px 13px;border-radius:8px;border:2px solid var(--b2);background:white;cursor:pointer;font-family:Quicksand,sans-serif;font-weight:700;color:var(--b3);margin-bottom:8px;font-size:0.78rem;">+ Tambah Hari</button>
-      <button class="btn-main btn-bl" onclick="saveRP()">💾 Simpan Plan</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ CALENDAR ═══ -->
-<div class="tc" id="tc-calendar">
-  <div class="stitle">📅 Calendar</div>
-  <div class="cal-hdr"><button class="cal-nav" onclick="chM(-1)">‹</button><h3 id="calMY"></h3><button class="cal-nav" onclick="chM(1)">›</button></div>
-  <div class="cal-leg"><span><div class="dr"></div>Rara</span><span><div class="dj"></div>Jiji</span></div>
-  <div class="cal-grid" id="calG">
-    <div class="cdlbl">Min</div><div class="cdlbl">Sen</div><div class="cdlbl">Sel</div>
-    <div class="cdlbl">Rab</div><div class="cdlbl">Kam</div><div class="cdlbl">Jum</div><div class="cdlbl">Sab</div>
-  </div>
-  <div class="cal-list" id="calL"></div>
-</div>
-
-<!-- ═══ WALL ═══ -->
-<div class="tc" id="tc-wall">
-  <div class="stabs">
-    <button class="stbtn on" onclick="goST('w-s',this)">💕 Shared Wall</button>
-    <button class="stbtn" onclick="goST('w-p',this)">🙏 Prayer Wall</button>
-  </div>
-
-  <div class="stc on" id="stc-w-s">
-    <div class="wall-form">
-      <div class="fg" style="margin-bottom:9px;"><label>💬 Share sesuatu...</label><textarea id="wTxt" rows="2" placeholder="Renungan, ayat favorit, atau momen indah..."></textarea></div>
-      <div class="fg" style="margin-bottom:9px;">
-        <label>📖 Ayat (opsional)</label>
-        <div class="vbooks" id="wBks" style="max-height:60px;"></div>
-        <div class="vprow"><input type="number" id="wPs" placeholder="Pasal" oninput="upV('w')"><input type="number" id="wAy" placeholder="Ayat" oninput="upV('w')"></div>
-        <div class="vres" id="wVR" style="margin-top:4px;">
-          <div class="vtrow"><button class="vtab on" onclick="swVT('w','tb',this)">TB</button><button class="vtab" onclick="swVT('w','niv',this)">NIV</button></div>
-          <div class="vbody" id="wVT">–</div>
-        </div>
-      </div>
-      <button class="btn-main" onclick="postW()">📌 Pin ke Wall</button>
-    </div>
-    <div class="board" id="wallB"></div>
-  </div>
-
-  <div class="stc" id="stc-w-p">
-    <div class="fbox" style="background:linear-gradient(135deg,#EEE0FF,#FFE0E9);margin-bottom:14px;">
-      <div class="fg" style="margin-bottom:9px;"><label>🙏 Pokok Doa</label><input type="text" id="pTit" placeholder="Apa yang kamu doakan?"></div>
-      <div class="fg" style="margin-bottom:9px;"><label>💬 Detail</label><textarea id="pDet" rows="2" placeholder="Ceritakan lebih..."></textarea></div>
-      <div class="frow">
-        <div class="fg"><label>👥 Untuk</label><select id="pFor"><option value="both">Berdua 🤝</option><option value="rara">Rara saja</option><option value="jiji">Jiji saja</option></select></div>
-        <div class="fg"><label>👁️ Visibilitas</label><select id="pVis"><option value="shared">Shared</option><option value="private">Private</option></select></div>
-      </div>
-      <button class="btn-main btn-lv" onclick="savePr()">🙏 Simpan Doa</button>
-    </div>
-    <div class="pray-board" id="prayB"></div>
-  </div>
-</div>
-
-</div><!-- end .main -->
-
-<script>
-// ════════════════════════════════
-// CONFIG & STATE
-// ════════════════════════════════
-const SHEET='https://script.google.com/macros/s/AKfycbwCZfAilhJZsStkU4FOHZRwOFIWaHaHdLrkOVeSyEOa39UuLepJ-SxXnI2TMByiyhM/exec';
-let DB={journals:[],plans:[],wallPosts:[],prayers:[]};
-let curUser='rara',curMood='',jTags=[],phData=null;
-let pSt={j:{book:'',trans:'tb',ref:''},w:{book:'',trans:'tb',ref:''}};
-let calM=new Date().getMonth(),calY=new Date().getFullYear();
-let ffIdx=[0,0,0,0],ffShowing=[false,false,false,false],dvIdx=0;
-let curBRef='',curBTrans='tb';
-const PIN_COLORS=['pink-pin','blue-pin','lav-pin','yellow-pin'];
-const PIN_DOTS=['r','b','l','y'];
-
-// ════════════════════════════════
-// BIBLE DATA
-// ════════════════════════════════
-const BOOKS=['Kejadian','Keluaran','Imamat','Bilangan','Ulangan','Yosua','Hakim-hakim','Rut','1 Samuel','2 Samuel','1 Raja-raja','2 Raja-raja','1 Tawarikh','2 Tawarikh','Ezra','Nehemia','Ester','Ayub','Mazmur','Amsal','Pengkhotbah','Kidung Agung','Yesaya','Yeremia','Ratapan','Yehezkiel','Daniel','Hosea','Yoel','Amos','Obaja','Yunus','Mikha','Nahum','Habakuk','Zefanya','Hagai','Zakharia','Maleakhi','Matius','Markus','Lukas','Yohanes','Kisah Para Rasul','Roma','1 Korintus','2 Korintus','Galatia','Efesus','Filipi','Kolose','1 Tesalonika','2 Tesalonika','1 Timotius','2 Timotius','Titus','Filemon','Ibrani','Yakobus','1 Petrus','2 Petrus','1 Yohanes','2 Yohanes','3 Yohanes','Yudas','Wahyu'];
-const VDB={tb:{'Yohanes 3:16':'Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.','Yohanes 3:17':'Sebab Allah mengutus Anak-Nya ke dalam dunia bukan untuk menghakimi dunia, melainkan untuk menyelamatkannya oleh Dia.','Yohanes 14:6':'Kata Yesus kepadanya: Akulah jalan dan kebenaran dan hidup.','Yohanes 1:1':'Pada mulanya adalah Firman; Firman itu bersama-sama dengan Allah dan Firman itu adalah Allah.','Yeremia 29:11':'Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan.','Filipi 4:13':'Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku.','Filipi 4:6':'Janganlah hendaknya kamu kuatir tentang apapun juga, tetapi nyatakanlah dalam segala hal keinginanmu kepada Allah dalam doa dan permohonan dengan ucapan syukur.','Mazmur 23:1':'TUHAN adalah gembalaku, takkan kekurangan aku.','Mazmur 23:2':'Ia membaringkan aku di padang yang berumput hijau, Ia membimbing aku ke air yang tenang.','Roma 8:28':'Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan bagi mereka yang mengasihi Dia.','Roma 8:38':'Sebab aku yakin, bahwa baik maut, maupun hidup, tidak akan dapat memisahkan kita dari kasih Allah, yang ada dalam Kristus Yesus, Tuhan kita.','Matius 6:33':'Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.','Amsal 3:5':'Percayalah kepada TUHAN dengan segenap hatimu dan janganlah bersandar kepada pengertianmu sendiri.','Amsal 3:6':'Akuilah Dia dalam segala lakumu, maka Ia akan meluruskan jalanmu.','Yesaya 40:31':'Tetapi orang-orang yang menanti-nantikan TUHAN mendapat kekuatan baru: mereka seumpama rajawali yang naik terbang dengan kekuatan sayapnya.','1 Korintus 13:4':'Kasih itu sabar; kasih itu murah hati; ia tidak cemburu. Ia tidak memegahkan diri dan tidak sombong.','1 Korintus 13:13':'Demikianlah tinggal ketiga hal ini, yaitu iman, pengharapan dan kasih, dan yang paling besar di antaranya ialah kasih.','Efesus 2:8':'Sebab karena kasih karunia kamu diselamatkan oleh iman; itu bukan hasil usahamu, tetapi pemberian Allah.','Galatia 5:22':'Tetapi buah Roh ialah: kasih, sukacita, damai sejahtera, kesabaran, kemurahan, kebaikan, kesetiaan.','Wahyu 21:4':'Dan Ia akan menghapus segala air mata dari mata mereka, dan maut tidak akan ada lagi.','Mazmur 119:105':'Firman-Mu itu pelita bagi langkahku dan terang bagi jalanku.','Ibrani 11:1':'Iman adalah dasar dari segala sesuatu yang kita harapkan dan bukti dari segala sesuatu yang tidak kita lihat.','Kolose 3:23':'Apapun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia.','Matius 5:9':'Berbahagialah orang yang membawa damai, karena mereka akan disebut anak-anak Allah.','Mazmur 46:1':'Allah itu bagi kita tempat perlindungan dan kekuatan, sebagai penolong dalam kesesakan sangat terbukti.','Kejadian 1:1':'Pada mulanya Allah menciptakan langit dan bumi.','Kejadian 1:3':'Berfirmanlah Allah: "Jadilah terang." Lalu terang itu jadi.'},niv:{'Yohanes 3:16':'For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.','Yohanes 3:17':'For God did not send his Son into the world to condemn the world, but to save the world through him.','Yohanes 14:6':'Jesus answered, I am the way and the truth and the life. No one comes to the Father except through me.','Yohanes 1:1':'In the beginning was the Word, and the Word was with God, and the Word was God.','Yeremia 29:11':'For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.','Filipi 4:13':'I can do all this through him who gives me strength.','Filipi 4:6':'Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.','Mazmur 23:1':'The Lord is my shepherd, I lack nothing.','Mazmur 23:2':'He makes me lie down in green pastures, he leads me beside quiet waters.','Roma 8:28':'And we know that in all things God works for the good of those who love him.','Roma 8:38':'For I am convinced that neither death nor life, neither angels nor demons, will be able to separate us from the love of God.','Matius 6:33':'But seek first his kingdom and his righteousness, and all these things will be given to you as well.','Amsal 3:5':'Trust in the Lord with all your heart and lean not on your own understanding.','Amsal 3:6':'In all your ways submit to him, and he will make your paths straight.','Yesaya 40:31':'But those who hope in the Lord will renew their strength. They will soar on wings like eagles.','1 Korintus 13:4':'Love is patient, love is kind. It does not envy, it does not boast, it is not proud.','1 Korintus 13:13':'And now these three remain: faith, hope and love. But the greatest of these is love.','Efesus 2:8':'For it is by grace you have been saved, through faith — it is the gift of God.','Galatia 5:22':'But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness.','Wahyu 21:4':'He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain.','Mazmur 119:105':'Your word is a lamp for my feet, a light on my path.','Ibrani 11:1':'Now faith is confidence in what we hope for and assurance about what we do not see.','Kolose 3:23':'Whatever you do, work at it with all your heart, as working for the Lord.','Matius 5:9':'Blessed are the peacemakers, for they will be called children of God.','Mazmur 46:1':'God is our refuge and strength, an ever-present help in trouble.','Kejadian 1:1':'In the beginning God created the heavens and the earth.','Kejadian 1:3':'And God said, "Let there be light," and there was light.'}};
-
-const DAILY=[
-  {r:'Yeremia 29:11',tb:'Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, yaitu rancangan damai sejahtera, untuk memberikan kepadamu hari depan yang penuh harapan.',niv:'For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.'},
-  {r:'Filipi 4:13',tb:'Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku.',niv:'I can do all this through him who gives me strength.'},
-  {r:'Yohanes 3:16',tb:'Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.',niv:'For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.'},
-  {r:'Roma 8:28',tb:'Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan bagi mereka yang mengasihi Dia.',niv:'And we know that in all things God works for the good of those who love him.'},
-  {r:'Mazmur 23:1',tb:'TUHAN adalah gembalaku, takkan kekurangan aku.',niv:'The Lord is my shepherd, I lack nothing.'},
-  {r:'Amsal 3:5',tb:'Percayalah kepada TUHAN dengan segenap hatimu dan janganlah bersandar kepada pengertianmu sendiri.',niv:'Trust in the Lord with all your heart and lean not on your own understanding.'},
-  {r:'Yesaya 40:31',tb:'Orang-orang yang menanti-nantikan TUHAN mendapat kekuatan baru: mereka seumpama rajawali yang naik terbang dengan kekuatan sayapnya.',niv:'But those who hope in the Lord will renew their strength. They will soar on wings like eagles.'},
-  {r:'Matius 6:33',tb:'Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.',niv:'But seek first his kingdom and his righteousness, and all these things will be given to you as well.'},
-  {r:'Kolose 3:23',tb:'Apapun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia.',niv:'Whatever you do, work at it with all your heart, as working for the Lord.'},
-  {r:'1 Korintus 13:13',tb:'Demikianlah tinggal ketiga hal ini, yaitu iman, pengharapan dan kasih, dan yang paling besar di antaranya ialah kasih.',niv:'And now these three remain: faith, hope and love. But the greatest of these is love.'},
-];
-
-const FF=[
-  {items:[{t:'Kata "jangan takut" muncul 365 kali!',d:'Kata "jangan takut" atau "fear not" disebut tepat 365 kali dalam Alkitab — satu untuk setiap hari dalam setahun. Ini bukan kebetulan! Allah ingin kita tahu bahwa untuk setiap hari yang kita jalani, ada jaminan dari-Nya untuk tidak takut. Ini seperti surat cinta 365 lembar dari Bapa kepada kita.'},{t:'Alkitab ditulis oleh ~40 penulis dalam 1.500 tahun.',d:'Sekitar 40 penulis berbeda dari berbagai latar belakang menulis Alkitab selama 1.500 tahun di 3 benua (Asia, Afrika, Eropa), namun memiliki satu pesan yang konsisten tentang karya keselamatan Allah. Ini sendiri adalah mukjizat!'},{t:'Kata "kasih" muncul 500+ kali.',d:'Kata kasih (love/agape) muncul lebih dari 500 kali dalam Alkitab — karena memang kasih adalah inti dari seluruh pesan-Nya. 1 Yohanes 4:8 berkata singkat: "Allah adalah kasih."'},{t:'Mazmur 117 hanya 2 ayat!',d:'Mazmur 117 adalah pasal terpendek dalam seluruh Alkitab dengan hanya 2 ayat. Sebaliknya, Mazmur 119 adalah yang terpanjang dengan 176 ayat — seluruhnya memuji Firman Allah.'},{t:'Ada 40 nubuat tentang Mesias di PL.',d:'Ada sekitar 40-300 nubuat tentang Mesias di Perjanjian Lama yang digenapi oleh Yesus di Perjanjian Baru — dari tempat kelahiran, cara masuk Yerusalem, cara kematian, hingga kebangkitan.'}]},
-  {items:[{t:'Yerusalem disebut 800+ kali dalam Alkitab.',d:'Yerusalem adalah kota yang paling banyak disebut — lebih dari 800 kali. Kota ini adalah pusat dari sejarah keselamatan: dari pembangunan Bait Suci oleh Salomo hingga kematian dan kebangkitan Yesus.'},{t:'Bait Suci Salomo dibangun 183.300 pekerja!',d:'1 Raja-raja 5 mencatat Salomo menggunakan 183.300 pekerja untuk membangun Bait Suci — 30.000 penebang kayu, 70.000 pemikul beban, 80.000 pemotong batu. Proyek ini memakan waktu 7 tahun dan menggunakan emas serta kayu cedar terbaik.'},{t:'Tarsus, kota asal Paulus, ada di Turki modern.',d:'Rasul Paulus lahir di Tarsus — kota di Silisia yang kini berada di Turki selatan. Kota ini adalah pusat filsafat Yunani, yang membentuk kemampuan Paulus untuk mengkomunikasikan Injil kepada dunia Yunani-Romawi.'},{t:'Antiokhia: kota pertama menyebut "Kristen".',d:'Menurut Kisah 11:26, di Antiokhia (kini Antakya, Turki) para pengikut Yesus pertama kali disebut "Kristen". Kota ini juga menjadi basis misi Paulus. Sebuah nama yang lahir dari sebuah kota!'},{t:'Laut Mati adalah titik terendah di bumi.',d:'Laut Mati — tempat di dekat mana Gulungan Laut Mati ditemukan — adalah titik terendah di permukaan bumi, sekitar 430 meter di bawah permukaan laut. Saking asinnya, tidak ada makhluk hidup yang bisa bertahan di sana.'}]},
-  {items:[{t:'Bileam berdebat dengan keledainya! 🫏',d:'Dalam Bilangan 22, Allah membuka mulut keledai milik Bileam sehingga bisa berbicara! Keledai itu melihat malaikat yang menghalangi jalan. Yang lebih lucu — Bileam menjawab argumen keledai itu seolah percakapan dengan hewan adalah hal normal!'},{t:'2 beruang menghukum pengejek Elisa! 🐻',d:'Dalam 2 Raja-raja 2:23-24, sekelompok pemuda mengejek nabi Elisa dengan berteriak "Naiklah hai botak!" Elisa berbalik, mengutuk mereka atas nama Tuhan, dan dua ekor beruang betina keluar dari hutan dan menerkam 42 pemuda. Pesan: jangan ejek hamba Tuhan!'},{t:'Matahari berhenti bergerak hampir sehari! ☀️',d:'Yosua 10:12-13 mencatat mukjizat luar biasa: Yosua berdoa agar matahari dan bulan berhenti, dan keduanya berhenti hampir sehari penuh! Ayat 14 berkata: "Tidak pernah ada hari seperti itu sebelumnya atau sesudahnya."'},{t:'Eutikus jatuh dari lantai 3 saat Paulus khotbah! 💤',d:'Kisah 20:7-12 menceritakan pemuda bernama Eutikus yang duduk di jendela lantai 3 saat Paulus berkhotbah hingga tengah malam. Ia tertidur, jatuh ke bawah — dan mati. Paulus turun, memeluknya, membangkitkannya, lalu naik lagi dan melanjutkan khotbah sampai subuh!'},{t:'Gideon menang perang dengan 300 prajurit! ⚔️',d:'Dalam Hakim-hakim 7, Allah menyuruh Gideon mengurangi pasukannya dari 32.000 menjadi hanya 300 orang — untuk melawan puluhan ribu musuh. Senjata mereka? Terompet, kendi, dan obor. Dan mereka menang total!'}]},
-  {items:[{t:'Alkitab = buku terlaris: 5 miliar+ kopi!',d:'Alkitab adalah buku yang paling banyak dicetak dan didistribusikan dalam sejarah manusia — lebih dari 5 miliar kopi. Diterjemahkan dalam lebih dari 3.000 bahasa, menjangkau ~95% penduduk dunia.'},{t:'Martin Luther terjemahkan Alkitab dalam 11 minggu!',d:'Pada 1521, Martin Luther ditahan di Kastil Wartburg setelah dikucilkan Gereja. Selama 11 minggu, ia menerjemahkan seluruh PB ke bahasa Jerman dari teks Yunani asli — sebuah prestasi luar biasa yang membuat Alkitab bisa dibaca rakyat biasa!'},{t:'Seluruh Alkitab bisa dibaca lantang dalam ~70 jam.',d:'Jika kamu membaca Alkitab dengan kecepatan normal, kamu akan selesai dalam sekitar 70 jam — 52 jam untuk PL dan 18 jam untuk PB. Jika 15 menit per hari, selesai dalam 1 tahun!'},{t:'Gutenberg mencetak Alkitab pertama sekitar 1455.',d:'Johannes Gutenberg mencetak Alkitab pertama menggunakan mesin cetak yang ia ciptakan sekitar 1455. Ini adalah buku pertama yang dicetak massal di Eropa, merevolusi penyebaran informasi dan memungkinkan Reformasi Protestan!'},{t:'Yesus mengutip 24 kitab PL dalam pengajaran-Nya.',d:'Selama pelayanan-Nya, Yesus mengutip atau merujuk setidaknya 24 dari 39 kitab Perjanjian Lama. Kitab yang paling sering dikutip-Nya: Ulangan, Yesaya, dan Mazmur.'}]},
-];
-
-const CHARS=[{n:'Daud',d:'Pejuang & penyair. Jatuh tapi bangkit karena hati yang mengasihi Tuhan. 🎵'},{n:'Ester',d:'Berani & anggun. Rela mengambil risiko demi menyelamatkan bangsanya. 👑'},{n:'Maria Magdalena',d:'Setia sampai akhir — yang pertama melihat kebangkitan Yesus! 🌹'},{n:'Rut',d:'Loyal tanpa syarat. "Ke mana engkau pergi, aku pun ikut." 🌾'},{n:'Paulus',d:'Dari penganiaya jadi rasul terbesar. Passion yang diarahkan Tuhan! ✉️'},{n:'Daniel',d:'Tak goyah meski singa mengancam. Iman mengalahkan segalanya. 🦁'},{n:'Debora',d:'Hakim & nabi — pemimpin perempuan pertama Israel. Lahir untuk memimpin! 🌟'},{n:'Yusuf',d:'Dijual saudara tapi Tuhan punya rencana. Mimpimu AKAN terwujud. 🌈'},{n:'Abigail',d:'Bijaksana & berani. Mencegah pertumpahan darah dengan hikmat. 💎'},{n:'Timotius',d:'Muda tapi dewasa. Tidak minder karena usia, tapi berjalan dalam iman. 💪'}];
-
-const TPLS=[
-  {id:'pl7',i:'📜',n:'Perjanjian Lama 7 Hari',d:'Highlight PL dalam seminggu',days:['Kejadian 1-3','Keluaran 1-4','Mazmur 1-10','Amsal 1-5','Yesaya 40-42','Yeremia 29','Daniel 1-3']},
-  {id:'pb7',i:'✝️',n:'Perjanjian Baru 7 Hari',d:'Highlight PB dalam seminggu',days:['Matius 1-5','Lukas 2 & 15','Yohanes 1-3','Roma 1 & 8','1 Korintus 13','Efesus 1-3','Wahyu 21-22']},
-  {id:'ps30',i:'🎵',n:'Mazmur 30 Hari',d:'Satu mazmur setiap hari',days:Array.from({length:30},(_,i)=>`Mazmur ${i+1}`)},
-  {id:'pb30',i:'📖',n:'PB 30 Hari',d:'Seluruh Perjanjian Baru',days:['Matius 1-4','Matius 5-7','Matius 8-11','Matius 12-15','Matius 16-19','Matius 20-23','Matius 24-28','Markus 1-4','Markus 5-8','Markus 9-12','Markus 13-16','Lukas 1-4','Lukas 5-8','Lukas 9-12','Lukas 13-16','Lukas 17-20','Lukas 21-24','Yohanes 1-4','Yohanes 5-8','Yohanes 9-12','Yohanes 13-16','Yohanes 17-21','Kisah 1-7','Kisah 8-14','Roma 1-8','Roma 9-16','1 & 2 Korintus','Galatia - Kolose','1 Tes - Filemon','Ibrani - Wahyu']},
-  {id:'pl90',i:'📜',n:'Perjanjian Lama 90 Hari',d:'PL lengkap dalam 3 bulan',days:['Kejadian 1-5','Kejadian 6-11','Kejadian 12-17','Kejadian 18-23','Kejadian 24-29','Kejadian 30-36','Kejadian 37-41','Kejadian 42-47','Kejadian 48-50 & Kel 1-2','Keluaran 3-8','Keluaran 9-14','Keluaran 15-20','Keluaran 21-27','Keluaran 28-34','Keluaran 35-40','Imamat 1-7','Imamat 8-14','Imamat 15-21','Imamat 22-27','Bilangan 1-6','Bilangan 7-12','Bilangan 13-18','Bilangan 19-24','Bilangan 25-30','Bilangan 31-36','Ulangan 1-6','Ulangan 7-12','Ulangan 13-18','Ulangan 19-24','Ulangan 25-30','Ulangan 31-34 & Yos 1','Yosua 2-8','Yosua 9-15','Yosua 16-22','Yosua 23-24 & Hak 1-2','Hakim 3-9','Hakim 10-16','Hakim 17-21 & Rut','1 Samuel 1-6','1 Samuel 7-12','1 Samuel 13-18','1 Samuel 19-24','1 Samuel 25-31','2 Samuel 1-6','2 Samuel 7-12','2 Samuel 13-18','2 Samuel 19-24','1 Raja 1-6','1 Raja 7-12','1 Raja 13-18','1 Raja 19-22','2 Raja 1-7','2 Raja 8-14','2 Raja 15-21','2 Raja 22-25','Ayub 1-10','Ayub 11-20','Ayub 21-30','Ayub 31-42','Mazmur 1-20','Mazmur 21-40','Mazmur 41-60','Mazmur 61-80','Mazmur 81-100','Mazmur 101-120','Mazmur 121-150','Amsal 1-10','Amsal 11-20','Amsal 21-31','Pengkhotbah & Kidung Agung','Yesaya 1-10','Yesaya 11-22','Yesaya 23-35','Yesaya 36-48','Yesaya 49-58','Yesaya 59-66','Yeremia 1-10','Yeremia 11-20','Yeremia 21-30','Yeremia 31-40','Yeremia 41-52','Ratapan 1-5','Yehezkiel 1-12','Yehezkiel 13-24','Yehezkiel 25-36','Yehezkiel 37-48','Daniel 1-6','Daniel 7-12','Hosea - Yoel','Amos - Yunus','Mikha - Maleakhi']},
-  {id:'gospels',i:'✨',n:'4 Injil 28 Hari',d:'Matius, Markus, Lukas, Yohanes',days:['Matius 1-4','Matius 5-7','Matius 8-10','Matius 11-13','Matius 14-17','Matius 18-21','Matius 22-25','Matius 26-28','Markus 1-4','Markus 5-8','Markus 9-12','Markus 13-16','Lukas 1-4','Lukas 5-8','Lukas 9-12','Lukas 13-16','Lukas 17-20','Lukas 21-24','Yohanes 1-4','Yohanes 5-8','Yohanes 9-12','Yohanes 13-16','Yohanes 17-21','Kisah 1-4','Kisah 5-9','Kisah 10-14','Kisah 15-20','Kisah 21-28']},
-  {id:'wisdom',i:'💡',n:'Kitab Hikmat 21 Hari',d:'Mazmur, Amsal, Pengkhotbah',days:Array.from({length:15},(_,i)=>`Mazmur ${i*10+1}-${i*10+10}`).concat(Array.from({length:5},(_,i)=>`Amsal ${i*6+1}-${i*6+6}`)).concat(['Pengkhotbah 1-6','Pengkhotbah 7-12'])},
-  {id:'custom',i:'✏️',n:'Custom Plan',d:'Buat planmu sendiri',days:[]},
-];
-
-const PRAY_ST=[{k:'praying',l:'🙏 Still Praying',c:'ps-praying'},{k:'signs',l:'🌱 Seeing Signs',c:'ps-signs'},{k:'progress',l:'✨ In Progress',c:'ps-progress'},{k:'answered',l:'🎉 Answered!',c:'ps-answered'},{k:'different',l:'🕊️ God Said Otherwise',c:'ps-different'}];
-
-// ════════════════════════════════
-// INIT
-// ════════════════════════════════
-window.onload=()=>{
-  const now=new Date();
-  document.getElementById('todayStr').textContent=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  document.getElementById('jDate').value=now.toISOString().split('T')[0];
-  dvIdx=Math.floor(Math.random()*DAILY.length);
-  showDV();
-  FF.forEach((_,i)=>{ffIdx[i]=Math.floor(Math.random()*FF[i].items.length);showFF(i);});
-  initBP('jBks','j');
-  initBP('wBks','w');
-  renderTpls();
-  renderAll();
-  loadSheet();
-};
-
-function renderAll(){renderJ();renderRP();renderWall();renderPrayers();renderCal();renderHomeHist();updateStats();}
-
-// ════════════════════════════════
-// SHEET SYNC
-// ════════════════════════════════
-function setSyncBadge(state,msg){
-  const b=document.getElementById('syncBadge');
-  b.className='sync-badge sync-'+state;
-  b.textContent=msg;
-}
-function loadSheet(){
-  setSyncBadge('loading','⏳ Menghubungkan...');
-  fetch(SHEET+'?action=getEntries')
-    .then(r=>r.json())
-    .then(d=>{
-      if(d.entries){
-        d.entries.forEach(e=>{
-          if(!DB.journals.find(j=>String(j.id)===String(e.id))){
-            DB.journals.push({
-              id:e.id,date:e.date,verse:e.verseRef,note:e.note,
-              title:e.note?(e.note.split(' ').slice(0,5).join(' ')+'...'):'',
-              mood:e.mood,trans:e.translation||'tb',
-              tags:(e.tags||'').split(',').filter(Boolean),
-              user:e.user||'rara',isPrivate:false,locked:false,pin:'',
-              character:CHARS[Math.floor(Math.random()*CHARS.length)],photo:null
-            });
-          }
-        });
-        setSyncBadge('ok',`✅ Tersambung · ${d.entries.length} entry`);
-        renderAll();
-      } else {
-        setSyncBadge('ok','✅ Tersambung (kosong)');
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
       }
-    })
-    .catch(()=>setSyncBadge('err','❌ Tidak tersambung · mode offline'));
-}
-function pushSheet(e){
-  fetch(SHEET,{method:'POST',body:JSON.stringify({
-    action:'addEntry',id:e.id,user:e.user,date:e.date,
-    verseRef:e.verse||'',verseText:e.verse?(VDB.tb[e.verse]||''):'',
-    translation:e.trans||'tb',note:e.note,mood:e.mood||'',
-    tags:(e.tags||[]).join(','),isPrivate:e.isPrivate||false,
-    createdAt:new Date().toISOString()
-  }),headers:{'Content-Type':'application/json'}})
-  .then(r=>r.json())
-  .then(d=>{ if(d.success)setSyncBadge('ok','✅ Tersimpan ke sheet!'); })
-  .catch(()=>setSyncBadge('err','❌ Gagal simpan ke sheet'));
-}
 
-// ════════════════════════════════
-// USER & TABS
-// ════════════════════════════════
-function setUser(u,btn){
-  curUser=u;
-  document.querySelectorAll('.ubtn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('welN').textContent=u==='rara'?'Rara':'Jiji';
-  renderAll();
-}
-function goTab(id,btn){
-  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.tc').forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('tc-'+id).classList.add('on');
-  if(id==='calendar')renderCal();
-}
-function goST(id,btn){
-  const p=btn.closest('.tc');
-  p.querySelectorAll('.stbtn').forEach(b=>b.classList.remove('on'));
-  p.querySelectorAll('.stc').forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('stc-'+id).classList.add('on');
-}
+      50% {
+        transform: translateY(-12px) rotate(4deg);
+      }
+    }
 
-// ════════════════════════════════
-// FUN FACTS & DAILY VERSE
-// ════════════════════════════════
-function showFF(i){
-  const el=document.getElementById('fft'+i);if(!el)return;
-  el.style.transition='opacity .16s';el.style.opacity=0;
-  document.getElementById('ffd'+i).classList.remove('show');
-  ffShowing[i]=false;
-  setTimeout(()=>{el.textContent=FF[i].items[ffIdx[i]].t;el.style.opacity=1;},160);
-}
-function tapFF(i){
-  if(!ffShowing[i]){
-    // First tap: show detail
-    const d=document.getElementById('ffd'+i);
-    d.textContent=FF[i].items[ffIdx[i]].d;
-    d.classList.add('show');
-    ffShowing[i]=true;
-  } else {
-    // Second tap: next item
-    ffIdx[i]=(ffIdx[i]+1)%FF[i].items.length;
-    showFF(i);
-  }
-}
-function showDV(){
-  const v=DAILY[dvIdx];
-  const t=document.getElementById('dvT');
-  t.style.transition='opacity .2s';t.style.opacity=0;
-  setTimeout(()=>{t.textContent='"'+v.tb+'"';t.style.opacity=1;},200);
-  document.getElementById('dvR').textContent='— '+v.r;
-}
-function nextDV(){dvIdx=(dvIdx+1)%DAILY.length;showDV();}
+    /* ── HEADER ── */
+    .hdr {
+      background: linear-gradient(135deg, rgba(255, 179, 198, 0.9), rgba(189, 224, 254, 0.9));
+      backdrop-filter: blur(18px);
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px var(--sh);
+    }
 
-// ════════════════════════════════
-// VERSE PICKER
-// ════════════════════════════════
-function initBP(containerId,pfx){
-  const el=document.getElementById(containerId);if(!el)return;
-  el.innerHTML=BOOKS.map(b=>`<button class="vbb" onclick="selBook('${pfx}','${b}',this)">${b}</button>`).join('');
-}
-function selBook(pfx,book,btn){
-  pSt[pfx].book=book;
-  btn.closest('.vbooks').querySelectorAll('.vbb').forEach(b=>b.classList.toggle('sel',b.textContent===book));
-  upV(pfx);
-}
-function upV(pfx){
-  const book=pSt[pfx]?.book||'';
-  const ps=document.getElementById(pfx+'Ps')?.value||'';
-  const ay=document.getElementById(pfx+'Ay')?.value||'';
-  const res=document.getElementById(pfx+'VR');
-  const txt=document.getElementById(pfx+'VT');
-  if(!book||!ps||!ay){if(res)res.style.display='none';return;}
-  const ref=`${book} ${ps}:${ay}`;
-  const trans=pSt[pfx]?.trans||'tb';
-  const found=VDB[trans][ref];
-  if(res)res.style.display='block';
-  if(txt)txt.textContent=found?`"${found}"`:(`Ayat "${ref}" belum ada di database lokal. Coba alkitab.sabda.org 🌸`);
-  pSt[pfx].ref=ref;
-}
-function swVT(pfx,trans,btn){
-  pSt[pfx].trans=trans;
-  const p=btn.closest('.vres');if(p){p.querySelectorAll('.vtab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-  upV(pfx);
-}
+    .hdr-t {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--p3), var(--b3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-// ════════════════════════════════
-// MOOD & TAGS
-// ════════════════════════════════
-function pickM(btn,e){document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');curMood=e;}
-function addTag(e){if(e.key==='Enter'){e.preventDefault();const v=document.getElementById('jTagIn').value.trim();if(v&&!jTags.includes(v)){jTags.push(v);renderTC();}document.getElementById('jTagIn').value='';}}
-function rmTag(t){jTags=jTags.filter(x=>x!==t);renderTC();}
-function renderTC(){document.getElementById('jTC').innerHTML=jTags.map(t=>`<div class="tchip">${t}<span class="trm" onclick="rmTag('${t}')">✕</span></div>`).join('');}
-function prevPh(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{phData=e.target.result;document.getElementById('phWrap').innerHTML=`<img src="${phData}" style="width:100%;border-radius:7px;max-height:110px;object-fit:cover;">`;};r.readAsDataURL(f);}
+    .usr-sw {
+      display: flex;
+      gap: 5px;
+    }
 
-// ════════════════════════════════
-// AUTO TITLE
-// ════════════════════════════════
-function genTitle(note,verse){
-  if(verse) return verse;
-  const words=note.trim().split(/\s+/).slice(0,6);
-  return words.join(' ')+(note.split(/\s+/).length>6?'...':'');
-}
+    .ubtn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 2px solid var(--p2);
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.79rem;
+      transition: all .2s;
+    }
 
-// ════════════════════════════════
-// JOURNAL
-// ════════════════════════════════
-function saveJ(){
-  const note=document.getElementById('jNote').value.trim();
-  if(!note){alert('Isi catatan dulu ya! 🌸');return;}
-  const titleInput=document.getElementById('jTitle').value.trim();
-  const verse=pSt.j.ref||'';
-  const isPriv=document.getElementById('jPriv').value==='yes';
-  const pin=document.getElementById('jPin').value;
-  const char=CHARS[Math.floor(Math.random()*CHARS.length)];
-  const autoTitle=titleInput||genTitle(note,verse);
-  const entry={id:Date.now(),date:document.getElementById('jDate').value,title:autoTitle,verse,note,mood:curMood,trans:'tb',tags:[...jTags],user:curUser,isPrivate:isPriv,locked:isPriv,pin,character:char,photo:phData};
-  DB.journals.unshift(entry);
-  if(!isPriv)pushSheet(entry);
-  // reset form
-  document.getElementById('jNote').value='';document.getElementById('jTitle').value='';
-  document.getElementById('jPs').value='';document.getElementById('jAy').value='';
-  document.getElementById('jVR').style.display='none';
-  document.getElementById('jBks').querySelectorAll('.vbb').forEach(b=>b.classList.remove('sel'));
-  pSt.j={book:'',trans:'tb',ref:''};
-  curMood='';jTags=[];phData=null;
-  document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('on'));
-  renderTC();
-  document.getElementById('phWrap').innerHTML='<div style="font-size:1.5rem">📷</div><div style="font-size:0.75rem;color:var(--muted)">Tap untuk pilih foto</div>';
-  renderJ();renderHomeHist();updateStats();renderWall();renderCal();
-  alert('Journal tersimpan! 🌸✝️');
-}
+    .ubtn.on {
+      background: var(--p2);
+      color: white;
+    }
 
-function renderJ(){
-  const list=document.getElementById('jList');
-  const q=(document.getElementById('jSrch')?.value||'').toLowerCase();
-  let js=DB.journals.filter(j=>j.user===curUser);
-  if(q)js=js.filter(j=>(j.title+j.note+j.verse+(j.tags||[]).join(' ')).toLowerCase().includes(q));
-  if(!js.length){list.innerHTML='<div class="empty"><div class="ei">📖</div><p>Belum ada journal. Mulai menulis! 🌸</p></div>';return;}
-  list.innerHTML=js.map(j=>{
-    const vt=j.verse?VDB.tb[j.verse]:'';
-    return `<div class="jcard">
-      ${j.isPrivate?`<div class="lock-bar" onclick="toggleLock(${j.id})">
-        <div class="lock-bar-l">
-          <span style="font-size:1.2rem">${j.locked?'🔒':'🔓'}</span>
-          <div><div class="lock-bar-title">${j.title||'Journal'}</div><div class="lock-bar-sub">${j.date} ${j.mood||''} ${j.verse?'· '+j.verse:''}</div></div>
-        </div>
-        <button class="lock-bar-btn">${j.locked?'Buka PIN':'Kunci'}</button>
-      </div>`:`
-      <div class="jcard-hdr">
-        <span style="font-size:1.05rem">${j.mood||'📖'}</span>
-        <span class="jdate">${j.date}</span>
-        ${j.verse?`<span class="vtag" onclick="openBM('${j.verse}')">📖 ${j.verse}</span>`:''}
-      </div>`}
-      <div id="jb-${j.id}" ${j.isPrivate&&j.locked?'style="display:none"':''}>
-        ${j.isPrivate?'':`<div style="font-weight:700;font-size:0.88rem;margin-bottom:5px;color:var(--text)">${j.title||''}</div>`}
-        ${vt?`<div style="font-style:italic;font-size:0.79rem;color:var(--muted);margin-bottom:6px;padding:6px 9px;background:var(--b1);border-radius:8px;line-height:1.5">"${vt}"</div>`:''}
-        <div class="jtext">${j.note}</div>
-        ${j.photo?`<img src="${j.photo}" class="photo-prev">`:''}
-        ${j.tags?.length?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:6px">${j.tags.map(t=>`<span class="jtag">#${t}</span>`).join('')}</div>`:''}
-        ${j.character?`<div class="jchar">🌟 Hari ini kamu seperti <strong>${j.character.n}</strong> — ${j.character.d}</div>`:''}
+    .ubtn.jj.on {
+      background: var(--b2);
+      border-color: var(--b2);
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      gap: 4px;
+      padding: 10px 13px 0;
+      overflow-x: auto;
+      z-index: 1;
+      position: relative;
+    }
+
+    .nav::-webkit-scrollbar {
+      height: 0;
+    }
+
+    .tbtn {
+      padding: 8px 13px;
+      border-radius: 12px 12px 0 0;
+      border: 1.5px solid transparent;
+      border-bottom: none;
+      background: rgba(255, 255, 255, 0.38);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      transition: all .2s;
+    }
+
+    .tbtn.on {
+      background: var(--white);
+      color: var(--text);
+      border-color: rgba(255, 143, 171, 0.2);
+      box-shadow: 0 -3px 10px var(--sh);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      background: rgba(255, 250, 252, 0.94);
+      backdrop-filter: blur(12px);
+      margin: 0 13px 20px;
+      border-radius: 0 var(--r) var(--r) var(--r);
+      border: 1.5px solid rgba(255, 143, 171, 0.15);
+      min-height: 70vh;
+      padding: 19px;
+      box-shadow: 0 8px 30px var(--sh);
+      position: relative;
+      z-index: 1;
+    }
+
+    .tc {
+      display: none;
+      animation: fu .28s ease;
+    }
+
+    .tc.on {
+      display: block;
+    }
+
+    @keyframes fu {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stitle::after {
+      content: '';
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--p2), transparent);
+    }
+
+    /* ── STATS ── */
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    @media(max-width:460px) {
+      .g3 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .scard {
+      background: white;
+      border-radius: var(--r);
+      padding: 13px;
+      text-align: center;
+      border: 2px solid var(--p1);
+      box-shadow: 0 3px 11px var(--sh);
+      transition: transform .2s;
+    }
+
+    .scard:hover {
+      transform: translateY(-2px);
+    }
+
+    .sc-em {
+      font-size: 1.5rem;
+      margin-bottom: 3px;
+    }
+
+    .sc-n {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--p3);
+    }
+
+    .sc-l {
+      font-size: 0.69rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ── DAILY VERSE ── */
+    .dverse {
+      background: linear-gradient(135deg, #FFF0F4, #EEF6FF);
+      border-radius: var(--r);
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    .dverse:hover {
+      transform: scale(1.004);
+    }
+
+    .dv-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--p3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .dv-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+
+    .dv-ref {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    .dv-tap {
+      font-size: 0.66rem;
+      color: var(--muted);
+      text-align: right;
+      margin-top: 2px;
+    }
+
+    /* ── FUN FACTS ── */
+    .ff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    @media(max-width:420px) {
+      .ff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ffc {
+      border-radius: var(--r);
+      padding: 15px;
+      cursor: pointer;
+      transition: transform .22s;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .ffc:hover {
+      transform: scale(1.015);
+    }
+
+    .ffc.pink {
+      background: linear-gradient(135deg, #FFE0E9, #FFB3C6);
+    }
+
+    .ffc.blue {
+      background: linear-gradient(135deg, #DFF0FF, #BDE0FE);
+    }
+
+    .ffc.lav {
+      background: linear-gradient(135deg, #EEE0FF, #D9C0FF);
+    }
+
+    .ffc.mint {
+      background: linear-gradient(135deg, #DCF5E8, #B8EDD0);
+    }
+
+    .ffc-icon {
+      font-size: 1.7rem;
+      margin-bottom: 5px;
+    }
+
+    .ffc-lbl {
+      font-size: 0.66rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .ffc-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .ffc-detail {
+      display: none;
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px dashed rgba(74, 63, 92, 0.15);
+      font-size: 0.79rem;
+      line-height: 1.6;
+    }
+
+    .ffc-detail.show {
+      display: block;
+    }
+
+    .ffc-tap {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 6px;
+      text-align: right;
+    }
+
+    .ffc::after {
+      content: '✝';
+      position: absolute;
+      right: 9px;
+      top: 9px;
+      font-size: 1.4rem;
+      opacity: 0.07;
+    }
+
+    /* ── HOME HISTORY ── */
+    .home-hist {
+      margin-top: 18px;
+    }
+
+    .hist-card {
+      background: white;
+      border-radius: var(--r2);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border: 2px solid #FFE8EE;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .hist-card:hover {
+      border-color: var(--p2);
+      transform: translateX(2px);
+    }
+
+    .hist-card.jiji-card {
+      border-color: var(--b1);
+    }
+
+    .hist-card.jiji-card:hover {
+      border-color: var(--b2);
+    }
+
+    .hist-avtr {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .ha-r {
+      background: linear-gradient(135deg, var(--p2), var(--p1));
+    }
+
+    .ha-j {
+      background: linear-gradient(135deg, var(--b2), var(--b1));
+    }
+
+    .hist-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hist-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 3px;
+    }
+
+    .hist-name {
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .hist-date {
+      font-size: 0.71rem;
+      color: var(--muted);
+    }
+
+    .hist-title {
+      font-weight: 700;
+      font-size: 0.86rem;
+      margin-bottom: 2px;
+    }
+
+    .hist-snip {
+      font-size: 0.81rem;
+      color: var(--muted);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .hist-vtag {
+      background: var(--b1);
+      color: var(--b3);
+      padding: 1px 7px;
+      border-radius: 15px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .hist-locked {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── FORMS ── */
+    .fbox {
+      background: linear-gradient(135deg, #FFF0F4, #EEF6FF);
+      border-radius: var(--r);
+      padding: 17px;
+      margin-bottom: 16px;
+    }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    @media(max-width:460px) {
+      .frow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .fg label {
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .fg input,
+    .fg select,
+    .fg textarea {
+      padding: 8px 11px;
+      border-radius: var(--r2);
+      border: 2px solid rgba(255, 143, 171, 0.2);
+      background: white;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.84rem;
+      color: var(--text);
+      outline: none;
+      transition: border .2s;
+      width: 100%;
+    }
+
+    .fg input:focus,
+    .fg select:focus,
+    .fg textarea:focus {
+      border-color: var(--p2);
+    }
+
+    .btn-main {
+      width: 100%;
+      padding: 11px;
+      border-radius: 13px;
+      border: none;
+      background: linear-gradient(135deg, var(--p2), var(--b2));
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity .2s;
+      margin-top: 5px;
+    }
+
+    .btn-main:hover {
+      opacity: 0.88;
+    }
+
+    .btn-bl {
+      background: linear-gradient(135deg, var(--b2), var(--b3)) !important;
+    }
+
+    .btn-lv {
+      background: linear-gradient(135deg, var(--lav2), #9c7bb5) !important;
+    }
+
+    /* ── VERSE PICKER ── */
+    .vbooks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-height: 75px;
+      overflow-y: auto;
+      padding: 6px;
+      background: white;
+      border-radius: 10px;
+      border: 2px solid var(--b1);
+      margin-bottom: 7px;
+    }
+
+    .vbb {
+      padding: 3px 8px;
+      border-radius: 7px;
+      border: none;
+      background: var(--b1);
+      color: var(--b3);
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.71rem;
+      transition: all .15s;
+    }
+
+    .vbb.sel {
+      background: var(--b2);
+      color: white;
+    }
+
+    .vprow {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .vprow input {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 9px;
+      border: 2px solid var(--b1);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .vprow input:focus {
+      border-color: var(--b2);
+    }
+
+    .vres {
+      border-radius: var(--r2);
+      overflow: hidden;
+      display: none;
+      margin-top: 4px;
+    }
+
+    .vtrow {
+      display: flex;
+      background: #f0f6ff;
+    }
+
+    .vtab {
+      padding: 5px 13px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.76rem;
+      color: var(--muted);
+      transition: all .2s;
+    }
+
+    .vtab.on {
+      background: var(--b2);
+      color: white;
+      border-radius: 7px 7px 0 0;
+    }
+
+    .vbody {
+      padding: 10px;
+      background: white;
+      font-style: italic;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      border: 2px solid var(--b1);
+      border-top: none;
+      border-radius: 0 0 var(--r2) var(--r2);
+    }
+
+    /* ── MOOD ── */
+    .mrow {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mbtn {
+      padding: 5px 9px;
+      border-radius: 16px;
+      border: 2px solid #FFE8EE;
+      background: white;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: all .2s;
+    }
+
+    .mbtn.on {
+      border-color: var(--p2);
+      background: #FFE8EE;
+      transform: scale(1.1);
+    }
+
+    /* ── TAGS ── */
+    .tchips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 5px;
+    }
+
+    .tchip {
+      padding: 3px 8px;
+      border-radius: 16px;
+      background: var(--b1);
+      color: var(--b3);
+      font-size: 0.71rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .trm {
+      cursor: pointer;
+      opacity: 0.65;
+    }
+
+    /* ── JOURNAL CARDS ── */
+    .jcard {
+      background: white;
+      border-radius: var(--r);
+      padding: 15px;
+      border: 2px solid #FFE8EE;
+      box-shadow: 0 3px 11px var(--sh);
+      margin-bottom: 10px;
+    }
+
+    .jcard-hdr {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .jdate {
+      font-size: 0.73rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .vtag {
+      background: var(--b1);
+      color: var(--b3);
+      padding: 2px 8px;
+      border-radius: 16px;
+      font-size: 0.71rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .vtag:hover {
+      background: var(--b2);
+      color: white;
+    }
+
+    .jtag {
+      background: #FFE8EE;
+      color: var(--p3);
+      padding: 2px 7px;
+      border-radius: 16px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .jtext {
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .jchar {
+      background: var(--yellow);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 0.76rem;
+      margin-top: 7px;
+      border-left: 3px solid var(--peach);
+    }
+
+    .lock-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--lav);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      margin-bottom: 7px;
+    }
+
+    .lock-bar-l {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .lock-bar-title {
+      font-weight: 700;
+      font-size: 0.86rem;
+    }
+
+    .lock-bar-sub {
+      font-size: 0.71rem;
+      color: var(--muted);
+    }
+
+    .lock-bar-btn {
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--lav2);
+      color: white;
+      border: none;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.76rem;
+      cursor: pointer;
+    }
+
+    .jbody-hidden {
+      display: none;
+    }
+
+    .jbody-hidden.show {
+      display: block;
+    }
+
+    .pin-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 7px;
+    }
+
+    .pin-row input {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 9px;
+      border: 2px solid var(--lav2);
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+      letter-spacing: 3px;
+      outline: none;
+      font-size: 0.88rem;
+    }
+
+    .pin-row button {
+      padding: 7px 12px;
+      border-radius: 9px;
+      background: var(--lav2);
+      color: white;
+      border: none;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .photo-prev {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 7px;
+      max-height: 140px;
+      object-fit: cover;
+    }
+
+    /* ── SEARCH ── */
+    .sbar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 13px;
+    }
+
+    .sbar input {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--r2);
+      border: 2px solid var(--b1);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.84rem;
+      outline: none;
+    }
+
+    .sbar input:focus {
+      border-color: var(--b2);
+    }
+
+    /* ── SUB TABS ── */
+    .stabs {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .stbtn {
+      padding: 7px 13px;
+      border-radius: 16px;
+      border: 2px solid var(--b2);
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      transition: all .2s;
+    }
+
+    .stbtn.on {
+      background: var(--b2);
+      color: white;
+    }
+
+    .stc {
+      display: none;
+    }
+
+    .stc.on {
+      display: block;
+    }
+
+    /* ── PROGRESS ── */
+    .prog-w {
+      margin-bottom: 14px;
+    }
+
+    .prog-l {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .prog-b {
+      height: 9px;
+      background: var(--b1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .prog-f {
+      height: 100%;
+      background: linear-gradient(90deg, var(--b2), var(--p2));
+      border-radius: 20px;
+      transition: width .5s;
+    }
+
+    /* ── READING PLAN ── */
+    .plan-g {
+      margin-bottom: 17px;
+    }
+
+    .plan-gh {
+      background: linear-gradient(135deg, #FFE0E9, #DFF0FF);
+      border-radius: var(--r2);
+      padding: 9px 13px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.92rem;
+    }
+
+    .pday {
+      background: white;
+      border-radius: var(--r2);
+      padding: 10px 13px;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 2px solid #FFE8EE;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .pday:hover {
+      border-color: var(--b2);
+    }
+
+    .pday.done {
+      background: var(--mint);
+      border-color: #88d4a0;
+    }
+
+    .pchk {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--b2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+
+    .pday.done .pchk {
+      background: #88d4a0;
+      border-color: #88d4a0;
+    }
+
+    .pinfo {
+      flex: 1;
+    }
+
+    .pnum {
+      font-weight: 700;
+      font-size: 0.81rem;
+    }
+
+    .pref {
+      font-size: 0.73rem;
+      color: var(--muted);
+    }
+
+    .pbtn {
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--b2);
+      color: white;
+      border: none;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .tpl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 13px;
+    }
+
+    @media(max-width:420px) {
+      .tpl-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tplc {
+      border-radius: var(--r);
+      padding: 12px;
+      border: 2px solid #FFE8EE;
+      background: white;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+    }
+
+    .tplc:hover,
+    .tplc.sel {
+      border-color: var(--p2);
+      background: #FFF0F4;
+    }
+
+    .tplc-i {
+      font-size: 1.5rem;
+      margin-bottom: 3px;
+    }
+
+    .tplc-n {
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .tplc-d {
+      font-size: 0.69rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── CALENDAR ── */
+    .cal-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 11px;
+    }
+
+    .cal-hdr h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+    }
+
+    .cal-nav {
+      background: none;
+      border: 2px solid var(--p2);
+      border-radius: 8px;
+      padding: 3px 9px;
+      cursor: pointer;
+      color: var(--p2);
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      max-width: 390px;
+      margin: 0 auto 12px;
+    }
+
+    .cdlbl {
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 2px 0;
+    }
+
+    .cday {
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      font-size: 0.77rem;
+      font-weight: 700;
+      transition: all .2s;
+      background: white;
+      border: 2px solid transparent;
+      padding: 4px 2px;
+      position: relative;
+      min-height: 42px;
+    }
+
+    .cday:hover {
+      border-color: var(--p2);
+    }
+
+    .cday.today {
+      background: linear-gradient(135deg, #FFE0E9, #DFF0FF);
+      border-color: var(--p2);
+    }
+
+    .cday.other {
+      opacity: 0.27;
+    }
+
+    .cday-em {
+      font-size: 0.68rem;
+      margin-top: 2px;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .cday-dots {
+      display: flex;
+      gap: 2px;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .dr {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--p2);
+    }
+
+    .dj {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--b2);
+    }
+
+    .cal-leg {
+      display: flex;
+      gap: 11px;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 0.73rem;
+      font-weight: 600;
+    }
+
+    .cal-leg span {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .cal-list {
+      margin-top: 12px;
+    }
+
+    .cal-day-grp {
+      margin-bottom: 11px;
+    }
+
+    .cal-day-hdr {
+      font-weight: 700;
+      font-size: 0.83rem;
+      padding: 5px 11px;
+      background: linear-gradient(135deg, #FFE0E9, #DFF0FF);
+      border-radius: 9px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cal-jitem {
+      background: white;
+      border-radius: 9px;
+      padding: 9px 12px;
+      margin-bottom: 4px;
+      border: 2px solid var(--p1);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .cal-jitem.j {
+      border-color: var(--b1);
+    }
+
+    .avtr {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.77rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .avtr-r {
+      background: linear-gradient(135deg, var(--p2), var(--p1));
+    }
+
+    .avtr-j {
+      background: linear-gradient(135deg, var(--b2), var(--b1));
+    }
+
+    /* ── BULLETIN BOARD WALL ── */
+    .board {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    @media(max-width:500px) {
+      .board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pin {
+      border-radius: var(--r);
+      padding: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      position: relative;
+      box-shadow: 0 4px 14px var(--sh);
+      transition: transform .2s;
+    }
+
+    .pin:hover {
+      transform: translateY(-2px);
+    }
+
+    .pin.pink-pin {
+      background: linear-gradient(135deg, #fff5f7, #FFE0E9);
+    }
+
+    .pin.blue-pin {
+      background: linear-gradient(135deg, #f0f8ff, #DFF0FF);
+    }
+
+    .pin.lav-pin {
+      background: linear-gradient(135deg, #f5f0ff, #EEE0FF);
+    }
+
+    .pin.yellow-pin {
+      background: linear-gradient(135deg, #fffdf0, #FFF5C2);
+    }
+
+    .pin-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .pin-dot.r {
+      background: var(--p2);
+    }
+
+    .pin-dot.b {
+      background: var(--b2);
+    }
+
+    .pin-dot.l {
+      background: var(--lav2);
+    }
+
+    .pin-dot.y {
+      background: #f0b429;
+    }
+
+    .pin-usr {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .pin-name {
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .pin-date {
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .pin-verse {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 8px;
+      margin-bottom: 7px;
+      cursor: pointer;
+    }
+
+    .pin-verse:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .pin-verse-full {
+      display: none;
+      font-size: 0.79rem;
+      padding: 6px 10px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      line-height: 1.6;
+      border: 1.5px solid var(--b1);
+    }
+
+    .pin-verse-full.show {
+      display: block;
+    }
+
+    .pin-text {
+      font-size: 0.83rem;
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+
+    .pin-reacts {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .rbt {
+      padding: 3px 8px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(255, 143, 171, 0.25);
+      background: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all .15s;
+    }
+
+    .rbt:hover,
+    .rbt.on {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: var(--p2);
+    }
+
+    .rep-btn {
+      padding: 3px 8px;
+      border-radius: 14px;
+      border: 1.5px solid var(--b1);
+      background: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--b3);
+      transition: all .15s;
+    }
+
+    .rep-btn:hover {
+      background: white;
+    }
+
+    .replies-wrap {
+      margin-top: 9px;
+      border-top: 1px dashed rgba(74, 63, 92, 0.13);
+      padding-top: 8px;
+      display: none;
+    }
+
+    .reply-item {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-bottom: 5px;
+      font-size: 0.79rem;
+    }
+
+    .reply-meta {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+      font-weight: 700;
+    }
+
+    .reply-irow {
+      display: flex;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .reply-irow input {
+      flex: 1;
+      padding: 6px 9px;
+      border-radius: 8px;
+      border: 1.5px solid var(--b1);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.79rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .reply-irow button {
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: var(--b2);
+      color: white;
+      border: none;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.76rem;
+    }
+
+    /* ── WALL POST FORM ── */
+    .wall-form {
+      background: linear-gradient(135deg, #FFF0F4, #EEF6FF);
+      border-radius: var(--r);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* ── PRAYER WALL ── */
+    .pray-board {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pcard {
+      background: white;
+      border-radius: var(--r);
+      padding: 14px;
+      border: 2px solid var(--lav);
+      box-shadow: 0 3px 11px rgba(179, 157, 219, 0.15);
+    }
+
+    .pcard-hdr {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+      flex-wrap: wrap;
+    }
+
+    .ptag {
+      background: var(--lav);
+      color: var(--lav2);
+      padding: 2px 8px;
+      border-radius: 14px;
+      font-size: 0.69rem;
+      font-weight: 700;
+    }
+
+    .pstatus {
+      padding: 3px 9px;
+      border-radius: 14px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .ps-praying {
+      background: #FFF5C2;
+      color: #b8860b;
+    }
+
+    .ps-signs {
+      background: #FFE0E9;
+      color: var(--p3);
+    }
+
+    .ps-progress {
+      background: var(--b1);
+      color: var(--b3);
+    }
+
+    .ps-answered {
+      background: var(--mint);
+      color: #3a8a5a;
+    }
+
+    .ps-different {
+      background: var(--lav);
+      color: var(--lav2);
+    }
+
+    .pst-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin: 8px 0;
+    }
+
+    .pst-btn {
+      padding: 4px 9px;
+      border-radius: 14px;
+      border: 1.5px solid #e0d0f0;
+      background: white;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.69rem;
+      transition: all .2s;
+    }
+
+    .pst-btn.on {
+      background: var(--lav);
+      border-color: var(--lav2);
+    }
+
+    /* ── BIBLE MODAL ── */
+    .bmod {
+      position: fixed;
+      inset: 0;
+      background: rgba(74, 63, 92, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 17px;
+    }
+
+    .bmod.show {
+      display: flex;
+    }
+
+    .bmod-box {
+      background: var(--white);
+      border-radius: var(--r);
+      padding: 19px;
+      max-width: 450px;
+      width: 100%;
+      max-height: 83vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 48px rgba(74, 63, 92, 0.22);
+    }
+
+    .bmod-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 11px;
+    }
+
+    .bmod-hdr h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+    }
+
+    .closex {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .trow {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 9px;
+    }
+
+    .trbtn {
+      padding: 4px 12px;
+      border-radius: 8px;
+      border: 2px solid var(--p2);
+      background: white;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.76rem;
+      transition: all .2s;
+    }
+
+    .trbtn.on {
+      background: var(--p2);
+      color: white;
+    }
+
+    .bmod-verse {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      padding: 12px;
+      background: #FFF0F4;
+      border-radius: var(--r2);
+    }
+
+    /* ── MISC ── */
+    .empty {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--muted);
+    }
+
+    .empty .ei {
+      font-size: 2.5rem;
+      margin-bottom: 7px;
+    }
+
+    .divider {
+      text-align: center;
+      color: var(--p2);
+      font-size: 0.9rem;
+      letter-spacing: 7px;
+      margin: 14px 0;
+      opacity: 0.45;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .photo-upload {
+      border: 2px dashed var(--p2);
+      border-radius: var(--r2);
+      padding: 11px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 143, 171, 0.03);
+    }
+
+    .sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .sync-ok {
+      background: var(--mint);
+      color: #3a8a5a;
+    }
+
+    .sync-err {
+      background: #FFE0E9;
+      color: var(--p3);
+    }
+
+    .sync-loading {
+      background: var(--yellow);
+      color: #b8860b;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cbg c1">✝</div>
+  <div class="cbg c2">✝</div>
+  <div class="cbg c3">✝</div>
+  <div class="cbg c4">✝</div>
+
+  <!-- BIBLE MODAL -->
+  <div class="bmod" id="bMod">
+    <div class="bmod-box">
+      <div class="bmod-hdr">
+        <h3 id="bMRef">–</h3><button class="closex" onclick="closeBM()">✕</button>
       </div>
-      ${j.isPrivate&&j.locked?`<div id="pr-${j.id}" class="jbody-hidden show"><div class="pin-row"><input type="password" placeholder="Masukkan PIN" id="pi-${j.id}" maxlength="6"><button onclick="unlockJ(${j.id})">🔓 Buka</button></div></div>`:
-      (j.isPrivate&&!j.locked?`<div style="margin-top:5px"><button onclick="relockJ(${j.id})" style="padding:4px 10px;border-radius:8px;border:2px solid var(--lav2);background:white;cursor:pointer;font-family:Quicksand,sans-serif;font-weight:700;font-size:0.74rem;color:var(--lav2);">🔒 Kunci Lagi</button></div>`:'')}
+      <div class="trow">
+        <button class="trbtn on" onclick="setBT('tb',this)">TB</button>
+        <button class="trbtn" onclick="setBT('niv',this)">NIV</button>
+      </div>
+      <div class="bmod-verse" id="bMVerse">–</div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-t">🌸 Bible Journal</div>
+    <div class="usr-sw">
+      <button class="ubtn on" onclick="setUser('rara',this)">👑 Rara</button>
+      <button class="ubtn jj" onclick="setUser('jiji',this)">🌙 Jiji</button>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button class="tbtn on" onclick="goTab('home',this)">🏠 Home</button>
+    <button class="tbtn" onclick="goTab('journal',this)">📖 Journal</button>
+    <button class="tbtn" onclick="goTab('reading',this)">📚 Reading</button>
+    <button class="tbtn" onclick="goTab('calendar',this)">📅 Calendar</button>
+    <button class="tbtn" onclick="goTab('wall',this)">💕 Wall</button>
+  </div>
+
+  <div class="main">
+
+    <!-- ═══ HOME ═══ -->
+    <div class="tc on" id="tc-home">
+      <div style="text-align:center;margin-bottom:15px;">
+        <div
+          style="font-family:'Playfair Display',serif;font-size:1.45rem;background:linear-gradient(135deg,var(--p3),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+          Halo, <span id="welN">Rara</span>! 🌷</div>
+        <div style="font-size:0.77rem;color:var(--muted);margin-top:3px;" id="todayStr"></div>
+        <div id="syncBadge" class="sync-badge sync-loading" style="margin-top:6px;">⏳ Menghubungkan ke sheet...</div>
+      </div>
+      <div class="g3" style="margin-bottom:15px;">
+        <div class="scard">
+          <div class="sc-em">📖</div>
+          <div class="sc-n" id="sJ">0</div>
+          <div class="sc-l">Journal</div>
+        </div>
+        <div class="scard" style="border-color:var(--b1);">
+          <div class="sc-em">✅</div>
+          <div class="sc-n" id="sP" style="color:var(--b3);">0%</div>
+          <div class="sc-l">Reading</div>
+        </div>
+        <div class="scard" style="border-color:var(--lav);">
+          <div class="sc-em">🙏</div>
+          <div class="sc-n" id="sPr" style="color:var(--lav2);">0</div>
+          <div class="sc-l">Doa</div>
+        </div>
+      </div>
+      <div class="dverse" onclick="nextDV()">
+        <div class="dv-lbl">✨ Ayat Hari Ini — tap untuk ganti</div>
+        <div class="dv-text" id="dvT">–</div>
+        <div class="dv-ref" id="dvR"></div>
+        <div class="dv-tap">tap to refresh 🌸</div>
+      </div>
+      <div class="divider">✝ ✝ ✝</div>
+      <div class="stitle">✨ Fakta & Cerita Alkitab</div>
+      <div class="ff-grid">
+        <div class="ffc pink" onclick="tapFF(0)">
+          <div class="ffc-icon">📜</div>
+          <div class="ffc-lbl">Fun Fact</div>
+          <div class="ffc-text" id="fft0">Tap!</div>
+          <div class="ffc-detail" id="ffd0"></div>
+          <div class="ffc-tap">tap = next • 2x = detail ✨</div>
+        </div>
+        <div class="ffc blue" onclick="tapFF(1)">
+          <div class="ffc-icon">🗺️</div>
+          <div class="ffc-lbl">Sejarah</div>
+          <div class="ffc-text" id="fft1">Tap!</div>
+          <div class="ffc-detail" id="ffd1"></div>
+          <div class="ffc-tap">tap = next • 2x = detail 💙</div>
+        </div>
+        <div class="ffc lav" onclick="tapFF(2)">
+          <div class="ffc-icon">🎭</div>
+          <div class="ffc-lbl">Cerita Unik</div>
+          <div class="ffc-text" id="fft2">Tap!</div>
+          <div class="ffc-detail" id="ffd2"></div>
+          <div class="ffc-tap">tap = next • 2x = detail 💜</div>
+        </div>
+        <div class="ffc mint" onclick="tapFF(3)">
+          <div class="ffc-icon">💡</div>
+          <div class="ffc-lbl">Tahukah Kamu?</div>
+          <div class="ffc-text" id="fft3">Tap!</div>
+          <div class="ffc-detail" id="ffd3"></div>
+          <div class="ffc-tap">tap = next • 2x = detail 💚</div>
+        </div>
+      </div>
+      <div class="home-hist">
+        <div class="stitle">📚 Semua Journal (History)</div>
+        <div id="homeHist"></div>
+      </div>
+    </div>
+
+    <!-- ═══ JOURNAL ═══ -->
+    <div class="tc" id="tc-journal">
+      <div class="stitle">📖 Tulis Journal Baru</div>
+      <div class="fbox">
+        <div class="fg" style="margin-bottom:10px;"><label>📝 Judul (auto-generate jika kosong)</label><input
+            type="text" id="jTitle" placeholder="cth: Refleksi Kasih Allah..."></div>
+        <div class="frow">
+          <div class="fg"><label>📅 Tanggal</label><input type="date" id="jDate"></div>
+          <div class="fg"><label>😊 Mood</label>
+            <div class="mrow" id="mRow">
+              <button class="mbtn" onclick="pickM(this,'😄')">😄</button>
+              <button class="mbtn" onclick="pickM(this,'😊')">😊</button>
+              <button class="mbtn" onclick="pickM(this,'😐')">😐</button>
+              <button class="mbtn" onclick="pickM(this,'😢')">😢</button>
+              <button class="mbtn" onclick="pickM(this,'🙏')">🙏</button>
+              <button class="mbtn" onclick="pickM(this,'❤️')">❤️</button>
+              <button class="mbtn" onclick="pickM(this,'✨')">✨</button>
+              <button class="mbtn" onclick="pickM(this,'🔥')">🔥</button>
+            </div>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:10px;">
+          <label>📖 Pilih Ayat</label>
+          <div class="vbooks" id="jBks"></div>
+          <div class="vprow"><input type="number" id="jPs" placeholder="Pasal" min="1" oninput="upV('j')"><input
+              type="number" id="jAy" placeholder="Ayat" min="1" oninput="upV('j')"></div>
+          <div class="vres" id="jVR">
+            <div class="vtrow"><button class="vtab on" onclick="swVT('j','tb',this)">TB</button><button class="vtab"
+                onclick="swVT('j','niv',this)">NIV</button></div>
+            <div class="vbody" id="jVT">–</div>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:10px;"><label>💬 Catatan / Renungan</label><textarea id="jNote" rows="3"
+            placeholder="Apa yang Tuhan taruh di hatimu hari ini?"></textarea></div>
+        <div class="fg" style="margin-bottom:10px;"><label>🏷️ Tags (Enter to add)</label><input type="text" id="jTagIn"
+            placeholder="Ketik tag + Enter" onkeydown="addTag(event)">
+          <div class="tchips" id="jTC"></div>
+        </div>
+        <div class="fg" style="margin-bottom:10px;"><label>📸 Foto (opsional)</label>
+          <div class="photo-upload" onclick="document.getElementById('jPh').click()">
+            <div id="phWrap">
+              <div style="font-size:1.5rem">📷</div>
+              <div style="font-size:0.75rem;color:var(--muted)">Tap untuk pilih foto</div>
+            </div>
+          </div><input type="file" class="file-input" id="jPh" accept="image/*" onchange="prevPh(this)">
+        </div>
+        <div class="frow">
+          <div class="fg"><label>🔒 Private?</label><select id="jPriv"
+              onchange="document.getElementById('jPinW').style.display=this.value==='yes'?'flex':'none'">
+              <option value="no">Tidak</option>
+              <option value="yes">Ya (dengan PIN)</option>
+            </select></div>
+          <div class="fg" id="jPinW" style="display:none;"><label>🔑 Set PIN (4-6 digit)</label><input type="password"
+              id="jPin" maxlength="6" placeholder="••••••"></div>
+        </div>
+        <button class="btn-main" onclick="saveJ()">💾 Simpan Journal 🌸</button>
+      </div>
+      <div class="sbar"><input type="text" id="jSrch" placeholder="🔍 Cari journal, tag, ayat..." oninput="renderJ()">
+      </div>
+      <div class="stitle">📚 Semua Entries</div>
+      <div id="jList"></div>
+    </div>
+
+    <!-- ═══ READING ═══ -->
+    <div class="tc" id="tc-reading">
+      <div class="stitle">📚 Reading Plan</div>
+      <div class="stabs">
+        <button class="stbtn on" onclick="goST('rp-p',this)">📋 Progress</button>
+        <button class="stbtn" onclick="goST('rp-d',this)">✅ Selesai</button>
+        <button class="stbtn" onclick="goST('rp-n',this)">✏️ Buat Plan</button>
+      </div>
+      <div class="stc on" id="stc-rp-p">
+        <div class="prog-w">
+          <div class="prog-l"><span>Total Progress</span><span id="progT">0/0</span></div>
+          <div class="prog-b">
+            <div class="prog-f" id="progF" style="width:0%"></div>
+          </div>
+        </div>
+        <div id="rpList"></div>
+      </div>
+      <div class="stc" id="stc-rp-d">
+        <div id="rpDone"></div>
+      </div>
+      <div class="stc" id="stc-rp-n">
+        <div class="stitle" style="font-size:0.92rem;">📋 Template Siap Pakai</div>
+        <div class="tpl-grid" id="tplG"></div>
+        <div class="fbox" style="margin-bottom:0;">
+          <div class="fg" style="margin-bottom:9px;"><label>📝 Nama Plan</label><input type="text" id="rpN"
+              placeholder="Nama reading plan..."></div>
+          <div id="rpDI">
+            <div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text"
+                placeholder="Hari 1 — cth: Matius 1-2"
+                style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;">
+            </div>
+          </div>
+          <button onclick="addRD()"
+            style="padding:5px 13px;border-radius:8px;border:2px solid var(--b2);background:white;cursor:pointer;font-family:Quicksand,sans-serif;font-weight:700;color:var(--b3);margin-bottom:8px;font-size:0.78rem;">+
+            Tambah Hari</button>
+          <button class="btn-main btn-bl" onclick="saveRP()">💾 Simpan Plan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CALENDAR ═══ -->
+    <div class="tc" id="tc-calendar">
+      <div class="stitle">📅 Calendar</div>
+      <div class="cal-hdr"><button class="cal-nav" onclick="chM(-1)">‹</button>
+        <h3 id="calMY"></h3><button class="cal-nav" onclick="chM(1)">›</button>
+      </div>
+      <div class="cal-leg"><span>
+          <div class="dr"></div>Rara
+        </span><span>
+          <div class="dj"></div>Jiji
+        </span></div>
+      <div class="cal-grid" id="calG">
+        <div class="cdlbl">Min</div>
+        <div class="cdlbl">Sen</div>
+        <div class="cdlbl">Sel</div>
+        <div class="cdlbl">Rab</div>
+        <div class="cdlbl">Kam</div>
+        <div class="cdlbl">Jum</div>
+        <div class="cdlbl">Sab</div>
+      </div>
+      <div class="cal-list" id="calL"></div>
+    </div>
+
+    <!-- ═══ WALL ═══ -->
+    <div class="tc" id="tc-wall">
+      <div class="stabs">
+        <button class="stbtn on" onclick="goST('w-s',this)">💕 Shared Wall</button>
+        <button class="stbtn" onclick="goST('w-p',this)">🙏 Prayer Wall</button>
+      </div>
+
+      <div class="stc on" id="stc-w-s">
+        <div class="wall-form">
+          <div class="fg" style="margin-bottom:9px;"><label>💬 Share sesuatu...</label><textarea id="wTxt" rows="2"
+              placeholder="Renungan, ayat favorit, atau momen indah..."></textarea></div>
+          <div class="fg" style="margin-bottom:9px;">
+            <label>📖 Ayat (opsional)</label>
+            <div class="vbooks" id="wBks" style="max-height:60px;"></div>
+            <div class="vprow"><input type="number" id="wPs" placeholder="Pasal" oninput="upV('w')"><input type="number"
+                id="wAy" placeholder="Ayat" oninput="upV('w')"></div>
+            <div class="vres" id="wVR" style="margin-top:4px;">
+              <div class="vtrow"><button class="vtab on" onclick="swVT('w','tb',this)">TB</button><button class="vtab"
+                  onclick="swVT('w','niv',this)">NIV</button></div>
+              <div class="vbody" id="wVT">–</div>
+            </div>
+          </div>
+          <button class="btn-main" onclick="postW()">📌 Pin ke Wall</button>
+        </div>
+        <div class="board" id="wallB"></div>
+      </div>
+
+      <div class="stc" id="stc-w-p">
+        <div class="fbox" style="background:linear-gradient(135deg,#EEE0FF,#FFE0E9);margin-bottom:14px;">
+          <div class="fg" style="margin-bottom:9px;"><label>🙏 Pokok Doa</label><input type="text" id="pTit"
+              placeholder="Apa yang kamu doakan?"></div>
+          <div class="fg" style="margin-bottom:9px;"><label>💬 Detail</label><textarea id="pDet" rows="2"
+              placeholder="Ceritakan lebih..."></textarea></div>
+          <div class="frow">
+            <div class="fg"><label>👥 Untuk</label><select id="pFor">
+                <option value="both">Berdua 🤝</option>
+                <option value="rara">Rara saja</option>
+                <option value="jiji">Jiji saja</option>
+              </select></div>
+            <div class="fg"><label>👁️ Visibilitas</label><select id="pVis">
+                <option value="shared">Shared</option>
+                <option value="private">Private</option>
+              </select></div>
+          </div>
+          <button class="btn-main btn-lv" onclick="savePr()">🙏 Simpan Doa</button>
+        </div>
+        <div class="pray-board" id="prayB"></div>
+      </div>
+    </div>
+
+  </div><!-- end .main -->
+
+  <script>
+    // ════════════════════════════════
+    // CONFIG & STATE
+    // ════════════════════════════════
+    const SHEET = 'https://script.google.com/macros/s/AKfycbyn-pzMdwsYXQUQcVTQm4fB6Jkj2g899kIHM4pVvwDyBd6SHUZfAIoDhpzJxIi3WoU/exec';
+    let DB = { journals: [], plans: [], wallPosts: [], prayers: [] };
+    let curUser = 'rara', curMood = '', jTags = [], phData = null;
+    let pSt = { j: { book: '', trans: 'tb', ref: '' }, w: { book: '', trans: 'tb', ref: '' } };
+    let calM = new Date().getMonth(), calY = new Date().getFullYear();
+    let ffIdx = [0, 0, 0, 0], ffShowing = [false, false, false, false], dvIdx = 0;
+    let curBRef = '', curBTrans = 'tb';
+    const PIN_COLORS = ['pink-pin', 'blue-pin', 'lav-pin', 'yellow-pin'];
+    const PIN_DOTS = ['r', 'b', 'l', 'y'];
+
+    // ════════════════════════════════
+    // BIBLE DATA
+    // ════════════════════════════════
+    const BOOKS = ['Kejadian', 'Keluaran', 'Imamat', 'Bilangan', 'Ulangan', 'Yosua', 'Hakim-hakim', 'Rut', '1 Samuel', '2 Samuel', '1 Raja-raja', '2 Raja-raja', '1 Tawarikh', '2 Tawarikh', 'Ezra', 'Nehemia', 'Ester', 'Ayub', 'Mazmur', 'Amsal', 'Pengkhotbah', 'Kidung Agung', 'Yesaya', 'Yeremia', 'Ratapan', 'Yehezkiel', 'Daniel', 'Hosea', 'Yoel', 'Amos', 'Obaja', 'Yunus', 'Mikha', 'Nahum', 'Habakuk', 'Zefanya', 'Hagai', 'Zakharia', 'Maleakhi', 'Matius', 'Markus', 'Lukas', 'Yohanes', 'Kisah Para Rasul', 'Roma', '1 Korintus', '2 Korintus', 'Galatia', 'Efesus', 'Filipi', 'Kolose', '1 Tesalonika', '2 Tesalonika', '1 Timotius', '2 Timotius', 'Titus', 'Filemon', 'Ibrani', 'Yakobus', '1 Petrus', '2 Petrus', '1 Yohanes', '2 Yohanes', '3 Yohanes', 'Yudas', 'Wahyu'];
+    const VDB = { tb: { 'Yohanes 3:16': 'Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.', 'Yohanes 3:17': 'Sebab Allah mengutus Anak-Nya ke dalam dunia bukan untuk menghakimi dunia, melainkan untuk menyelamatkannya oleh Dia.', 'Yohanes 14:6': 'Kata Yesus kepadanya: Akulah jalan dan kebenaran dan hidup.', 'Yohanes 1:1': 'Pada mulanya adalah Firman; Firman itu bersama-sama dengan Allah dan Firman itu adalah Allah.', 'Yeremia 29:11': 'Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan.', 'Filipi 4:13': 'Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku.', 'Filipi 4:6': 'Janganlah hendaknya kamu kuatir tentang apapun juga, tetapi nyatakanlah dalam segala hal keinginanmu kepada Allah dalam doa dan permohonan dengan ucapan syukur.', 'Mazmur 23:1': 'TUHAN adalah gembalaku, takkan kekurangan aku.', 'Mazmur 23:2': 'Ia membaringkan aku di padang yang berumput hijau, Ia membimbing aku ke air yang tenang.', 'Roma 8:28': 'Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan bagi mereka yang mengasihi Dia.', 'Roma 8:38': 'Sebab aku yakin, bahwa baik maut, maupun hidup, tidak akan dapat memisahkan kita dari kasih Allah, yang ada dalam Kristus Yesus, Tuhan kita.', 'Matius 6:33': 'Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.', 'Amsal 3:5': 'Percayalah kepada TUHAN dengan segenap hatimu dan janganlah bersandar kepada pengertianmu sendiri.', 'Amsal 3:6': 'Akuilah Dia dalam segala lakumu, maka Ia akan meluruskan jalanmu.', 'Yesaya 40:31': 'Tetapi orang-orang yang menanti-nantikan TUHAN mendapat kekuatan baru: mereka seumpama rajawali yang naik terbang dengan kekuatan sayapnya.', '1 Korintus 13:4': 'Kasih itu sabar; kasih itu murah hati; ia tidak cemburu. Ia tidak memegahkan diri dan tidak sombong.', '1 Korintus 13:13': 'Demikianlah tinggal ketiga hal ini, yaitu iman, pengharapan dan kasih, dan yang paling besar di antaranya ialah kasih.', 'Efesus 2:8': 'Sebab karena kasih karunia kamu diselamatkan oleh iman; itu bukan hasil usahamu, tetapi pemberian Allah.', 'Galatia 5:22': 'Tetapi buah Roh ialah: kasih, sukacita, damai sejahtera, kesabaran, kemurahan, kebaikan, kesetiaan.', 'Wahyu 21:4': 'Dan Ia akan menghapus segala air mata dari mata mereka, dan maut tidak akan ada lagi.', 'Mazmur 119:105': 'Firman-Mu itu pelita bagi langkahku dan terang bagi jalanku.', 'Ibrani 11:1': 'Iman adalah dasar dari segala sesuatu yang kita harapkan dan bukti dari segala sesuatu yang tidak kita lihat.', 'Kolose 3:23': 'Apapun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia.', 'Matius 5:9': 'Berbahagialah orang yang membawa damai, karena mereka akan disebut anak-anak Allah.', 'Mazmur 46:1': 'Allah itu bagi kita tempat perlindungan dan kekuatan, sebagai penolong dalam kesesakan sangat terbukti.', 'Kejadian 1:1': 'Pada mulanya Allah menciptakan langit dan bumi.', 'Kejadian 1:3': 'Berfirmanlah Allah: "Jadilah terang." Lalu terang itu jadi.' }, niv: { 'Yohanes 3:16': 'For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.', 'Yohanes 3:17': 'For God did not send his Son into the world to condemn the world, but to save the world through him.', 'Yohanes 14:6': 'Jesus answered, I am the way and the truth and the life. No one comes to the Father except through me.', 'Yohanes 1:1': 'In the beginning was the Word, and the Word was with God, and the Word was God.', 'Yeremia 29:11': 'For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.', 'Filipi 4:13': 'I can do all this through him who gives me strength.', 'Filipi 4:6': 'Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.', 'Mazmur 23:1': 'The Lord is my shepherd, I lack nothing.', 'Mazmur 23:2': 'He makes me lie down in green pastures, he leads me beside quiet waters.', 'Roma 8:28': 'And we know that in all things God works for the good of those who love him.', 'Roma 8:38': 'For I am convinced that neither death nor life, neither angels nor demons, will be able to separate us from the love of God.', 'Matius 6:33': 'But seek first his kingdom and his righteousness, and all these things will be given to you as well.', 'Amsal 3:5': 'Trust in the Lord with all your heart and lean not on your own understanding.', 'Amsal 3:6': 'In all your ways submit to him, and he will make your paths straight.', 'Yesaya 40:31': 'But those who hope in the Lord will renew their strength. They will soar on wings like eagles.', '1 Korintus 13:4': 'Love is patient, love is kind. It does not envy, it does not boast, it is not proud.', '1 Korintus 13:13': 'And now these three remain: faith, hope and love. But the greatest of these is love.', 'Efesus 2:8': 'For it is by grace you have been saved, through faith — it is the gift of God.', 'Galatia 5:22': 'But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness.', 'Wahyu 21:4': 'He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain.', 'Mazmur 119:105': 'Your word is a lamp for my feet, a light on my path.', 'Ibrani 11:1': 'Now faith is confidence in what we hope for and assurance about what we do not see.', 'Kolose 3:23': 'Whatever you do, work at it with all your heart, as working for the Lord.', 'Matius 5:9': 'Blessed are the peacemakers, for they will be called children of God.', 'Mazmur 46:1': 'God is our refuge and strength, an ever-present help in trouble.', 'Kejadian 1:1': 'In the beginning God created the heavens and the earth.', 'Kejadian 1:3': 'And God said, "Let there be light," and there was light.' } };
+
+    const DAILY = [
+      { r: 'Yeremia 29:11', tb: 'Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, yaitu rancangan damai sejahtera, untuk memberikan kepadamu hari depan yang penuh harapan.', niv: 'For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.' },
+      { r: 'Filipi 4:13', tb: 'Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku.', niv: 'I can do all this through him who gives me strength.' },
+      { r: 'Yohanes 3:16', tb: 'Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.', niv: 'For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.' },
+      { r: 'Roma 8:28', tb: 'Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan bagi mereka yang mengasihi Dia.', niv: 'And we know that in all things God works for the good of those who love him.' },
+      { r: 'Mazmur 23:1', tb: 'TUHAN adalah gembalaku, takkan kekurangan aku.', niv: 'The Lord is my shepherd, I lack nothing.' },
+      { r: 'Amsal 3:5', tb: 'Percayalah kepada TUHAN dengan segenap hatimu dan janganlah bersandar kepada pengertianmu sendiri.', niv: 'Trust in the Lord with all your heart and lean not on your own understanding.' },
+      { r: 'Yesaya 40:31', tb: 'Orang-orang yang menanti-nantikan TUHAN mendapat kekuatan baru: mereka seumpama rajawali yang naik terbang dengan kekuatan sayapnya.', niv: 'But those who hope in the Lord will renew their strength. They will soar on wings like eagles.' },
+      { r: 'Matius 6:33', tb: 'Tetapi carilah dahulu Kerajaan Allah dan kebenarannya, maka semuanya itu akan ditambahkan kepadamu.', niv: 'But seek first his kingdom and his righteousness, and all these things will be given to you as well.' },
+      { r: 'Kolose 3:23', tb: 'Apapun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia.', niv: 'Whatever you do, work at it with all your heart, as working for the Lord.' },
+      { r: '1 Korintus 13:13', tb: 'Demikianlah tinggal ketiga hal ini, yaitu iman, pengharapan dan kasih, dan yang paling besar di antaranya ialah kasih.', niv: 'And now these three remain: faith, hope and love. But the greatest of these is love.' },
+    ];
+
+    const FF = [
+      { items: [{ t: 'Kata "jangan takut" muncul 365 kali!', d: 'Kata "jangan takut" atau "fear not" disebut tepat 365 kali dalam Alkitab — satu untuk setiap hari dalam setahun. Ini bukan kebetulan! Allah ingin kita tahu bahwa untuk setiap hari yang kita jalani, ada jaminan dari-Nya untuk tidak takut. Ini seperti surat cinta 365 lembar dari Bapa kepada kita.' }, { t: 'Alkitab ditulis oleh ~40 penulis dalam 1.500 tahun.', d: 'Sekitar 40 penulis berbeda dari berbagai latar belakang menulis Alkitab selama 1.500 tahun di 3 benua (Asia, Afrika, Eropa), namun memiliki satu pesan yang konsisten tentang karya keselamatan Allah. Ini sendiri adalah mukjizat!' }, { t: 'Kata "kasih" muncul 500+ kali.', d: 'Kata kasih (love/agape) muncul lebih dari 500 kali dalam Alkitab — karena memang kasih adalah inti dari seluruh pesan-Nya. 1 Yohanes 4:8 berkata singkat: "Allah adalah kasih."' }, { t: 'Mazmur 117 hanya 2 ayat!', d: 'Mazmur 117 adalah pasal terpendek dalam seluruh Alkitab dengan hanya 2 ayat. Sebaliknya, Mazmur 119 adalah yang terpanjang dengan 176 ayat — seluruhnya memuji Firman Allah.' }, { t: 'Ada 40 nubuat tentang Mesias di PL.', d: 'Ada sekitar 40-300 nubuat tentang Mesias di Perjanjian Lama yang digenapi oleh Yesus di Perjanjian Baru — dari tempat kelahiran, cara masuk Yerusalem, cara kematian, hingga kebangkitan.' }] },
+      { items: [{ t: 'Yerusalem disebut 800+ kali dalam Alkitab.', d: 'Yerusalem adalah kota yang paling banyak disebut — lebih dari 800 kali. Kota ini adalah pusat dari sejarah keselamatan: dari pembangunan Bait Suci oleh Salomo hingga kematian dan kebangkitan Yesus.' }, { t: 'Bait Suci Salomo dibangun 183.300 pekerja!', d: '1 Raja-raja 5 mencatat Salomo menggunakan 183.300 pekerja untuk membangun Bait Suci — 30.000 penebang kayu, 70.000 pemikul beban, 80.000 pemotong batu. Proyek ini memakan waktu 7 tahun dan menggunakan emas serta kayu cedar terbaik.' }, { t: 'Tarsus, kota asal Paulus, ada di Turki modern.', d: 'Rasul Paulus lahir di Tarsus — kota di Silisia yang kini berada di Turki selatan. Kota ini adalah pusat filsafat Yunani, yang membentuk kemampuan Paulus untuk mengkomunikasikan Injil kepada dunia Yunani-Romawi.' }, { t: 'Antiokhia: kota pertama menyebut "Kristen".', d: 'Menurut Kisah 11:26, di Antiokhia (kini Antakya, Turki) para pengikut Yesus pertama kali disebut "Kristen". Kota ini juga menjadi basis misi Paulus. Sebuah nama yang lahir dari sebuah kota!' }, { t: 'Laut Mati adalah titik terendah di bumi.', d: 'Laut Mati — tempat di dekat mana Gulungan Laut Mati ditemukan — adalah titik terendah di permukaan bumi, sekitar 430 meter di bawah permukaan laut. Saking asinnya, tidak ada makhluk hidup yang bisa bertahan di sana.' }] },
+      { items: [{ t: 'Bileam berdebat dengan keledainya! 🫏', d: 'Dalam Bilangan 22, Allah membuka mulut keledai milik Bileam sehingga bisa berbicara! Keledai itu melihat malaikat yang menghalangi jalan. Yang lebih lucu — Bileam menjawab argumen keledai itu seolah percakapan dengan hewan adalah hal normal!' }, { t: '2 beruang menghukum pengejek Elisa! 🐻', d: 'Dalam 2 Raja-raja 2:23-24, sekelompok pemuda mengejek nabi Elisa dengan berteriak "Naiklah hai botak!" Elisa berbalik, mengutuk mereka atas nama Tuhan, dan dua ekor beruang betina keluar dari hutan dan menerkam 42 pemuda. Pesan: jangan ejek hamba Tuhan!' }, { t: 'Matahari berhenti bergerak hampir sehari! ☀️', d: 'Yosua 10:12-13 mencatat mukjizat luar biasa: Yosua berdoa agar matahari dan bulan berhenti, dan keduanya berhenti hampir sehari penuh! Ayat 14 berkata: "Tidak pernah ada hari seperti itu sebelumnya atau sesudahnya."' }, { t: 'Eutikus jatuh dari lantai 3 saat Paulus khotbah! 💤', d: 'Kisah 20:7-12 menceritakan pemuda bernama Eutikus yang duduk di jendela lantai 3 saat Paulus berkhotbah hingga tengah malam. Ia tertidur, jatuh ke bawah — dan mati. Paulus turun, memeluknya, membangkitkannya, lalu naik lagi dan melanjutkan khotbah sampai subuh!' }, { t: 'Gideon menang perang dengan 300 prajurit! ⚔️', d: 'Dalam Hakim-hakim 7, Allah menyuruh Gideon mengurangi pasukannya dari 32.000 menjadi hanya 300 orang — untuk melawan puluhan ribu musuh. Senjata mereka? Terompet, kendi, dan obor. Dan mereka menang total!' }] },
+      { items: [{ t: 'Alkitab = buku terlaris: 5 miliar+ kopi!', d: 'Alkitab adalah buku yang paling banyak dicetak dan didistribusikan dalam sejarah manusia — lebih dari 5 miliar kopi. Diterjemahkan dalam lebih dari 3.000 bahasa, menjangkau ~95% penduduk dunia.' }, { t: 'Martin Luther terjemahkan Alkitab dalam 11 minggu!', d: 'Pada 1521, Martin Luther ditahan di Kastil Wartburg setelah dikucilkan Gereja. Selama 11 minggu, ia menerjemahkan seluruh PB ke bahasa Jerman dari teks Yunani asli — sebuah prestasi luar biasa yang membuat Alkitab bisa dibaca rakyat biasa!' }, { t: 'Seluruh Alkitab bisa dibaca lantang dalam ~70 jam.', d: 'Jika kamu membaca Alkitab dengan kecepatan normal, kamu akan selesai dalam sekitar 70 jam — 52 jam untuk PL dan 18 jam untuk PB. Jika 15 menit per hari, selesai dalam 1 tahun!' }, { t: 'Gutenberg mencetak Alkitab pertama sekitar 1455.', d: 'Johannes Gutenberg mencetak Alkitab pertama menggunakan mesin cetak yang ia ciptakan sekitar 1455. Ini adalah buku pertama yang dicetak massal di Eropa, merevolusi penyebaran informasi dan memungkinkan Reformasi Protestan!' }, { t: 'Yesus mengutip 24 kitab PL dalam pengajaran-Nya.', d: 'Selama pelayanan-Nya, Yesus mengutip atau merujuk setidaknya 24 dari 39 kitab Perjanjian Lama. Kitab yang paling sering dikutip-Nya: Ulangan, Yesaya, dan Mazmur.' }] },
+    ];
+
+    const CHARS = [{ n: 'Daud', d: 'Pejuang & penyair. Jatuh tapi bangkit karena hati yang mengasihi Tuhan. 🎵' }, { n: 'Ester', d: 'Berani & anggun. Rela mengambil risiko demi menyelamatkan bangsanya. 👑' }, { n: 'Maria Magdalena', d: 'Setia sampai akhir — yang pertama melihat kebangkitan Yesus! 🌹' }, { n: 'Rut', d: 'Loyal tanpa syarat. "Ke mana engkau pergi, aku pun ikut." 🌾' }, { n: 'Paulus', d: 'Dari penganiaya jadi rasul terbesar. Passion yang diarahkan Tuhan! ✉️' }, { n: 'Daniel', d: 'Tak goyah meski singa mengancam. Iman mengalahkan segalanya. 🦁' }, { n: 'Debora', d: 'Hakim & nabi — pemimpin perempuan pertama Israel. Lahir untuk memimpin! 🌟' }, { n: 'Yusuf', d: 'Dijual saudara tapi Tuhan punya rencana. Mimpimu AKAN terwujud. 🌈' }, { n: 'Abigail', d: 'Bijaksana & berani. Mencegah pertumpahan darah dengan hikmat. 💎' }, { n: 'Timotius', d: 'Muda tapi dewasa. Tidak minder karena usia, tapi berjalan dalam iman. 💪' }];
+
+    const TPLS = [
+      { id: 'pl7', i: '📜', n: 'Perjanjian Lama 7 Hari', d: 'Highlight PL dalam seminggu', days: ['Kejadian 1-3', 'Keluaran 1-4', 'Mazmur 1-10', 'Amsal 1-5', 'Yesaya 40-42', 'Yeremia 29', 'Daniel 1-3'] },
+      { id: 'pb7', i: '✝️', n: 'Perjanjian Baru 7 Hari', d: 'Highlight PB dalam seminggu', days: ['Matius 1-5', 'Lukas 2 & 15', 'Yohanes 1-3', 'Roma 1 & 8', '1 Korintus 13', 'Efesus 1-3', 'Wahyu 21-22'] },
+      { id: 'ps30', i: '🎵', n: 'Mazmur 30 Hari', d: 'Satu mazmur setiap hari', days: Array.from({ length: 30 }, (_, i) => `Mazmur ${i + 1}`) },
+      { id: 'pb30', i: '📖', n: 'PB 30 Hari', d: 'Seluruh Perjanjian Baru', days: ['Matius 1-4', 'Matius 5-7', 'Matius 8-11', 'Matius 12-15', 'Matius 16-19', 'Matius 20-23', 'Matius 24-28', 'Markus 1-4', 'Markus 5-8', 'Markus 9-12', 'Markus 13-16', 'Lukas 1-4', 'Lukas 5-8', 'Lukas 9-12', 'Lukas 13-16', 'Lukas 17-20', 'Lukas 21-24', 'Yohanes 1-4', 'Yohanes 5-8', 'Yohanes 9-12', 'Yohanes 13-16', 'Yohanes 17-21', 'Kisah 1-7', 'Kisah 8-14', 'Roma 1-8', 'Roma 9-16', '1 & 2 Korintus', 'Galatia - Kolose', '1 Tes - Filemon', 'Ibrani - Wahyu'] },
+      { id: 'pl90', i: '📜', n: 'Perjanjian Lama 90 Hari', d: 'PL lengkap dalam 3 bulan', days: ['Kejadian 1-5', 'Kejadian 6-11', 'Kejadian 12-17', 'Kejadian 18-23', 'Kejadian 24-29', 'Kejadian 30-36', 'Kejadian 37-41', 'Kejadian 42-47', 'Kejadian 48-50 & Kel 1-2', 'Keluaran 3-8', 'Keluaran 9-14', 'Keluaran 15-20', 'Keluaran 21-27', 'Keluaran 28-34', 'Keluaran 35-40', 'Imamat 1-7', 'Imamat 8-14', 'Imamat 15-21', 'Imamat 22-27', 'Bilangan 1-6', 'Bilangan 7-12', 'Bilangan 13-18', 'Bilangan 19-24', 'Bilangan 25-30', 'Bilangan 31-36', 'Ulangan 1-6', 'Ulangan 7-12', 'Ulangan 13-18', 'Ulangan 19-24', 'Ulangan 25-30', 'Ulangan 31-34 & Yos 1', 'Yosua 2-8', 'Yosua 9-15', 'Yosua 16-22', 'Yosua 23-24 & Hak 1-2', 'Hakim 3-9', 'Hakim 10-16', 'Hakim 17-21 & Rut', '1 Samuel 1-6', '1 Samuel 7-12', '1 Samuel 13-18', '1 Samuel 19-24', '1 Samuel 25-31', '2 Samuel 1-6', '2 Samuel 7-12', '2 Samuel 13-18', '2 Samuel 19-24', '1 Raja 1-6', '1 Raja 7-12', '1 Raja 13-18', '1 Raja 19-22', '2 Raja 1-7', '2 Raja 8-14', '2 Raja 15-21', '2 Raja 22-25', 'Ayub 1-10', 'Ayub 11-20', 'Ayub 21-30', 'Ayub 31-42', 'Mazmur 1-20', 'Mazmur 21-40', 'Mazmur 41-60', 'Mazmur 61-80', 'Mazmur 81-100', 'Mazmur 101-120', 'Mazmur 121-150', 'Amsal 1-10', 'Amsal 11-20', 'Amsal 21-31', 'Pengkhotbah & Kidung Agung', 'Yesaya 1-10', 'Yesaya 11-22', 'Yesaya 23-35', 'Yesaya 36-48', 'Yesaya 49-58', 'Yesaya 59-66', 'Yeremia 1-10', 'Yeremia 11-20', 'Yeremia 21-30', 'Yeremia 31-40', 'Yeremia 41-52', 'Ratapan 1-5', 'Yehezkiel 1-12', 'Yehezkiel 13-24', 'Yehezkiel 25-36', 'Yehezkiel 37-48', 'Daniel 1-6', 'Daniel 7-12', 'Hosea - Yoel', 'Amos - Yunus', 'Mikha - Maleakhi'] },
+      { id: 'gospels', i: '✨', n: '4 Injil 28 Hari', d: 'Matius, Markus, Lukas, Yohanes', days: ['Matius 1-4', 'Matius 5-7', 'Matius 8-10', 'Matius 11-13', 'Matius 14-17', 'Matius 18-21', 'Matius 22-25', 'Matius 26-28', 'Markus 1-4', 'Markus 5-8', 'Markus 9-12', 'Markus 13-16', 'Lukas 1-4', 'Lukas 5-8', 'Lukas 9-12', 'Lukas 13-16', 'Lukas 17-20', 'Lukas 21-24', 'Yohanes 1-4', 'Yohanes 5-8', 'Yohanes 9-12', 'Yohanes 13-16', 'Yohanes 17-21', 'Kisah 1-4', 'Kisah 5-9', 'Kisah 10-14', 'Kisah 15-20', 'Kisah 21-28'] },
+      { id: 'wisdom', i: '💡', n: 'Kitab Hikmat 21 Hari', d: 'Mazmur, Amsal, Pengkhotbah', days: Array.from({ length: 15 }, (_, i) => `Mazmur ${i * 10 + 1}-${i * 10 + 10}`).concat(Array.from({ length: 5 }, (_, i) => `Amsal ${i * 6 + 1}-${i * 6 + 6}`)).concat(['Pengkhotbah 1-6', 'Pengkhotbah 7-12']) },
+      { id: 'custom', i: '✏️', n: 'Custom Plan', d: 'Buat planmu sendiri', days: [] },
+    ];
+
+    const PRAY_ST = [{ k: 'praying', l: '🙏 Still Praying', c: 'ps-praying' }, { k: 'signs', l: '🌱 Seeing Signs', c: 'ps-signs' }, { k: 'progress', l: '✨ In Progress', c: 'ps-progress' }, { k: 'answered', l: '🎉 Answered!', c: 'ps-answered' }, { k: 'different', l: '🕊️ God Said Otherwise', c: 'ps-different' }];
+
+    // ════════════════════════════════
+    // INIT
+    // ════════════════════════════════
+    window.onload = () => {
+      const now = new Date();
+      document.getElementById('todayStr').textContent = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('jDate').value = now.toISOString().split('T')[0];
+      dvIdx = Math.floor(Math.random() * DAILY.length);
+      showDV();
+      FF.forEach((_, i) => { ffIdx[i] = Math.floor(Math.random() * FF[i].items.length); showFF(i); });
+      initBP('jBks', 'j');
+      initBP('wBks', 'w');
+      renderTpls();
+      renderAll();
+      loadSheet();
+    };
+
+    function renderAll() { renderJ(); renderRP(); renderWall(); renderPrayers(); renderCal(); renderHomeHist(); updateStats(); }
+
+    // ════════════════════════════════
+    // SHEET SYNC
+    // ════════════════════════════════
+    function setSyncBadge(state, msg) {
+      const b = document.getElementById('syncBadge');
+      b.className = 'sync-badge sync-' + state;
+      b.textContent = msg;
+    }
+    function loadSheet() {
+      setSyncBadge('loading', '⏳ Menghubungkan...');
+      fetch(SHEET + '?action=getEntries')
+        .then(r => r.json())
+        .then(d => {
+          if (d.entries) {
+            d.entries.forEach(e => {
+              if (!DB.journals.find(j => String(j.id) === String(e.id))) {
+                DB.journals.push({
+                  id: e.id, date: e.date, verse: e.verseRef, note: e.note,
+                  title: e.note ? (e.note.split(' ').slice(0, 5).join(' ') + '...') : '',
+                  mood: e.mood, trans: e.translation || 'tb',
+                  tags: (e.tags || '').split(',').filter(Boolean),
+                  user: e.user || 'rara', isPrivate: false, locked: false, pin: '',
+                  character: CHARS[Math.floor(Math.random() * CHARS.length)], photo: null
+                });
+              }
+            });
+            setSyncBadge('ok', `✅ Tersambung · ${d.entries.length} entry`);
+            renderAll();
+          } else {
+            setSyncBadge('ok', '✅ Tersambung (kosong)');
+          }
+        })
+        .catch(() => setSyncBadge('err', '❌ Tidak tersambung · mode offline'));
+    }
+    function pushSheet(e) {
+      fetch(SHEET, {
+        method: 'POST', body: JSON.stringify({
+          action: 'addEntry', id: e.id, user: e.user, date: e.date,
+          verseRef: e.verse || '', verseText: e.verse ? (VDB.tb[e.verse] || '') : '',
+          translation: e.trans || 'tb', note: e.note, mood: e.mood || '',
+          tags: (e.tags || []).join(','), isPrivate: e.isPrivate || false,
+          createdAt: new Date().toISOString()
+        }), headers: { 'Content-Type': 'application/json' }
+      })
+        .then(r => r.json())
+        .then(d => { if (d.success) setSyncBadge('ok', '✅ Tersimpan ke sheet!'); })
+        .catch(() => setSyncBadge('err', '❌ Gagal simpan ke sheet'));
+    }
+
+    // ════════════════════════════════
+    // USER & TABS
+    // ════════════════════════════════
+    function setUser(u, btn) {
+      curUser = u;
+      document.querySelectorAll('.ubtn').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('welN').textContent = u === 'rara' ? 'Rara' : 'Jiji';
+      renderAll();
+    }
+    function goTab(id, btn) {
+      document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.tc').forEach(c => c.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('tc-' + id).classList.add('on');
+      if (id === 'calendar') renderCal();
+    }
+    function goST(id, btn) {
+      const p = btn.closest('.tc');
+      p.querySelectorAll('.stbtn').forEach(b => b.classList.remove('on'));
+      p.querySelectorAll('.stc').forEach(c => c.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('stc-' + id).classList.add('on');
+    }
+
+    // ════════════════════════════════
+    // FUN FACTS & DAILY VERSE
+    // ════════════════════════════════
+    function showFF(i) {
+      const el = document.getElementById('fft' + i); if (!el) return;
+      el.style.transition = 'opacity .16s'; el.style.opacity = 0;
+      document.getElementById('ffd' + i).classList.remove('show');
+      ffShowing[i] = false;
+      setTimeout(() => { el.textContent = FF[i].items[ffIdx[i]].t; el.style.opacity = 1; }, 160);
+    }
+    function tapFF(i) {
+      if (!ffShowing[i]) {
+        // First tap: show detail
+        const d = document.getElementById('ffd' + i);
+        d.textContent = FF[i].items[ffIdx[i]].d;
+        d.classList.add('show');
+        ffShowing[i] = true;
+      } else {
+        // Second tap: next item
+        ffIdx[i] = (ffIdx[i] + 1) % FF[i].items.length;
+        showFF(i);
+      }
+    }
+    function showDV() {
+      const v = DAILY[dvIdx];
+      const t = document.getElementById('dvT');
+      t.style.transition = 'opacity .2s'; t.style.opacity = 0;
+      setTimeout(() => { t.textContent = '"' + v.tb + '"'; t.style.opacity = 1; }, 200);
+      document.getElementById('dvR').textContent = '— ' + v.r;
+    }
+    function nextDV() { dvIdx = (dvIdx + 1) % DAILY.length; showDV(); }
+
+    // ════════════════════════════════
+    // VERSE PICKER
+    // ════════════════════════════════
+    function initBP(containerId, pfx) {
+      const el = document.getElementById(containerId); if (!el) return;
+      el.innerHTML = BOOKS.map(b => `<button class="vbb" onclick="selBook('${pfx}','${b}',this)">${b}</button>`).join('');
+    }
+    function selBook(pfx, book, btn) {
+      pSt[pfx].book = book;
+      btn.closest('.vbooks').querySelectorAll('.vbb').forEach(b => b.classList.toggle('sel', b.textContent === book));
+      upV(pfx);
+    }
+    function upV(pfx) {
+      const book = pSt[pfx]?.book || '';
+      const ps = document.getElementById(pfx + 'Ps')?.value || '';
+      const ay = document.getElementById(pfx + 'Ay')?.value || '';
+      const res = document.getElementById(pfx + 'VR');
+      const txt = document.getElementById(pfx + 'VT');
+      if (!book || !ps || !ay) { if (res) res.style.display = 'none'; return; }
+      const ref = `${book} ${ps}:${ay}`;
+      const trans = pSt[pfx]?.trans || 'tb';
+      const found = VDB[trans][ref];
+      if (res) res.style.display = 'block';
+      if (txt) txt.textContent = found ? `"${found}"` : (`Ayat "${ref}" belum ada di database lokal. Coba alkitab.sabda.org 🌸`);
+      pSt[pfx].ref = ref;
+    }
+    function swVT(pfx, trans, btn) {
+      pSt[pfx].trans = trans;
+      const p = btn.closest('.vres'); if (p) { p.querySelectorAll('.vtab').forEach(b => b.classList.remove('on')); btn.classList.add('on'); }
+      upV(pfx);
+    }
+
+    // ════════════════════════════════
+    // MOOD & TAGS
+    // ════════════════════════════════
+    function pickM(btn, e) { document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('on')); btn.classList.add('on'); curMood = e; }
+    function addTag(e) { if (e.key === 'Enter') { e.preventDefault(); const v = document.getElementById('jTagIn').value.trim(); if (v && !jTags.includes(v)) { jTags.push(v); renderTC(); } document.getElementById('jTagIn').value = ''; } }
+    function rmTag(t) { jTags = jTags.filter(x => x !== t); renderTC(); }
+    function renderTC() { document.getElementById('jTC').innerHTML = jTags.map(t => `<div class="tchip">${t}<span class="trm" onclick="rmTag('${t}')">✕</span></div>`).join(''); }
+    function prevPh(inp) { const f = inp.files[0]; if (!f) return; const r = new FileReader(); r.onload = e => { phData = e.target.result; document.getElementById('phWrap').innerHTML = `<img src="${phData}" style="width:100%;border-radius:7px;max-height:110px;object-fit:cover;">`; }; r.readAsDataURL(f); }
+
+    // ════════════════════════════════
+    // AUTO TITLE
+    // ════════════════════════════════
+    function genTitle(note, verse) {
+      if (verse) return verse;
+      const words = note.trim().split(/\s+/).slice(0, 6);
+      return words.join(' ') + (note.split(/\s+/).length > 6 ? '...' : '');
+    }
+
+    // ════════════════════════════════
+    // JOURNAL
+    // ════════════════════════════════
+    function saveJ() {
+      const note = document.getElementById('jNote').value.trim();
+      if (!note) { alert('Isi catatan dulu ya! 🌸'); return; }
+      const titleInput = document.getElementById('jTitle').value.trim();
+      const verse = pSt.j.ref || '';
+      const isPriv = document.getElementById('jPriv').value === 'yes';
+      const pin = document.getElementById('jPin').value;
+      const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+      const autoTitle = titleInput || genTitle(note, verse);
+      const entry = { id: Date.now(), date: document.getElementById('jDate').value, title: autoTitle, verse, note, mood: curMood, trans: 'tb', tags: [...jTags], user: curUser, isPrivate: isPriv, locked: isPriv, pin, character: char, photo: phData };
+      DB.journals.unshift(entry);
+      if (!isPriv) pushSheet(entry);
+      // reset form
+      document.getElementById('jNote').value = ''; document.getElementById('jTitle').value = '';
+      document.getElementById('jPs').value = ''; document.getElementById('jAy').value = '';
+      document.getElementById('jVR').style.display = 'none';
+      document.getElementById('jBks').querySelectorAll('.vbb').forEach(b => b.classList.remove('sel'));
+      pSt.j = { book: '', trans: 'tb', ref: '' };
+      curMood = ''; jTags = []; phData = null;
+      document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('on'));
+      renderTC();
+      document.getElementById('phWrap').innerHTML = '<div style="font-size:1.5rem">📷</div><div style="font-size:0.75rem;color:var(--muted)">Tap untuk pilih foto</div>';
+      renderJ(); renderHomeHist(); updateStats(); renderWall(); renderCal();
+      alert('Journal tersimpan! 🌸✝️');
+    }
+
+    function renderJ() {
+      const list = document.getElementById('jList');
+      const q = (document.getElementById('jSrch')?.value || '').toLowerCase();
+      let js = DB.journals.filter(j => j.user === curUser);
+      if (q) js = js.filter(j => (j.title + j.note + j.verse + (j.tags || []).join(' ')).toLowerCase().includes(q));
+      if (!js.length) { list.innerHTML = '<div class="empty"><div class="ei">📖</div><p>Belum ada journal. Mulai menulis! 🌸</p></div>'; return; }
+      list.innerHTML = js.map(j => {
+        const vt = j.verse ? VDB.tb[j.verse] : '';
+        return `<div class="jcard">
+      ${j.isPrivate ? `<div class="lock-bar" onclick="toggleLock(${j.id})">
+        <div class="lock-bar-l">
+          <span style="font-size:1.2rem">${j.locked ? '🔒' : '🔓'}</span>
+          <div><div class="lock-bar-title">${j.title || 'Journal'}</div><div class="lock-bar-sub">${j.date} ${j.mood || ''} ${j.verse ? '· ' + j.verse : ''}</div></div>
+        </div>
+        <button class="lock-bar-btn">${j.locked ? 'Buka PIN' : 'Kunci'}</button>
+      </div>`: `
+      <div class="jcard-hdr">
+        <span style="font-size:1.05rem">${j.mood || '📖'}</span>
+        <span class="jdate">${j.date}</span>
+        ${j.verse ? `<span class="vtag" onclick="openBM('${j.verse}')">📖 ${j.verse}</span>` : ''}
+      </div>`}
+      <div id="jb-${j.id}" ${j.isPrivate && j.locked ? 'style="display:none"' : ''}>
+        ${j.isPrivate ? '' : `<div style="font-weight:700;font-size:0.88rem;margin-bottom:5px;color:var(--text)">${j.title || ''}</div>`}
+        ${vt ? `<div style="font-style:italic;font-size:0.79rem;color:var(--muted);margin-bottom:6px;padding:6px 9px;background:var(--b1);border-radius:8px;line-height:1.5">"${vt}"</div>` : ''}
+        <div class="jtext">${j.note}</div>
+        ${j.photo ? `<img src="${j.photo}" class="photo-prev">` : ''}
+        ${j.tags?.length ? `<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:6px">${j.tags.map(t => `<span class="jtag">#${t}</span>`).join('')}</div>` : ''}
+        ${j.character ? `<div class="jchar">🌟 Hari ini kamu seperti <strong>${j.character.n}</strong> — ${j.character.d}</div>` : ''}
+      </div>
+      ${j.isPrivate && j.locked ? `<div id="pr-${j.id}" class="jbody-hidden show"><div class="pin-row"><input type="password" placeholder="Masukkan PIN" id="pi-${j.id}" maxlength="6"><button onclick="unlockJ(${j.id})">🔓 Buka</button></div></div>` :
+            (j.isPrivate && !j.locked ? `<div style="margin-top:5px"><button onclick="relockJ(${j.id})" style="padding:4px 10px;border-radius:8px;border:2px solid var(--lav2);background:white;cursor:pointer;font-family:Quicksand,sans-serif;font-weight:700;font-size:0.74rem;color:var(--lav2);">🔒 Kunci Lagi</button></div>` : '')}
     </div>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-function toggleLock(id){
-  const j=DB.journals.find(x=>x.id===id);if(!j)return;
-  if(j.locked){
-    // show pin input - already shown in render
-    document.getElementById('pr-'+id)?.classList.toggle('show');
-  } else {
-    j.locked=true;renderJ();
-  }
-}
-function unlockJ(id){
-  const j=DB.journals.find(x=>x.id===id);if(!j)return;
-  const inp=document.getElementById('pi-'+id);
-  if(inp.value===j.pin){j.locked=false;renderJ();}
-  else{inp.style.borderColor='var(--p3)';inp.value='';inp.placeholder='PIN salah! Coba lagi 🌸';}
-}
-function relockJ(id){const j=DB.journals.find(x=>x.id===id);if(j){j.locked=true;renderJ();}}
+    function toggleLock(id) {
+      const j = DB.journals.find(x => x.id === id); if (!j) return;
+      if (j.locked) {
+        // show pin input - already shown in render
+        document.getElementById('pr-' + id)?.classList.toggle('show');
+      } else {
+        j.locked = true; renderJ();
+      }
+    }
+    function unlockJ(id) {
+      const j = DB.journals.find(x => x.id === id); if (!j) return;
+      const inp = document.getElementById('pi-' + id);
+      if (inp.value === j.pin) { j.locked = false; renderJ(); }
+      else { inp.style.borderColor = 'var(--p3)'; inp.value = ''; inp.placeholder = 'PIN salah! Coba lagi 🌸'; }
+    }
+    function relockJ(id) { const j = DB.journals.find(x => x.id === id); if (j) { j.locked = true; renderJ(); } }
 
-// ════════════════════════════════
-// HOME HISTORY
-// ════════════════════════════════
-function renderHomeHist(){
-  const el=document.getElementById('homeHist');if(!el)return;
-  const all=[...DB.journals].sort((a,b)=>b.id-a.id).slice(0,20);
-  if(!all.length){el.innerHTML='<div class="empty" style="padding:16px"><p style="font-size:0.8rem">Belum ada journal 🌸</p></div>';return;}
-  el.innerHTML=all.map(j=>`
-    <div class="hist-card ${j.user==='jiji'?'jiji-card':''}" onclick="jumpToJournal('${j.user}')">
-      <div class="hist-avtr ha-${j.user}">${j.user==='rara'?'R':'J'}</div>
+    // ════════════════════════════════
+    // HOME HISTORY
+    // ════════════════════════════════
+    function renderHomeHist() {
+      const el = document.getElementById('homeHist'); if (!el) return;
+      const all = [...DB.journals].sort((a, b) => b.id - a.id).slice(0, 20);
+      if (!all.length) { el.innerHTML = '<div class="empty" style="padding:16px"><p style="font-size:0.8rem">Belum ada journal 🌸</p></div>'; return; }
+      el.innerHTML = all.map(j => `
+    <div class="hist-card ${j.user === 'jiji' ? 'jiji-card' : ''}" onclick="jumpToJournal('${j.user}')">
+      <div class="hist-avtr ha-${j.user}">${j.user === 'rara' ? 'R' : 'J'}</div>
       <div class="hist-body">
         <div class="hist-meta">
-          <span class="hist-name">${j.user==='rara'?'👑 Rara':'🌙 Jiji'}</span>
+          <span class="hist-name">${j.user === 'rara' ? '👑 Rara' : '🌙 Jiji'}</span>
           <span class="hist-date">${j.date}</span>
-          <span style="font-size:1rem">${j.mood||''}</span>
-          ${j.verse?`<span class="hist-vtag">📖 ${j.verse}</span>`:''}
-          ${j.isPrivate?'<span style="font-size:0.85rem">🔒</span>':''}
+          <span style="font-size:1rem">${j.mood || ''}</span>
+          ${j.verse ? `<span class="hist-vtag">📖 ${j.verse}</span>` : ''}
+          ${j.isPrivate ? '<span style="font-size:0.85rem">🔒</span>' : ''}
         </div>
-        ${j.isPrivate&&j.locked?
-          `<div class="hist-locked">🔒 ${j.title||'Journal terkunci'} — tap untuk buka</div>`:
-          `<div class="hist-title">${j.title||''}</div><div class="hist-snip">${j.note.slice(0,80)}${j.note.length>80?'...':''}</div>`
+        ${j.isPrivate && j.locked ?
+          `<div class="hist-locked">🔒 ${j.title || 'Journal terkunci'} — tap untuk buka</div>` :
+          `<div class="hist-title">${j.title || ''}</div><div class="hist-snip">${j.note.slice(0, 80)}${j.note.length > 80 ? '...' : ''}</div>`
         }
       </div>
     </div>`).join('');
-}
-function jumpToJournal(user){
-  document.querySelectorAll('.ubtn').forEach(b=>{if(b.textContent.toLowerCase().includes(user))b.click();});
-  document.querySelectorAll('.tbtn').forEach(b=>{if(b.textContent.includes('Journal'))b.click();});
-}
+    }
+    function jumpToJournal(user) {
+      document.querySelectorAll('.ubtn').forEach(b => { if (b.textContent.toLowerCase().includes(user)) b.click(); });
+      document.querySelectorAll('.tbtn').forEach(b => { if (b.textContent.includes('Journal')) b.click(); });
+    }
 
-// ════════════════════════════════
-// READING PLAN
-// ════════════════════════════════
-function renderTpls(){document.getElementById('tplG').innerHTML=TPLS.map(t=>`<div class="tplc" onclick="loadTpl('${t.id}',this)"><div class="tplc-i">${t.i}</div><div class="tplc-n">${t.n}</div><div class="tplc-d">${t.d}</div></div>`).join('');}
-function loadTpl(id,card){
-  const t=TPLS.find(x=>x.id===id);if(!t)return;
-  document.querySelectorAll('.tplc').forEach(c=>c.classList.remove('sel'));card.classList.add('sel');
-  document.getElementById('rpN').value=t.id==='custom'?'':t.n;
-  document.getElementById('rpDI').innerHTML=t.days.length?
-    t.days.map((d,i)=>`<div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" value="${d}" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div>`).join(''):
-    '<div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" placeholder="Hari 1 — cth: Matius 1-2" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div>';
-}
-function addRD(){const w=document.getElementById('rpDI');const n=w.children.length+1;const d=document.createElement('div');d.style.cssText='display:flex;gap:5px;margin-bottom:5px;';d.innerHTML=`<input type="text" placeholder="Hari ${n}..." style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;">`;w.appendChild(d);}
-function saveRP(){
-  const name=document.getElementById('rpN').value.trim();if(!name){alert('Isi nama plan! 📚');return;}
-  const days=Array.from(document.querySelectorAll('#rpDI input')).map((inp,i)=>({day:i+1,ref:inp.value.trim(),done:false})).filter(d=>d.ref);
-  if(!days.length){alert('Tambahkan minimal 1 hari!');return;}
-  DB.plans.push({id:Date.now(),name,days,user:curUser});
-  document.getElementById('rpN').value='';
-  document.getElementById('rpDI').innerHTML='<div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" placeholder="Hari 1 — cth: Matius 1-2" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div>';
-  document.querySelectorAll('.tplc').forEach(c=>c.classList.remove('sel'));
-  renderRP();updateStats();alert('Reading plan tersimpan! 📚✝️');
-}
-function renderRP(){
-  const plans=DB.plans.filter(p=>p.user===curUser);
-  const rL=document.getElementById('rpList'),dL=document.getElementById('rpDone');
-  if(!plans.length){rL.innerHTML='<div class="empty"><div class="ei">📚</div><p>Buat plan dulu di tab ✏️!</p></div>';dL.innerHTML='<div class="empty"><div class="ei">🎉</div><p>Belum ada yang selesai!</p></div>';document.getElementById('progT').textContent='0/0';document.getElementById('progF').style.width='0%';return;}
-  let tot=0,don=0,ph='',dh='';
-  plans.forEach(pl=>{
-    const pd=pl.days.filter(d=>d.done).length;tot+=pl.days.length;don+=pd;
-    const pct=pl.days.length?Math.round(pd/pl.days.length*100):0;
-    const h=`<div class="plan-g"><div class="plan-gh"><span>${pl.name}</span><span style="font-family:Quicksand,sans-serif;font-size:0.77rem;">${pct}%</span></div>${pl.days.map(d=>`<div class="pday ${d.done?'done':''}" onclick="togDay(${pl.id},${d.day})"><div class="pchk">${d.done?'✓':''}</div><div class="pinfo"><div class="pnum">Hari ${d.day}</div><div class="pref">${d.ref}</div></div><button class="pbtn" onclick="event.stopPropagation();openBRef('${d.ref}')">📖 Buka</button></div>`).join('')}</div>`;
-    if(pct===100)dh+=h;else ph+=h;
-  });
-  rL.innerHTML=ph||'<div class="empty"><div class="ei">🎉</div><p>Semua plan selesai!</p></div>';
-  dL.innerHTML=dh||'<div class="empty"><div class="ei">⏳</div><p>Belum ada yang 100% selesai.</p></div>';
-  document.getElementById('progT').textContent=`${don}/${tot}`;
-  document.getElementById('progF').style.width=tot?`${Math.round(don/tot*100)}%`:'0%';
-}
-function togDay(planId,dayNum){const p=DB.plans.find(x=>x.id===planId);if(!p)return;const d=p.days.find(x=>x.day===dayNum);if(d){d.done=!d.done;renderRP();updateStats();}}
-function openBRef(ref){const clean=ref.split(/[-–]/)[0].trim();const parts=clean.split(/\s+/);let r=parts.length>=2?parts.slice(0,-1).join(' ')+' '+parts[parts.length-1]+':1':clean+' 1:1';r=r.replace(/\s(\d+):(\d+)/,' $1:$2');openBM(r);}
+    // ════════════════════════════════
+    // READING PLAN
+    // ════════════════════════════════
+    function renderTpls() { document.getElementById('tplG').innerHTML = TPLS.map(t => `<div class="tplc" onclick="loadTpl('${t.id}',this)"><div class="tplc-i">${t.i}</div><div class="tplc-n">${t.n}</div><div class="tplc-d">${t.d}</div></div>`).join(''); }
+    function loadTpl(id, card) {
+      const t = TPLS.find(x => x.id === id); if (!t) return;
+      document.querySelectorAll('.tplc').forEach(c => c.classList.remove('sel')); card.classList.add('sel');
+      document.getElementById('rpN').value = t.id === 'custom' ? '' : t.n;
+      document.getElementById('rpDI').innerHTML = t.days.length ?
+        t.days.map((d, i) => `<div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" value="${d}" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div>`).join('') :
+        '<div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" placeholder="Hari 1 — cth: Matius 1-2" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div>';
+    }
+    function addRD() { const w = document.getElementById('rpDI'); const n = w.children.length + 1; const d = document.createElement('div'); d.style.cssText = 'display:flex;gap:5px;margin-bottom:5px;'; d.innerHTML = `<input type="text" placeholder="Hari ${n}..." style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;">`; w.appendChild(d); }
+    function saveRP() {
+      const name = document.getElementById('rpN').value.trim(); if (!name) { alert('Isi nama plan! 📚'); return; }
+      const days = Array.from(document.querySelectorAll('#rpDI input')).map((inp, i) => ({ day: i + 1, ref: inp.value.trim(), done: false })).filter(d => d.ref);
+      if (!days.length) { alert('Tambahkan minimal 1 hari!'); return; }
+      DB.plans.push({ id: Date.now(), name, days, user: curUser });
+      document.getElementById('rpN').value = '';
+      document.getElementById('rpDI').innerHTML = '<div style="display:flex;gap:5px;margin-bottom:5px;"><input type="text" placeholder="Hari 1 — cth: Matius 1-2" style="flex:1;padding:7px 10px;border-radius:9px;border:2px solid var(--b1);font-family:Quicksand,sans-serif;font-size:0.81rem;outline:none;"></div>';
+      document.querySelectorAll('.tplc').forEach(c => c.classList.remove('sel'));
+      renderRP(); updateStats(); alert('Reading plan tersimpan! 📚✝️');
+    }
+    function renderRP() {
+      const plans = DB.plans.filter(p => p.user === curUser);
+      const rL = document.getElementById('rpList'), dL = document.getElementById('rpDone');
+      if (!plans.length) { rL.innerHTML = '<div class="empty"><div class="ei">📚</div><p>Buat plan dulu di tab ✏️!</p></div>'; dL.innerHTML = '<div class="empty"><div class="ei">🎉</div><p>Belum ada yang selesai!</p></div>'; document.getElementById('progT').textContent = '0/0'; document.getElementById('progF').style.width = '0%'; return; }
+      let tot = 0, don = 0, ph = '', dh = '';
+      plans.forEach(pl => {
+        const pd = pl.days.filter(d => d.done).length; tot += pl.days.length; don += pd;
+        const pct = pl.days.length ? Math.round(pd / pl.days.length * 100) : 0;
+        const h = `<div class="plan-g"><div class="plan-gh"><span>${pl.name}</span><span style="font-family:Quicksand,sans-serif;font-size:0.77rem;">${pct}%</span></div>${pl.days.map(d => `<div class="pday ${d.done ? 'done' : ''}" onclick="togDay(${pl.id},${d.day})"><div class="pchk">${d.done ? '✓' : ''}</div><div class="pinfo"><div class="pnum">Hari ${d.day}</div><div class="pref">${d.ref}</div></div><button class="pbtn" onclick="event.stopPropagation();openBRef('${d.ref}')">📖 Buka</button></div>`).join('')}</div>`;
+        if (pct === 100) dh += h; else ph += h;
+      });
+      rL.innerHTML = ph || '<div class="empty"><div class="ei">🎉</div><p>Semua plan selesai!</p></div>';
+      dL.innerHTML = dh || '<div class="empty"><div class="ei">⏳</div><p>Belum ada yang 100% selesai.</p></div>';
+      document.getElementById('progT').textContent = `${don}/${tot}`;
+      document.getElementById('progF').style.width = tot ? `${Math.round(don / tot * 100)}%` : '0%';
+    }
+    function togDay(planId, dayNum) { const p = DB.plans.find(x => x.id === planId); if (!p) return; const d = p.days.find(x => x.day === dayNum); if (d) { d.done = !d.done; renderRP(); updateStats(); } }
+    function openBRef(ref) { const clean = ref.split(/[-–]/)[0].trim(); const parts = clean.split(/\s+/); let r = parts.length >= 2 ? parts.slice(0, -1).join(' ') + ' ' + parts[parts.length - 1] + ':1' : clean + ' 1:1'; r = r.replace(/\s(\d+):(\d+)/, ' $1:$2'); openBM(r); }
 
-// ════════════════════════════════
-// BIBLE MODAL
-// ════════════════════════════════
-function openBM(ref){
-  curBRef=ref;curBTrans='tb';
-  document.getElementById('bMRef').textContent=ref;
-  document.querySelectorAll('.trbtn').forEach((b,i)=>b.classList.toggle('on',i===0));
-  const v=VDB.tb[ref];
-  document.getElementById('bMVerse').textContent=v?`"${v}"`:('Ayat "'+ref+'" belum ada di database lokal. Coba buka alkitab.sabda.org 🌸');
-  document.getElementById('bMod').classList.add('show');
-}
-function closeBM(){document.getElementById('bMod').classList.remove('show');}
-function setBT(t,btn){curBTrans=t;document.querySelectorAll('.trbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');const v=VDB[t][curBRef];document.getElementById('bMVerse').textContent=v?`"${v}"`:('Terjemahan "'+curBRef+'" belum tersedia.');}
+    // ════════════════════════════════
+    // BIBLE MODAL
+    // ════════════════════════════════
+    function openBM(ref) {
+      curBRef = ref; curBTrans = 'tb';
+      document.getElementById('bMRef').textContent = ref;
+      document.querySelectorAll('.trbtn').forEach((b, i) => b.classList.toggle('on', i === 0));
+      const v = VDB.tb[ref];
+      document.getElementById('bMVerse').textContent = v ? `"${v}"` : ('Ayat "' + ref + '" belum ada di database lokal. Coba buka alkitab.sabda.org 🌸');
+      document.getElementById('bMod').classList.add('show');
+    }
+    function closeBM() { document.getElementById('bMod').classList.remove('show'); }
+    function setBT(t, btn) { curBTrans = t; document.querySelectorAll('.trbtn').forEach(b => b.classList.remove('on')); btn.classList.add('on'); const v = VDB[t][curBRef]; document.getElementById('bMVerse').textContent = v ? `"${v}"` : ('Terjemahan "' + curBRef + '" belum tersedia.'); }
 
-// ════════════════════════════════
-// CALENDAR
-// ════════════════════════════════
-const MNS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-function renderCal(){
-  document.getElementById('calMY').textContent=`${MNS[calM]} ${calY}`;
-  const grid=document.getElementById('calG');
-  Array.from(grid.querySelectorAll('.cday')).forEach(d=>d.remove());
-  const first=new Date(calY,calM,1).getDay(),total=new Date(calY,calM+1,0).getDate(),prev=new Date(calY,calM,0).getDate();
-  const today=new Date();
-  const dd={};
-  DB.journals.forEach(j=>{if(!j.isPrivate){if(!dd[j.date])dd[j.date]={r:[],j:[]};dd[j.date][j.user==='rara'?'r':'j'].push(j);}});
-  for(let i=0;i<first;i++){const d=document.createElement('div');d.className='cday other';d.innerHTML=`<span>${prev-first+i+1}</span>`;grid.appendChild(d);}
-  for(let i=1;i<=total;i++){
-    const ds=`${calY}-${String(calM+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
-    const ddd=dd[ds]||{r:[],j:[]};
-    const isT=i===today.getDate()&&calM===today.getMonth()&&calY===today.getFullYear();
-    const moods=[...ddd.r,...ddd.j].map(x=>x.mood).filter(Boolean).slice(0,2).join('');
-    const d=document.createElement('div');
-    d.className='cday'+(isT?' today':'');
-    d.innerHTML=`<span>${i}</span>${moods?`<div class="cday-em">${moods}</div>`:''}<div class="cday-dots">${ddd.r.length?'<div class="dr"></div>':''}${ddd.j.length?'<div class="dj"></div>':''}</div>`;
-    d.onclick=()=>{const el=document.getElementById('cld-'+ds);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
-    grid.appendChild(d);
-  }
-  renderCalList();
-}
-function renderCalList(){
-  const list=document.getElementById('calL');
-  const all=DB.journals.filter(j=>!j.isPrivate&&j.date.startsWith(`${calY}-${String(calM+1).padStart(2,'0')}`));
-  if(!all.length){list.innerHTML='<div class="empty" style="padding:14px"><p style="font-size:0.79rem">Tidak ada journal bulan ini 🌸</p></div>';return;}
-  const byD={};all.forEach(j=>{if(!byD[j.date])byD[j.date]=[];byD[j.date].push(j);});
-  list.innerHTML=Object.keys(byD).sort().reverse().map(date=>`<div class="cal-day-grp" id="cld-${date}"><div class="cal-day-hdr">📅 ${date}</div>${byD[date].map(j=>`<div class="cal-jitem ${j.user}"><div class="avtr avtr-${j.user}">${j.user==='rara'?'R':'J'}</div><div style="flex:1"><div style="font-size:0.76rem;font-weight:700;margin-bottom:1px">${j.user==='rara'?'👑 Rara':'🌙 Jiji'} ${j.mood||''} ${j.verse?`<span class="vtag" onclick="openBM('${j.verse}')" style="font-size:0.67rem">📖 ${j.verse}</span>`:''}</div><div style="font-size:0.8rem;font-weight:600;color:var(--text)">${j.title||''}</div><div style="font-size:0.78rem;color:var(--muted)">${j.note.slice(0,80)}${j.note.length>80?'...':''}</div></div></div>`).join('')}</div>`).join('');
-}
-function chM(dir){calM+=dir;if(calM>11){calM=0;calY++;}if(calM<0){calM=11;calY--;}renderCal();}
+    // ════════════════════════════════
+    // CALENDAR
+    // ════════════════════════════════
+    const MNS = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    function renderCal() {
+      document.getElementById('calMY').textContent = `${MNS[calM]} ${calY}`;
+      const grid = document.getElementById('calG');
+      Array.from(grid.querySelectorAll('.cday')).forEach(d => d.remove());
+      const first = new Date(calY, calM, 1).getDay(), total = new Date(calY, calM + 1, 0).getDate(), prev = new Date(calY, calM, 0).getDate();
+      const today = new Date();
+      const dd = {};
+      DB.journals.forEach(j => { if (!j.isPrivate) { if (!dd[j.date]) dd[j.date] = { r: [], j: [] }; dd[j.date][j.user === 'rara' ? 'r' : 'j'].push(j); } });
+      for (let i = 0; i < first; i++) { const d = document.createElement('div'); d.className = 'cday other'; d.innerHTML = `<span>${prev - first + i + 1}</span>`; grid.appendChild(d); }
+      for (let i = 1; i <= total; i++) {
+        const ds = `${calY}-${String(calM + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        const ddd = dd[ds] || { r: [], j: [] };
+        const isT = i === today.getDate() && calM === today.getMonth() && calY === today.getFullYear();
+        const moods = [...ddd.r, ...ddd.j].map(x => x.mood).filter(Boolean).slice(0, 2).join('');
+        const d = document.createElement('div');
+        d.className = 'cday' + (isT ? ' today' : '');
+        d.innerHTML = `<span>${i}</span>${moods ? `<div class="cday-em">${moods}</div>` : ''}<div class="cday-dots">${ddd.r.length ? '<div class="dr"></div>' : ''}${ddd.j.length ? '<div class="dj"></div>' : ''}</div>`;
+        d.onclick = () => { const el = document.getElementById('cld-' + ds); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+        grid.appendChild(d);
+      }
+      renderCalList();
+    }
+    function renderCalList() {
+      const list = document.getElementById('calL');
+      const all = DB.journals.filter(j => !j.isPrivate && j.date.startsWith(`${calY}-${String(calM + 1).padStart(2, '0')}`));
+      if (!all.length) { list.innerHTML = '<div class="empty" style="padding:14px"><p style="font-size:0.79rem">Tidak ada journal bulan ini 🌸</p></div>'; return; }
+      const byD = {}; all.forEach(j => { if (!byD[j.date]) byD[j.date] = []; byD[j.date].push(j); });
+      list.innerHTML = Object.keys(byD).sort().reverse().map(date => `<div class="cal-day-grp" id="cld-${date}"><div class="cal-day-hdr">📅 ${date}</div>${byD[date].map(j => `<div class="cal-jitem ${j.user}"><div class="avtr avtr-${j.user}">${j.user === 'rara' ? 'R' : 'J'}</div><div style="flex:1"><div style="font-size:0.76rem;font-weight:700;margin-bottom:1px">${j.user === 'rara' ? '👑 Rara' : '🌙 Jiji'} ${j.mood || ''} ${j.verse ? `<span class="vtag" onclick="openBM('${j.verse}')" style="font-size:0.67rem">📖 ${j.verse}</span>` : ''}</div><div style="font-size:0.8rem;font-weight:600;color:var(--text)">${j.title || ''}</div><div style="font-size:0.78rem;color:var(--muted)">${j.note.slice(0, 80)}${j.note.length > 80 ? '...' : ''}</div></div></div>`).join('')}</div>`).join('');
+    }
+    function chM(dir) { calM += dir; if (calM > 11) { calM = 0; calY++; } if (calM < 0) { calM = 11; calY--; } renderCal(); }
 
-// ════════════════════════════════
-// BULLETIN BOARD WALL
-// ════════════════════════════════
-function postW(){
-  const text=document.getElementById('wTxt').value.trim();if(!text){alert('Tulis sesuatu dulu! 💕');return;}
-  const verse=pSt.w.ref||'';
-  const pinIdx=DB.wallPosts.length%4;
-  DB.wallPosts.unshift({id:Date.now(),user:curUser,text,verse,date:new Date().toISOString().split('T')[0],reactions:{pray:0,heart:0,star:0},reacted:{},replies:[],pinColor:PIN_COLORS[pinIdx],pinDot:PIN_DOTS[pinIdx]});
-  document.getElementById('wTxt').value='';document.getElementById('wPs').value='';document.getElementById('wAy').value='';
-  document.getElementById('wVR').style.display='none';
-  document.getElementById('wBks').querySelectorAll('.vbb').forEach(b=>b.classList.remove('sel'));
-  pSt.w={book:'',trans:'tb',ref:''};
-  renderWall();
-}
-function renderWall(){
-  const board=document.getElementById('wallB');
-  // Include non-private journals as pins too
-  const jPins=DB.journals.filter(j=>!j.isPrivate).slice(0,4).map((j,i)=>({...j,isJournal:true,pinColor:PIN_COLORS[(i+2)%4],pinDot:PIN_DOTS[(i+2)%4]}));
-  const all=[...DB.wallPosts,...jPins].sort((a,b)=>b.id-a.id).slice(0,12);
-  if(!all.length){board.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="ei">💕</div><p>Belum ada postingan!</p></div>';return;}
-  board.innerHTML=all.map(p=>{
-    const vt=p.verse?VDB.tb[p.verse]:'';
-    const isJ=p.isJournal;
-    const col=p.pinColor||PIN_COLORS[0];
-    const dot=p.pinDot||PIN_DOTS[0];
-    return `<div class="pin ${col}" id="wp-${p.id}">
+    // ════════════════════════════════
+    // BULLETIN BOARD WALL
+    // ════════════════════════════════
+    function postW() {
+      const text = document.getElementById('wTxt').value.trim(); if (!text) { alert('Tulis sesuatu dulu! 💕'); return; }
+      const verse = pSt.w.ref || '';
+      const pinIdx = DB.wallPosts.length % 4;
+      DB.wallPosts.unshift({ id: Date.now(), user: curUser, text, verse, date: new Date().toISOString().split('T')[0], reactions: { pray: 0, heart: 0, star: 0 }, reacted: {}, replies: [], pinColor: PIN_COLORS[pinIdx], pinDot: PIN_DOTS[pinIdx] });
+      document.getElementById('wTxt').value = ''; document.getElementById('wPs').value = ''; document.getElementById('wAy').value = '';
+      document.getElementById('wVR').style.display = 'none';
+      document.getElementById('wBks').querySelectorAll('.vbb').forEach(b => b.classList.remove('sel'));
+      pSt.w = { book: '', trans: 'tb', ref: '' };
+      renderWall();
+    }
+    function renderWall() {
+      const board = document.getElementById('wallB');
+      // Include non-private journals as pins too
+      const jPins = DB.journals.filter(j => !j.isPrivate).slice(0, 4).map((j, i) => ({ ...j, isJournal: true, pinColor: PIN_COLORS[(i + 2) % 4], pinDot: PIN_DOTS[(i + 2) % 4] }));
+      const all = [...DB.wallPosts, ...jPins].sort((a, b) => b.id - a.id).slice(0, 12);
+      if (!all.length) { board.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="ei">💕</div><p>Belum ada postingan!</p></div>'; return; }
+      board.innerHTML = all.map(p => {
+        const vt = p.verse ? VDB.tb[p.verse] : '';
+        const isJ = p.isJournal;
+        const col = p.pinColor || PIN_COLORS[0];
+        const dot = p.pinDot || PIN_DOTS[0];
+        return `<div class="pin ${col}" id="wp-${p.id}">
       <div class="pin-dot ${dot}"></div>
       <div class="pin-usr">
-        <div class="avtr avtr-${p.user}">${p.user==='rara'?'R':'J'}</div>
-        <div><div class="pin-name">${p.user==='rara'?'👑 Rara':'🌙 Jiji'}${isJ?' 📖':''}</div><div class="pin-date">${p.date||''}</div></div>
+        <div class="avtr avtr-${p.user}">${p.user === 'rara' ? 'R' : 'J'}</div>
+        <div><div class="pin-name">${p.user === 'rara' ? '👑 Rara' : '🌙 Jiji'}${isJ ? ' 📖' : ''}</div><div class="pin-date">${p.date || ''}</div></div>
       </div>
-      ${p.verse?`<div class="pin-verse" onclick="togglePinVerse(${p.id})">📖 ${p.verse} <span style="font-size:0.68rem;color:var(--muted)">tap ▾</span></div>
+      ${p.verse ? `<div class="pin-verse" onclick="togglePinVerse(${p.id})">📖 ${p.verse} <span style="font-size:0.68rem;color:var(--muted)">tap ▾</span></div>
       <div class="pin-verse-full" id="pvf-${p.id}">
         <div style="display:flex;gap:4px;margin-bottom:5px;">
           <button onclick="setPinVTrans(${p.id},'tb',this)" style="padding:2px 8px;border-radius:7px;border:1.5px solid var(--p2);background:var(--p2);color:white;font-family:Quicksand,sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;" id="pvbt-${p.id}">TB</button>
           <button onclick="setPinVTrans(${p.id},'niv',this)" style="padding:2px 8px;border-radius:7px;border:1.5px solid var(--p2);background:white;color:var(--text);font-family:Quicksand,sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;" id="pvbn-${p.id}">NIV</button>
         </div>
-        <div id="pvt-${p.id}" style="font-style:italic;font-size:0.8rem;line-height:1.55">${vt?`"${vt}"`:'Ayat belum tersedia di database lokal.'}</div>
-      </div>`:''}
-      <div class="pin-text">${isJ?(p.note?.slice(0,100)+(p.note?.length>100?'...':'')):p.text}</div>
+        <div id="pvt-${p.id}" style="font-style:italic;font-size:0.8rem;line-height:1.55">${vt ? `"${vt}"` : 'Ayat belum tersedia di database lokal.'}</div>
+      </div>`: ''}
+      <div class="pin-text">${isJ ? (p.note?.slice(0, 100) + (p.note?.length > 100 ? '...' : '')) : p.text}</div>
       <div class="pin-reacts">
-        <button class="rbt${p.reacted?.[curUser+'pray']?' on':''}" onclick="reactP(${p.id},'pray',this)">🙏${p.reactions?.pray?' '+p.reactions.pray:''}</button>
-        <button class="rbt${p.reacted?.[curUser+'heart']?' on':''}" onclick="reactP(${p.id},'heart',this)">❤️${p.reactions?.heart?' '+p.reactions.heart:''}</button>
-        <button class="rbt${p.reacted?.[curUser+'star']?' on':''}" onclick="reactP(${p.id},'star',this)">✨${p.reactions?.star?' '+p.reactions.star:''}</button>
-        ${!isJ?`<button class="rep-btn" onclick="togRep('rep-${p.id}')">💬${p.replies?.length?' '+p.replies.length:''}</button>`:''}
+        <button class="rbt${p.reacted?.[curUser + 'pray'] ? ' on' : ''}" onclick="reactP(${p.id},'pray',this)">🙏${p.reactions?.pray ? ' ' + p.reactions.pray : ''}</button>
+        <button class="rbt${p.reacted?.[curUser + 'heart'] ? ' on' : ''}" onclick="reactP(${p.id},'heart',this)">❤️${p.reactions?.heart ? ' ' + p.reactions.heart : ''}</button>
+        <button class="rbt${p.reacted?.[curUser + 'star'] ? ' on' : ''}" onclick="reactP(${p.id},'star',this)">✨${p.reactions?.star ? ' ' + p.reactions.star : ''}</button>
+        ${!isJ ? `<button class="rep-btn" onclick="togRep('rep-${p.id}')">💬${p.replies?.length ? ' ' + p.replies.length : ''}</button>` : ''}
       </div>
-      ${!isJ?`<div class="replies-wrap" id="rep-${p.id}">
-        ${(p.replies||[]).map(r=>`<div class="reply-item"><div class="reply-meta">${r.user==='rara'?'👑 Rara':'🌙 Jiji'} · ${r.date}</div>${r.text}</div>`).join('')}
+      ${!isJ ? `<div class="replies-wrap" id="rep-${p.id}">
+        ${(p.replies || []).map(r => `<div class="reply-item"><div class="reply-meta">${r.user === 'rara' ? '👑 Rara' : '🌙 Jiji'} · ${r.date}</div>${r.text}</div>`).join('')}
         <div class="reply-irow"><input type="text" placeholder="Balas..." id="ri-${p.id}" onkeydown="if(event.key==='Enter')sendRep(${p.id})"><button onclick="sendRep(${p.id})">↩</button></div>
-      </div>`:''}
+      </div>`: ''}
     </div>`;
-  }).join('');
-}
-function togglePinVerse(id){const el=document.getElementById('pvf-'+id);if(el)el.classList.toggle('show');}
-function setPinVTrans(id,trans,btn){
-  const p=DB.wallPosts.find(x=>x.id===id);if(!p)return;
-  const v=VDB[trans][p.verse];
-  document.getElementById('pvt-'+id).textContent=v?`"${v}"`:'Terjemahan belum tersedia.';
-  document.getElementById('pvbt-'+id).style.cssText=`padding:2px 8px;border-radius:7px;border:1.5px solid var(--p2);background:${trans==='tb'?'var(--p2)':'white'};color:${trans==='tb'?'white':'var(--text)'};font-family:Quicksand,sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;`;
-  document.getElementById('pvbn-'+id).style.cssText=`padding:2px 8px;border-radius:7px;border:1.5px solid var(--p2);background:${trans==='niv'?'var(--p2)':'white'};color:${trans==='niv'?'white':'var(--text)'};font-family:Quicksand,sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;`;
-}
-function reactP(id,type,btn){
-  const p=DB.wallPosts.find(x=>x.id===id);if(!p)return;
-  const key=curUser+type;
-  if(p.reacted[key]){p.reactions[type]--;delete p.reacted[key];}else{p.reactions[type]++;p.reacted[key]=true;}
-  renderWall();
-}
-function togRep(id){const el=document.getElementById(id);if(el){el.style.display=el.style.display==='block'?'none':'block';}}
-function sendRep(id){
-  const inp=document.getElementById('ri-'+id);if(!inp)return;
-  const text=inp.value.trim();if(!text)return;
-  const p=DB.wallPosts.find(x=>x.id===id);if(!p)return;
-  if(!p.replies)p.replies=[];
-  p.replies.push({user:curUser,text,date:new Date().toISOString().split('T')[0]});
-  inp.value='';renderWall();
-  setTimeout(()=>{const el=document.getElementById('rep-'+id);if(el)el.style.display='block';},80);
-}
+      }).join('');
+    }
+    function togglePinVerse(id) { const el = document.getElementById('pvf-' + id); if (el) el.classList.toggle('show'); }
+    function setPinVTrans(id, trans, btn) {
+      const p = DB.wallPosts.find(x => x.id === id); if (!p) return;
+      const v = VDB[trans][p.verse];
+      document.getElementById('pvt-' + id).textContent = v ? `"${v}"` : 'Terjemahan belum tersedia.';
+      document.getElementById('pvbt-' + id).style.cssText = `padding:2px 8px;border-radius:7px;border:1.5px solid var(--p2);background:${trans === 'tb' ? 'var(--p2)' : 'white'};color:${trans === 'tb' ? 'white' : 'var(--text)'};font-family:Quicksand,sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;`;
+      document.getElementById('pvbn-' + id).style.cssText = `padding:2px 8px;border-radius:7px;border:1.5px solid var(--p2);background:${trans === 'niv' ? 'var(--p2)' : 'white'};color:${trans === 'niv' ? 'white' : 'var(--text)'};font-family:Quicksand,sans-serif;font-weight:700;font-size:0.7rem;cursor:pointer;`;
+    }
+    function reactP(id, type, btn) {
+      const p = DB.wallPosts.find(x => x.id === id); if (!p) return;
+      const key = curUser + type;
+      if (p.reacted[key]) { p.reactions[type]--; delete p.reacted[key]; } else { p.reactions[type]++; p.reacted[key] = true; }
+      renderWall();
+    }
+    function togRep(id) { const el = document.getElementById(id); if (el) { el.style.display = el.style.display === 'block' ? 'none' : 'block'; } }
+    function sendRep(id) {
+      const inp = document.getElementById('ri-' + id); if (!inp) return;
+      const text = inp.value.trim(); if (!text) return;
+      const p = DB.wallPosts.find(x => x.id === id); if (!p) return;
+      if (!p.replies) p.replies = [];
+      p.replies.push({ user: curUser, text, date: new Date().toISOString().split('T')[0] });
+      inp.value = ''; renderWall();
+      setTimeout(() => { const el = document.getElementById('rep-' + id); if (el) el.style.display = 'block'; }, 80);
+    }
 
-// ════════════════════════════════
-// PRAYER
-// ════════════════════════════════
-function savePr(){
-  const title=document.getElementById('pTit').value.trim();if(!title){alert('Isi pokok doa dulu! 🙏');return;}
-  DB.prayers.unshift({id:Date.now(),user:curUser,title,detail:document.getElementById('pDet').value.trim(),forWho:document.getElementById('pFor').value,vis:document.getElementById('pVis').value,date:new Date().toISOString().split('T')[0],status:'praying',replies:[]});
-  document.getElementById('pTit').value='';document.getElementById('pDet').value='';
-  renderPrayers();updateStats();
-}
-function setPrSt(id,status){const p=DB.prayers.find(x=>x.id===id);if(p&&p.user===curUser){p.status=status;renderPrayers();}}
-function renderPrayers(){
-  const list=document.getElementById('prayB');
-  const prayers=DB.prayers.filter(p=>p.vis==='shared'||(p.vis==='private'&&p.user===curUser));
-  if(!prayers.length){list.innerHTML='<div class="empty"><div class="ei">🙏</div><p>Belum ada pokok doa 🌸</p></div>';return;}
-  list.innerHTML=prayers.map(p=>{
-    const st=PRAY_ST.find(s=>s.k===p.status)||PRAY_ST[0];
-    const isOwner=p.user===curUser;
-    return `<div class="pcard">
+    // ════════════════════════════════
+    // PRAYER
+    // ════════════════════════════════
+    function savePr() {
+      const title = document.getElementById('pTit').value.trim(); if (!title) { alert('Isi pokok doa dulu! 🙏'); return; }
+      DB.prayers.unshift({ id: Date.now(), user: curUser, title, detail: document.getElementById('pDet').value.trim(), forWho: document.getElementById('pFor').value, vis: document.getElementById('pVis').value, date: new Date().toISOString().split('T')[0], status: 'praying', replies: [] });
+      document.getElementById('pTit').value = ''; document.getElementById('pDet').value = '';
+      renderPrayers(); updateStats();
+    }
+    function setPrSt(id, status) { const p = DB.prayers.find(x => x.id === id); if (p && p.user === curUser) { p.status = status; renderPrayers(); } }
+    function renderPrayers() {
+      const list = document.getElementById('prayB');
+      const prayers = DB.prayers.filter(p => p.vis === 'shared' || (p.vis === 'private' && p.user === curUser));
+      if (!prayers.length) { list.innerHTML = '<div class="empty"><div class="ei">🙏</div><p>Belum ada pokok doa 🌸</p></div>'; return; }
+      list.innerHTML = prayers.map(p => {
+        const st = PRAY_ST.find(s => s.k === p.status) || PRAY_ST[0];
+        const isOwner = p.user === curUser;
+        return `<div class="pcard">
       <div class="pcard-hdr">
-        <div class="avtr avtr-${p.user}">${p.user==='rara'?'R':'J'}</div>
+        <div class="avtr avtr-${p.user}">${p.user === 'rara' ? 'R' : 'J'}</div>
         <div style="flex:1">
           <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <span style="font-weight:700;font-size:0.83rem">${p.user==='rara'?'👑 Rara':'🌙 Jiji'}</span>
+            <span style="font-weight:700;font-size:0.83rem">${p.user === 'rara' ? '👑 Rara' : '🌙 Jiji'}</span>
             <span class="ptag">🙏 doa</span>
             <span class="pstatus ${st.c}">${st.l}</span>
           </div>
-          <div style="font-size:0.69rem;color:var(--muted);margin-top:1px">${p.date} · untuk ${p.forWho==='both'?'berdua':p.forWho}</div>
+          <div style="font-size:0.69rem;color:var(--muted);margin-top:1px">${p.date} · untuk ${p.forWho === 'both' ? 'berdua' : p.forWho}</div>
         </div>
       </div>
       <div style="font-weight:700;font-size:0.88rem;margin-bottom:4px">${p.title}</div>
-      ${p.detail?`<div style="font-size:0.81rem;color:var(--text);margin-bottom:7px">${p.detail}</div>`:''}
-      ${isOwner?`<div class="pst-btns">${PRAY_ST.map(s=>`<button class="pst-btn ${p.status===s.k?'on':''}" onclick="setPrSt(${p.id},'${s.k}')">${s.l}</button>`).join('')}</div>`:''}
+      ${p.detail ? `<div style="font-size:0.81rem;color:var(--text);margin-bottom:7px">${p.detail}</div>` : ''}
+      ${isOwner ? `<div class="pst-btns">${PRAY_ST.map(s => `<button class="pst-btn ${p.status === s.k ? 'on' : ''}" onclick="setPrSt(${p.id},'${s.k}')">${s.l}</button>`).join('')}</div>` : ''}
       <div class="pin-reacts" style="margin-top:6px">
         <button class="rbt" onclick="this.innerHTML=this.innerHTML.includes('1')?'🙏':'🙏 1'">🙏</button>
         <button class="rbt" onclick="this.innerHTML=this.innerHTML.includes('1')?'❤️':'❤️ 1'">❤️</button>
-        <button class="rep-btn" onclick="togRep('prep-${p.id}')">💬${p.replies?.length?' '+p.replies.length:''}</button>
+        <button class="rep-btn" onclick="togRep('prep-${p.id}')">💬${p.replies?.length ? ' ' + p.replies.length : ''}</button>
       </div>
       <div class="replies-wrap" id="prep-${p.id}">
-        ${(p.replies||[]).map(r=>`<div class="reply-item"><div class="reply-meta">${r.user==='rara'?'👑 Rara':'🌙 Jiji'} · ${r.date}</div>${r.text}</div>`).join('')}
+        ${(p.replies || []).map(r => `<div class="reply-item"><div class="reply-meta">${r.user === 'rara' ? '👑 Rara' : '🌙 Jiji'} · ${r.date}</div>${r.text}</div>`).join('')}
         <div class="reply-irow"><input type="text" placeholder="Balas doa ini..." id="pri-${p.id}" onkeydown="if(event.key==='Enter')sendPrRep(${p.id})"><button onclick="sendPrRep(${p.id})">↩</button></div>
       </div>
     </div>`;
-  }).join('');
-}
-function sendPrRep(id){
-  const inp=document.getElementById('pri-'+id);if(!inp)return;
-  const text=inp.value.trim();if(!text)return;
-  const p=DB.prayers.find(x=>x.id===id);if(!p)return;
-  if(!p.replies)p.replies=[];
-  p.replies.push({user:curUser,text,date:new Date().toISOString().split('T')[0]});
-  inp.value='';renderPrayers();
-  setTimeout(()=>{const el=document.getElementById('prep-'+id);if(el)el.style.display='block';},80);
-}
+      }).join('');
+    }
+    function sendPrRep(id) {
+      const inp = document.getElementById('pri-' + id); if (!inp) return;
+      const text = inp.value.trim(); if (!text) return;
+      const p = DB.prayers.find(x => x.id === id); if (!p) return;
+      if (!p.replies) p.replies = [];
+      p.replies.push({ user: curUser, text, date: new Date().toISOString().split('T')[0] });
+      inp.value = ''; renderPrayers();
+      setTimeout(() => { const el = document.getElementById('prep-' + id); if (el) el.style.display = 'block'; }, 80);
+    }
 
-// ════════════════════════════════
-// STATS
-// ════════════════════════════════
-function updateStats(){
-  document.getElementById('sJ').textContent=DB.journals.filter(j=>j.user===curUser).length;
-  const pl=DB.plans.filter(p=>p.user===curUser);
-  const a=pl.reduce((s,p)=>s+p.days.length,0),d=pl.reduce((s,p)=>s+p.days.filter(x=>x.done).length,0);
-  document.getElementById('sP').textContent=a?Math.round(d/a*100)+'%':'0%';
-  document.getElementById('sPr').textContent=DB.prayers.filter(p=>p.user===curUser).length;
-}
-</script>
+    // ════════════════════════════════
+    // STATS
+    // ════════════════════════════════
+    function updateStats() {
+      document.getElementById('sJ').textContent = DB.journals.filter(j => j.user === curUser).length;
+      const pl = DB.plans.filter(p => p.user === curUser);
+      const a = pl.reduce((s, p) => s + p.days.length, 0), d = pl.reduce((s, p) => s + p.days.filter(x => x.done).length, 0);
+      document.getElementById('sP').textContent = a ? Math.round(d / a * 100) + '%' : '0%';
+      document.getElementById('sPr').textContent = DB.prayers.filter(p => p.user === curUser).length;
+    }
+  </script>
 </body>
+
 </html>
